@@ -1,0 +1,104 @@
+{
+	"name": "SourceDataset_efo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Draft"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"discriminator": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "string"
+				},
+				"givenName": {
+					"type": "string"
+				},
+				"surname": {
+					"type": "string"
+				},
+				"displayName": {
+					"type": "string"
+				},
+				"profileDescription": {
+					"type": "string"
+				},
+				"avatarKey": {
+					"type": "string"
+				},
+				"profileSlug": {
+					"type": "string"
+				},
+				"isVerified": {
+					"type": "boolean"
+				},
+				"isCertified": {
+					"type": "boolean"
+				},
+				"isBackofficeMade": {
+					"type": "boolean"
+				},
+				"receivedLikesCount": {
+					"type": "integer"
+				},
+				"followingCount": {
+					"type": "integer"
+				},
+				"followerCount": {
+					"type": "integer"
+				},
+				"hasSelectedInterests": {
+					"type": "boolean"
+				},
+				"selectedInterests": {
+					"type": "array"
+				},
+				"relatedThemes": {
+					"type": "array"
+				},
+				"likedPosts": {
+					"type": "array"
+				},
+				"bookmarkedPosts": {
+					"type": "array"
+				},
+				"posts": {
+					"type": "array"
+				},
+				"excludedPosts": {
+					"type": "array"
+				},
+				"termsAndConditions": {
+					"type": "null"
+				},
+				"thirdPartyMarketing": {
+					"type": "null"
+				},
+				"userProfiling": {
+					"type": "null"
+				},
+				"createdAt": {
+					"type": "string"
+				},
+				"deletedAt": {
+					"type": "null"
+				},
+				"userDevices": {
+					"type": "array"
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "UserInfo"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,28 @@
+{
+	"name": "log_analytics_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Rest_loganalytics",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"WorkSpaceID": "@dataset().WorkspaceID"
+			}
+		},
+		"parameters": {
+			"WorkspaceID": {
+				"type": "string",
+				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+			}
+		},
+		"folder": {
+			"name": "LogAnalytics"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "query"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

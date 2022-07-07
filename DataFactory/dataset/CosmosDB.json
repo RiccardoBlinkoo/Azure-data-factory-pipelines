@@ -1,0 +1,24 @@
+{
+	"name": "CosmosDB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"entityname": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": {
+				"value": "@dataset().entityname",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

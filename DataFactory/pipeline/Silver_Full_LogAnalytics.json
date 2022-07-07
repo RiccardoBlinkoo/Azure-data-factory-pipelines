@@ -1,0 +1,99 @@
+{
+	"name": "Silver_Full_LogAnalytics",
+	"properties": {
+		"activities": [
+			{
+				"name": "For Each Table",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.TableNames",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set Variable Table",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Table",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Notebook1",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "Set Variable Table",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Full",
+								"baseParameters": {
+									"Table": {
+										"value": "@variables('Table')",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"TableNames": {
+				"type": "array",
+				"defaultValue": [
+					"AppDependencies",
+					"AppEvents",
+					"AppExceptions",
+					"AppMetrics",
+					"AppPageViews",
+					"AppPerformanceCounters",
+					"AppRequests",
+					"AppSystemEvents",
+					"AppTraces",
+					"Usage"
+				]
+			}
+		},
+		"variables": {
+			"EndTime": {
+				"type": "String"
+			},
+			"Table": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Dev/Draft/Log Analytics"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-24T06:02:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,144 @@
+{
+	"name": "Source_GeoLocation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"geoId": {
+					"type": "string"
+				},
+				"country": {
+					"type": "string"
+				},
+				"discriminator": {
+					"type": "string"
+				},
+				"level": {
+					"type": "integer"
+				},
+				"itaName": {
+					"type": "string"
+				},
+				"geometryKey": {
+					"type": "string"
+				},
+				"geonameKey": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"asciiName": {
+					"type": "string"
+				},
+				"latitude": {
+					"type": "number"
+				},
+				"longitude": {
+					"type": "number"
+				},
+				"geometry": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"coordinates": {
+							"type": "array",
+							"items": {
+								"type": "number"
+							}
+						}
+					}
+				},
+				"featureClass": {
+					"type": "string"
+				},
+				"featureCode": {
+					"type": "string"
+				},
+				"cc2": {
+					"type": "string"
+				},
+				"admin1": {
+					"type": "string"
+				},
+				"admin2": {
+					"type": "string"
+				},
+				"admin3": {
+					"type": "string"
+				},
+				"admin4": {
+					"type": "string"
+				},
+				"population": {
+					"type": "integer"
+				},
+				"elevation": {
+					"type": "integer"
+				},
+				"dem": {
+					"type": "integer"
+				},
+				"timezone": {
+					"type": "string"
+				},
+				"lastEdit": {
+					"type": "string"
+				},
+				"srcCounter": {
+					"type": "integer"
+				},
+				"alternateNames": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"translations": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"alternateNameId": {
+								"type": "string"
+							},
+							"isoLanguage": {
+								"type": "string"
+							},
+							"alternate": {
+								"type": "string"
+							},
+							"isPreferred": {
+								"type": "boolean"
+							},
+							"isShortName": {
+								"type": "boolean"
+							},
+							"isColloquial": {
+								"type": "boolean"
+							},
+							"isHistoric": {
+								"type": "boolean"
+							}
+						}
+					}
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "GeoLocation"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

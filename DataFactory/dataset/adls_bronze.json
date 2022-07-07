@@ -1,0 +1,24 @@
+{
+	"name": "adls_bronze",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageDev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "LogAnalytics"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "test",
+				"fileSystem": "loganalytics"
+			},
+			"compressionCodec": "gzip"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

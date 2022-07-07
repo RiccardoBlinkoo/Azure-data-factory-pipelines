@@ -1,0 +1,61 @@
+{
+	"name": "Source_Categories",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Id": {
+					"type": "string"
+				},
+				"Discriminator": {
+					"type": "string"
+				},
+				"CategoryId": {
+					"type": "string"
+				},
+				"Name": {
+					"type": "string"
+				},
+				"EngName": {
+					"type": "null"
+				},
+				"Label": {
+					"type": "string"
+				},
+				"Level": {
+					"type": "integer"
+				},
+				"ParentCategories": {
+					"type": "array"
+				},
+				"ChildCategories": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"ChildCategoryId": {
+								"type": "string"
+							},
+							"Label": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "Categories"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

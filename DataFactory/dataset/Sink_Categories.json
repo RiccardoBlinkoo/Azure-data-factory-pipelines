@@ -1,0 +1,25 @@
+{
+	"name": "Sink_Categories",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageDev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Categories",
+				"folderPath": "Categories",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

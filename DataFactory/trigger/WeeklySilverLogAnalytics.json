@@ -1,0 +1,39 @@
+{
+	"name": "WeeklySilverLogAnalytics",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Silver_LogAnalytics",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"TableNames": [
+						"AppDependencies",
+						"AppEvents",
+						"AppExceptions",
+						"AppMetrics",
+						"AppPageViews",
+						"AppPerformanceCounters",
+						"AppRequests",
+						"AppSystemEvents",
+						"AppTraces",
+						"Usage"
+					],
+					"start_time": "@trigger().startTime"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2022-07-07T03:00:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

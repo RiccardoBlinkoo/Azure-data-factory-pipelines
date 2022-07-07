@@ -1,0 +1,25 @@
+{
+	"name": "Sink_GeoLocation",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageDev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "GeoLocation",
+				"folderPath": "GeoLocation",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

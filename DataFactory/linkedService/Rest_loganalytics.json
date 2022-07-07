@@ -1,0 +1,19 @@
+{
+	"name": "Rest_loganalytics",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"WorkSpaceID": {
+				"type": "string",
+				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+			}
+		},
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

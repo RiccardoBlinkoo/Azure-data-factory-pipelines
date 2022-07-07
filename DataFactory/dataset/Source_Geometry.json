@@ -1,0 +1,75 @@
+{
+	"name": "Source_Geometry",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"geometry": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"coordinates": {
+							"type": "array",
+							"items": {
+								"type": "array",
+								"items": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								}
+							}
+						}
+					}
+				},
+				"properties": {
+					"type": "object",
+					"properties": {
+						"key": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"level_name": {
+							"type": "string"
+						},
+						"level_key": {
+							"type": "string"
+						},
+						"sub_areas": {
+							"type": "array"
+						},
+						"level": {
+							"type": "integer"
+						}
+					}
+				},
+				"area": {
+					"type": "string"
+				},
+				"area_name": {
+					"type": "string"
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "Geometry"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

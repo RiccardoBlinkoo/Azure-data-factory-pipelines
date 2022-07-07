@@ -1,0 +1,217 @@
+{
+	"name": "Bronze_LogAnalytics_AppDependencies_2906_3006",
+	"properties": {
+		"activities": [
+			{
+				"name": "getBearerToken",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": {
+						"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Token Variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "getBearerToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "token",
+					"value": {
+						"value": "@activity('getBearerToken').output.access_token",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "For Each Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set Token Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Table_Names",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set Table Variable",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "table",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set End Date Variable",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set Table Variable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "end_date",
+								"value": {
+									"value": "@formatDateTime(pipeline().parameters.end_time,'yyyy-MM-dd, HH:00:00')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Post Function",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Set Start Date Variable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": {
+									"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
+									"type": "Expression"
+								},
+								"method": "POST",
+								"body": {
+									"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
+									"type": "Expression"
+								},
+								"httpRequestTimeout": "00:10:00"
+							}
+						},
+						{
+							"name": "Set Start Date Variable",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set End Date Variable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "start_date",
+								"value": {
+									"value": "@formatDateTime(pipeline().parameters.start_time,'yyyy-MM-dd, HH:00:00')",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ClientSecret": {
+				"type": "string",
+				"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+			},
+			"ClientID": {
+				"type": "string",
+				"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+			},
+			"TenantID": {
+				"type": "string",
+				"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+			},
+			"WorkspaceID": {
+				"type": "string",
+				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+			},
+			"Table_Names": {
+				"type": "array",
+				"defaultValue": [
+					"AppDependencies"
+				]
+			},
+			"end_time": {
+				"type": "string",
+				"defaultValue": "2022-06-30 00:00:00"
+			},
+			"start_time": {
+				"type": "string",
+				"defaultValue": "2022-06-29 00:00:00"
+			}
+		},
+		"variables": {
+			"Resource": {
+				"type": "String",
+				"defaultValue": "https://api.loganalytics.io"
+			},
+			"token": {
+				"type": "String"
+			},
+			"table": {
+				"type": "String"
+			},
+			"end_date": {
+				"type": "String"
+			},
+			"start_date": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "SOS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-05T10:50:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

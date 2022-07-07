@@ -1,0 +1,25 @@
+{
+	"name": "Sink_Media",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorageDev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Media",
+				"folderPath": "Media",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "gzip"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

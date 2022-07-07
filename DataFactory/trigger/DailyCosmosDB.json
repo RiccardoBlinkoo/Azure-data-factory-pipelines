@@ -1,0 +1,34 @@
+{
+	"name": "DailyCosmosDB",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_Update_CosmosDB",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"Feed",
+						"FeedList",
+						"Post",
+						"PostStat",
+						"UserInfo"
+					],
+					"end_time": "@trigger().startTime"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-06-02T03:00:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

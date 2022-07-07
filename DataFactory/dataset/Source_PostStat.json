@@ -1,0 +1,82 @@
+{
+	"name": "Source_PostStat",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blinkoorepo",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "CosmosDB"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"likeId": {
+					"type": "string"
+				},
+				"discriminator": {
+					"type": "string"
+				},
+				"likeOwnerId": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "string"
+				},
+				"postId": {
+					"type": "string"
+				},
+				"isDeleted": {
+					"type": "boolean"
+				},
+				"createdAt": {
+					"type": "string"
+				},
+				"updatedAt": {
+					"type": "string"
+				},
+				"deletedAt": {
+					"type": "string"
+				},
+				"numberOfViews": {
+					"type": "integer"
+				},
+				"numberOfLikes": {
+					"type": "integer"
+				},
+				"numberOfBookmarks": {
+					"type": "integer"
+				},
+				"numberOfShares": {
+					"type": "integer"
+				},
+				"bookmarkAlbums": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"bookmarkedPosts": {
+								"type": "array"
+							},
+							"bookmarkAlbumId": {
+								"type": "string"
+							},
+							"label": {
+								"type": "string"
+							},
+							"createdAt": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "PostStat"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

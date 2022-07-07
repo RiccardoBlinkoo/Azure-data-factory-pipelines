@@ -1,0 +1,60 @@
+{
+	"name": "KPIs_prototype",
+	"properties": {
+		"activities": [
+			{
+				"name": "KPIs_prototype",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/enrico.sartor@blinkoo.com/KPIs_prototype",
+					"baseParameters": {
+						"startDate": {
+							"value": "@pipeline().parameters.startDate",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@pipeline().parameters.endDate",
+							"type": "Expression"
+						},
+						"interval": {
+							"value": "@pipeline().parameters.interval",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"startDate": {
+				"type": "string",
+				"defaultValue": "last"
+			},
+			"endDate": {
+				"type": "string"
+			},
+			"interval": {
+				"type": "string",
+				"defaultValue": "7"
+			}
+		},
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-06T10:51:20Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
