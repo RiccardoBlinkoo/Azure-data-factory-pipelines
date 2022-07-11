@@ -953,12 +953,12 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Feature_Usage",
 							"baseParameters": {
-								"startDate": {
-									"value": "@pipeline().parameters.startDate",
+								"StartDate": {
+									"value": "@pipeline().parameters.StartDate",
 									"type": "Expression"
 								},
-								"endDate": {
-									"value": "@pipeline().parameters.endDate",
+								"EndDate": {
+									"value": "@pipeline().parameters.EndDate",
 									"type": "Expression"
 								}
 							}
@@ -974,11 +974,11 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"startDate": {
+					"StartDate": {
 						"type": "string",
 						"defaultValue": "2022-03-01 00:00:00"
 					},
-					"endDate": {
+					"EndDate": {
 						"type": "string",
 						"defaultValue": "2022-03-07 00:00:00"
 					}
