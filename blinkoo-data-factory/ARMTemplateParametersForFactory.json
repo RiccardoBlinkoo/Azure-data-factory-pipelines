@@ -1,0 +1,93 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "blinkoo-data-factory"
+		},
+		"AzureDataLakeStorageDev_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"blinkoorepo_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorageDev_properties_typeProperties_url": {
+			"value": "https://blinkoodatalakedev.dfs.core.windows.net"
+		},
+		"Rest_loganalytics_properties_typeProperties_url": {
+			"value": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
+			"value": [
+				"Feed",
+				"FeedList",
+				"Post",
+				"PostStat",
+				"UserInfo"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+			"value": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+			"value": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+			"value": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
+			"value": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+			"value": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+			"value": [
+				"Categories",
+				"GeoLocation",
+				"Geometry",
+				"Places"
+			]
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+			"value": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+			"value": "@trigger().startTime"
+		}
+	}
+}

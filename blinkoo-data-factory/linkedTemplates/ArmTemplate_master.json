@@ -1,0 +1,274 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "blinkoo-data-factory"
+		},
+		"AzureDataLakeStorageDev_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageDev'"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"blinkoorepo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
+		},
+		"AzureDataLakeStorageDev_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
+		},
+		"Rest_loganalytics_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"Feed",
+				"FeedList",
+				"Post",
+				"PostStat",
+				"UserInfo"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+			"type": "string",
+			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+			"type": "string",
+			"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+			"type": "string",
+			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
+			"type": "string",
+			"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"Categories",
+				"GeoLocation",
+				"Geometry",
+				"Places"
+			]
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorageDev_accountKey": {
+						"value": "[parameters('AzureDataLakeStorageDev_accountKey')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"blinkoorepo_connectionString": {
+						"value": "[parameters('blinkoorepo_connectionString')]"
+					},
+					"AzureDataLakeStorageDev_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorageDev_properties_typeProperties_url')]"
+					},
+					"Rest_loganalytics_properties_typeProperties_url": {
+						"value": "[parameters('Rest_loganalytics_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+					},
+					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"
+					},
+					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time')]"
+					},
+					"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]"
+					},
+					"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_3')]"
+			]
+		}
+	]
+}
