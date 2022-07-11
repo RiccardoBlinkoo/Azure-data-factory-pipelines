@@ -3,46 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Pre_deep_session",
-				"type": "DatabricksNotebook",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pre_Deep_Session_Calculation",
-					"baseParameters": {
-						"startDate": {
-							"value": "@pipeline().parameters.startDate",
-							"type": "Expression"
-						},
-						"endDate": {
-							"value": "@pipeline().parameters.endDate",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "feature_usage",
 				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "Pre_deep_session",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
