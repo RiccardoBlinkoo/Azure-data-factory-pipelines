@@ -1,6 +1,12 @@
 {
 	"name": "Weekly_Playlist_Usage",
 	"properties": {
+		"parameters": {
+			"triggerTime": {
+				"type": "string",
+				"defaultValue": "@pipeline().TriggerTime\t"
+			}
+		},
 		"folder": {
 			"name": "KPIs"
 		},
