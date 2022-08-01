@@ -18,11 +18,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Playlist_Usage",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-12),'yyyy-MM-dd-HH-mm-ss')",
+							"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-12),'%Y-%m-%d %H:%M:%S')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-12), -7), 'yyyy-MM-dd-HH-mm-ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-12), -7), '%Y-%m-%d %H:%M:%S')",
 							"type": "Expression"
 						}
 					}
