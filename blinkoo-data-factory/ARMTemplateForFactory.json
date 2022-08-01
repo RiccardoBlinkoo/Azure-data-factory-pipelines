@@ -23,6 +23,10 @@
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0304-092528-p5078pvj"
+		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
@@ -11813,7 +11817,7 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
-					"existingClusterId": "0304-092528-p5078pvj"
+					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
@@ -12007,6 +12011,103 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Playlist_Usage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Playlist_Usage",
+							"baseParameters": {
+								"startDate": {
+									"value": "@addHours(pipeline().parameters.triggerTime,-12)",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@addDays(addHours(pipeline().parameters.triggerTime,-12), -7)",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "2022-03-25 00:00:00"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Weekly_Playlist_Usage",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-08-01T14:23:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								12
+							],
+							"weekDays": [
+								"Thursday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Weekly_Playlist_Usage')]"
+			]
 		}
 	]
 }

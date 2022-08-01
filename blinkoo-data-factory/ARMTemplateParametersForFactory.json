@@ -17,6 +17,9 @@
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"value": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0304-092528-p5078pvj"
+		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"value": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		},

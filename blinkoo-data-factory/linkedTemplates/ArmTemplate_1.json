@@ -23,6 +23,10 @@
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0304-092528-p5078pvj"
+		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
@@ -3422,7 +3426,7 @@
 						"type": "SecureString",
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
-					"existingClusterId": "0304-092528-p5078pvj"
+					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
