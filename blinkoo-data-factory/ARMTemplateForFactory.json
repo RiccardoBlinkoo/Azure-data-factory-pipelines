@@ -9390,11 +9390,11 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Playlist_Usage",
 							"baseParameters": {
-								"startDate": {
+								"endDate": {
 									"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"endDate": {
+								"startDate": {
 									"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								}
