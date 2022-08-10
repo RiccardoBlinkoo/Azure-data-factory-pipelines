@@ -9413,7 +9413,7 @@
 				"parameters": {
 					"triggerTime": {
 						"type": "string",
-						"defaultValue": "2022-03-25 00:00:00"
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"folder": {
@@ -12039,8 +12039,13 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2022-07-07T03:00:00Z",
-						"timeZone": "UTC"
+						"startTime": "2022-07-13T03:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"weekDays": [
+								"Wednesday"
+							]
+						}
 					}
 				}
 			},
