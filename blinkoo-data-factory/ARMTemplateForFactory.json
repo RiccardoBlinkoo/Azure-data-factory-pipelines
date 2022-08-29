@@ -9412,8 +9412,7 @@
 				},
 				"parameters": {
 					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
+						"type": "string"
 					}
 				},
 				"folder": {
