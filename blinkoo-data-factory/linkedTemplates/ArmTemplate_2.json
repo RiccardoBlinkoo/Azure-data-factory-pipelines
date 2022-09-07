@@ -1123,7 +1123,6 @@
 						"defaultValue": [
 							"Categories",
 							"GeoLocation",
-							"Geometry",
 							"Places"
 						]
 					}
