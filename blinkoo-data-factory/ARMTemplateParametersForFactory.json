@@ -11,16 +11,19 @@
 		"AzureDatabricks1_accessToken": {
 			"value": ""
 		},
-		"blinkoorepo_connectionString": {
+		"AzureDatabricks2_accessToken": {
 			"value": ""
 		},
-		"AzureDatabricks2_accessToken": {
+		"blinkoorepo_connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"value": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0304-092528-p5078pvj"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"value": "0304-092528-p5078pvj"
 		},
 		"Rest_loganalytics_properties_typeProperties_url": {
@@ -94,9 +97,6 @@
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
-		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"value": "0304-092528-p5078pvj"
 		}
 	}
 }

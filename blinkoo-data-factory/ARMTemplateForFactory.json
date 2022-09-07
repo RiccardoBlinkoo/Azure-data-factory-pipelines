@@ -15,19 +15,23 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
-		"blinkoorepo_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
-		},
 		"AzureDatabricks2_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
+		},
+		"blinkoorepo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0304-092528-p5078pvj"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0304-092528-p5078pvj"
 		},
@@ -115,10 +119,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
 		}
 	},
 	"variables": {
@@ -9291,7 +9291,6 @@
 						"defaultValue": [
 							"Categories",
 							"GeoLocation",
-							"Geometry",
 							"Places"
 						]
 					},
@@ -11044,215 +11043,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Source_Places')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blinkoorepo",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"Id": {
-							"type": "string"
-						},
-						"Address": {
-							"type": "string"
-						},
-						"Description": {
-							"type": "null"
-						},
-						"Discriminator": {
-							"type": "string"
-						},
-						"GooglePlaceId": {
-							"type": "string"
-						},
-						"IsOfficial": {
-							"type": "boolean"
-						},
-						"MapUrl": {
-							"type": "string"
-						},
-						"OfficialWebsite": {
-							"type": "null"
-						},
-						"PhoneNumber": {
-							"type": "null"
-						},
-						"Thumbnail": {
-							"type": "string"
-						},
-						"Title": {
-							"type": "string"
-						},
-						"WikipediaLink": {
-							"type": "null"
-						},
-						"Categories": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"Id": {
-										"type": "string"
-									},
-									"EngName": {
-										"type": "null"
-									},
-									"Label": {
-										"type": "string"
-									},
-									"Level": {
-										"type": "integer"
-									},
-									"Name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"GeoHierarchy": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"key": {
-										"type": "string"
-									},
-									"level": {
-										"type": "integer"
-									},
-									"levelKey": {
-										"type": "string"
-									},
-									"levelName": {
-										"type": "string"
-									},
-									"name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"GeoLocation": {
-							"type": "object",
-							"properties": {
-								"Type": {
-									"type": "string"
-								},
-								"Coordinates": {
-									"type": "object",
-									"properties": {
-										"Lat": {
-											"type": "number"
-										},
-										"Lon": {
-											"type": "number"
-										}
-									}
-								}
-							}
-						},
-						"GoogleCategories": {
-							"type": "array"
-						},
-						"IsHidden": {
-							"type": "boolean"
-						},
-						"PlaceType": {
-							"type": "string"
-						},
-						"AffiliateLinks": {
-							"type": "null"
-						},
-						"NearCities": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"distance": {
-										"type": "number"
-									},
-									"featureCode": {
-										"type": "string"
-									},
-									"locationKey": {
-										"type": "string"
-									},
-									"locationName": {
-										"type": "string"
-									},
-									"population": {
-										"type": "integer"
-									},
-									"hierarchy": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"key": {
-													"type": "string"
-												},
-												"level": {
-													"type": "integer"
-												},
-												"levelKey": {
-													"type": "string"
-												},
-												"levelName": {
-													"type": "string"
-												},
-												"name": {
-													"type": "string"
-												}
-											}
-										}
-									}
-								}
-							}
-						},
-						"ShapesGeoHierarchy": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"key": {
-										"type": "string"
-									},
-									"level": {
-										"type": "integer"
-									},
-									"levelKey": {
-										"type": "string"
-									},
-									"levelName": {
-										"type": "string"
-									},
-									"name": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "Places"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blinkoorepo')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -11887,6 +11677,24 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-673365400340149.9.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks2_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Rest_loganalytics')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -12123,24 +11931,6 @@
 							"cleanup": false
 						}
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDatabricks2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "https://adb-673365400340149.9.azuredatabricks.net",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDatabricks2_accessToken')]"
-					},
-					"existingClusterId": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []

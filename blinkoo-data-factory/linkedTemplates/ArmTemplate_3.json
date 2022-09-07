@@ -1173,213 +1173,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Source_Places')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blinkoorepo",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"Id": {
-							"type": "string"
-						},
-						"Address": {
-							"type": "string"
-						},
-						"Description": {
-							"type": "null"
-						},
-						"Discriminator": {
-							"type": "string"
-						},
-						"GooglePlaceId": {
-							"type": "string"
-						},
-						"IsOfficial": {
-							"type": "boolean"
-						},
-						"MapUrl": {
-							"type": "string"
-						},
-						"OfficialWebsite": {
-							"type": "null"
-						},
-						"PhoneNumber": {
-							"type": "null"
-						},
-						"Thumbnail": {
-							"type": "string"
-						},
-						"Title": {
-							"type": "string"
-						},
-						"WikipediaLink": {
-							"type": "null"
-						},
-						"Categories": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"Id": {
-										"type": "string"
-									},
-									"EngName": {
-										"type": "null"
-									},
-									"Label": {
-										"type": "string"
-									},
-									"Level": {
-										"type": "integer"
-									},
-									"Name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"GeoHierarchy": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"key": {
-										"type": "string"
-									},
-									"level": {
-										"type": "integer"
-									},
-									"levelKey": {
-										"type": "string"
-									},
-									"levelName": {
-										"type": "string"
-									},
-									"name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"GeoLocation": {
-							"type": "object",
-							"properties": {
-								"Type": {
-									"type": "string"
-								},
-								"Coordinates": {
-									"type": "object",
-									"properties": {
-										"Lat": {
-											"type": "number"
-										},
-										"Lon": {
-											"type": "number"
-										}
-									}
-								}
-							}
-						},
-						"GoogleCategories": {
-							"type": "array"
-						},
-						"IsHidden": {
-							"type": "boolean"
-						},
-						"PlaceType": {
-							"type": "string"
-						},
-						"AffiliateLinks": {
-							"type": "null"
-						},
-						"NearCities": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"distance": {
-										"type": "number"
-									},
-									"featureCode": {
-										"type": "string"
-									},
-									"locationKey": {
-										"type": "string"
-									},
-									"locationName": {
-										"type": "string"
-									},
-									"population": {
-										"type": "integer"
-									},
-									"hierarchy": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"key": {
-													"type": "string"
-												},
-												"level": {
-													"type": "integer"
-												},
-												"levelKey": {
-													"type": "string"
-												},
-												"levelName": {
-													"type": "string"
-												},
-												"name": {
-													"type": "string"
-												}
-											}
-										}
-									}
-								}
-							}
-						},
-						"ShapesGeoHierarchy": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"key": {
-										"type": "string"
-									},
-									"level": {
-										"type": "integer"
-									},
-									"levelKey": {
-										"type": "string"
-									},
-									"levelName": {
-										"type": "string"
-									},
-									"name": {
-										"type": "string"
-									}
-								}
-							}
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "Places"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1996,6 +1789,167 @@
 						"timeZone": "UTC"
 					}
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set variable Table",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "Table",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Set variable EndTime",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Set variable Table",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Notebook1",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set variable EndTime",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB/Bronze/Bronze Delta",
+										"baseParameters": {
+											"Table": {
+												"value": "@variables('Table')",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Trigger Silver Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Silver_Delta_CosmosDB",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"end_time": {
+									"value": "@pipeline().parameters.end_time",
+									"type": "Expression"
+								},
+								"Tables": {
+									"value": "@pipeline().parameters.Tables",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"end_time": {
+						"type": "string",
+						"defaultValue": "2022-05-12 03:00:00"
+					},
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"Post",
+							"Geometry",
+							"PostStat",
+							"UserInfo",
+							"Categories",
+							"Places",
+							"Feed",
+							"GeoLocation"
+						]
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					},
+					"Table": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft/CosmosDB/Delta"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-23T08:12:39Z"
 			},
 			"dependsOn": []
 		}

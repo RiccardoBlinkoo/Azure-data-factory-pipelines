@@ -15,19 +15,23 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
-		"blinkoorepo_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
-		},
 		"AzureDatabricks2_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
+		},
+		"blinkoorepo_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0304-092528-p5078pvj"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0304-092528-p5078pvj"
 		},
@@ -116,10 +120,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -171,6 +171,9 @@
 					"AzureDatabricks1_accessToken": {
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
+					"AzureDatabricks2_accessToken": {
+						"value": "[parameters('AzureDatabricks2_accessToken')]"
+					},
 					"blinkoorepo_connectionString": {
 						"value": "[parameters('blinkoorepo_connectionString')]"
 					},
@@ -179,6 +182,9 @@
 					},
 					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureDatabricks2_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
 					},
 					"Rest_loganalytics_properties_typeProperties_url": {
 						"value": "[parameters('Rest_loganalytics_properties_typeProperties_url')]"
@@ -202,12 +208,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"AzureDatabricks2_accessToken": {
-						"value": "[parameters('AzureDatabricks2_accessToken')]"
-					},
-					"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-						"value": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
 					}
 				}
 			},
