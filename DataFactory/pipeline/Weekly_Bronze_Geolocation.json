@@ -34,7 +34,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/0 Bronze",
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/GeolocationSqlToBronze",
 								"baseParameters": {
 									"Table": {
 										"value": "@item()",
@@ -98,9 +98,7 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"Categories",
-					"GeoLocation",
-					"Places"
+					"gelocation_v2"
 				]
 			},
 			"end_time": {
