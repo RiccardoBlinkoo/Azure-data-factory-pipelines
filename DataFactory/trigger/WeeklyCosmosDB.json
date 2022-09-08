@@ -18,6 +18,12 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Weekly_Bronze_Geolocation",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
