@@ -9268,7 +9268,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "Weekly_Silver_Update_CosmosDB",
+								"referenceName": "Weekly_Silver_SqlServer",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": false,
@@ -9311,7 +9311,7 @@
 				"lastPublishTime": "2022-06-24T05:07:38Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Weekly_Silver_Update_CosmosDB')]",
+				"[concat(variables('factoryId'), '/pipelines/Weekly_Silver_SqlServer')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
@@ -12223,7 +12223,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "Daily_Silver_Update_CosmosDB",
+								"referenceName": "Daily_Silver_SqlServer",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -12264,7 +12264,7 @@
 				"lastPublishTime": "2022-06-24T05:03:08Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Daily_Silver_Update_CosmosDB')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Silver_SqlServer')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
