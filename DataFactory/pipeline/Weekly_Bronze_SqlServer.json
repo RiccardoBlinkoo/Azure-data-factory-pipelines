@@ -34,7 +34,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/GeolocationSqlToBronze",
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronze",
 								"baseParameters": {
 									"Table": {
 										"value": "@item()",
