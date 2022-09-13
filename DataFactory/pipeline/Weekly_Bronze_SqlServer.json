@@ -1,5 +1,5 @@
 {
-	"name": "Weekly_Bronze_Geolocation",
+	"name": "Weekly_Bronze_SqlServer",
 	"properties": {
 		"activities": [
 			{
@@ -98,7 +98,9 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"gelocation_v2"
+					"categories",
+					"geo_location",
+					"places"
 				]
 			},
 			"end_time": {
