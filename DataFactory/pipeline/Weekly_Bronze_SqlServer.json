@@ -81,7 +81,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Weekly_Silver_Update_CosmosDB",
+						"referenceName": "Weekly_Silver_SqlServer",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": false,
