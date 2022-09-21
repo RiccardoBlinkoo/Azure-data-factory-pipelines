@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Playlist_Usage",
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
 					"baseParameters": {
 						"endDate": {
 							"value": "@formatDateTime(addHours(pipeline().TriggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
