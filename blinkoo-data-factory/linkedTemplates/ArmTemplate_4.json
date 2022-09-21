@@ -7,6 +7,41 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "blinkoo-data-factory"
 		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+			"type": "string",
+			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+			"type": "string",
+			"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+			"type": "string",
+			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
+			"type": "string",
+			"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -59,70 +94,37 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Daily_Silver_SqlServer')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
 					{
-						"name": "ForEach Table",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Silver Update ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/1 Silver",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
+						"pipelineReference": {
+							"referenceName": "Bronze_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
+							"ClientID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]",
+							"TenantID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]",
+							"WorkspaceID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]",
+							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
+							"end_time": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"placestip_v2"
-						]
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2022-05-13T18:00:00Z",
+						"timeZone": "UTC"
 					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Daily"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T04:58:17Z"
+				}
 			},
 			"dependsOn": []
 		},
@@ -284,6 +286,133 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2022-06-23T08:12:39Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServer')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set end_time in timestamp",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronze",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "Set end_time in timestamp",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Execute Silver Update Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Daily_Silver_SqlServer",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"Tables": {
+									"value": "@pipeline().parameters.Tables",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"place_tip"
+						]
+					},
+					"end_time": {
+						"type": "string",
+						"defaultValue": "2022-06-24 04:00:00"
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Daily"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T05:03:08Z"
 			},
 			"dependsOn": []
 		},
@@ -924,135 +1053,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServer')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set end_time in timestamp",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronze",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Set end_time in timestamp",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Execute Silver Update Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Daily_Silver_SqlServer",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"Tables": {
-									"value": "@pipeline().parameters.Tables",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"place_tip"
-						]
-					},
-					"end_time": {
-						"type": "string",
-						"defaultValue": "2022-06-24 04:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Daily"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T05:03:08Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Daily_Silver_SqlServer')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DailyCosmosDB')]",
