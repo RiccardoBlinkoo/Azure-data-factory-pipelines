@@ -170,7 +170,7 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/1 Silver",
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/SqlBronzeToSilver",
 										"baseParameters": {
 											"Table": {
 												"value": "@item()",
@@ -195,7 +195,7 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"placestip_v2"
+							"place_tip"
 						]
 					}
 				},
@@ -1164,7 +1164,7 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/1 Silver",
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/SqlBronzeToSilver",
 										"baseParameters": {
 											"Table": {
 												"value": "@item()",
@@ -1189,9 +1189,9 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"categories_v2",
-							"geolocation_v2",
-							"places_v2"
+							"categories",
+							"geo_location",
+							"places"
 						]
 					}
 				},
