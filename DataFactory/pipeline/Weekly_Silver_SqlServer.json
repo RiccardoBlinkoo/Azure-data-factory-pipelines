@@ -48,9 +48,9 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"categories_v2",
-					"geolocation_v2",
-					"places_v2"
+					"categories",
+					"geo_location",
+					"places"
 				]
 			}
 		},
