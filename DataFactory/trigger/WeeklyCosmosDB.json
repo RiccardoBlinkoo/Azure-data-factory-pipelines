@@ -3,23 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Weekly_Bronze_Update_CosmosDB",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"Categories",
-						"GeoLocation",
-						"Geometry",
-						"Places"
-					],
-					"end_time": "@trigger().startTime"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
