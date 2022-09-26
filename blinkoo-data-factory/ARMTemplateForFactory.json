@@ -8458,7 +8458,6 @@
 						"defaultValue": [
 							"Feed",
 							"FeedList",
-							"Post",
 							"PostStat",
 							"UserInfo"
 						]
@@ -8612,7 +8611,6 @@
 						"defaultValue": [
 							"Feed",
 							"FeedList",
-							"Post",
 							"PostStat",
 							"UserInfo"
 						]

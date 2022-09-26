@@ -265,7 +265,6 @@
 						"defaultValue": [
 							"Feed",
 							"FeedList",
-							"Post",
 							"PostStat",
 							"UserInfo"
 						]
