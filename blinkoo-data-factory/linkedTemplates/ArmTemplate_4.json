@@ -183,7 +183,7 @@
 				"parameters": {
 					"triggerTime": {
 						"type": "string",
-						"defaultValue": "2022-09-28 00:00:00"
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"folder": {
