@@ -12380,7 +12380,7 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession",
 							"baseParameters": {
 								"endDate": "@formatDateTime(addHours(pipeline().TriggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
-								"startDate": "@formatDateTime(@pipeline().parameters.startTime, 'yyyy-MM-dd HH:mm:ss')",
+								"startDate": "@formatDateTime(pipeline().parameters.startTime, 'yyyy-MM-dd HH:mm:ss')",
 								"interval": "7"
 							}
 						},
