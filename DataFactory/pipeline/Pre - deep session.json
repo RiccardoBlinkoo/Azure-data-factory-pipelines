@@ -1,0 +1,10 @@
+{
+	"name": "Pre - deep session",
+	"properties": {
+		"description": "This pipeline will be used to trigger the execution the pre-deep session calculation, it will be useful in order to automatize the entire process.",
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": []
+	}
+}
