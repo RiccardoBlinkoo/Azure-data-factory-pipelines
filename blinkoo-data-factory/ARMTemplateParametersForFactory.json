@@ -41,6 +41,14 @@
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"value": [
+				"place_tip"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"value": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
 		},
@@ -70,15 +78,14 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"value": [
-				"Categories",
-				"GeoLocation",
-				"Geometry",
-				"Places"
+				"categories",
+				"geo_location",
+				"places"
 			]
 		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {

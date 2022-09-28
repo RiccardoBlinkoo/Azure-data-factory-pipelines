@@ -75,16 +75,25 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
-				"Categories",
-				"GeoLocation",
-				"Geometry",
-				"Places"
+				"place_tip"
 			]
 		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		}
@@ -522,10 +531,10 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"Feed",
 							"FeedList",
 							"PostStat",
-							"UserInfo"
+							"UserInfo",
+							"Feed"
 						]
 					},
 					"end_time": {
@@ -1070,6 +1079,16 @@
 							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]",
 							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServer",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables')]",
+							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -1083,7 +1102,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
 			]
 		},
 		{
@@ -1096,12 +1116,12 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Weekly_Bronze_Update_CosmosDB",
+							"referenceName": "Weekly_Bronze_SqlServer",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"Tables": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]",
-							"end_time": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time')]"
+							"Tables": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables')]",
+							"end_time": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time')]"
 						}
 					}
 				],
@@ -1121,7 +1141,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Weekly_Bronze_Update_CosmosDB')]"
+				"[concat(variables('factoryId'), '/pipelines/Weekly_Bronze_SqlServer')]"
 			]
 		}
 	]
