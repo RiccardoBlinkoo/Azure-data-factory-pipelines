@@ -18,11 +18,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
 					"baseParameters": {
 						"endDate": {
-							"value": "@formatDateTime(addHours(pipeline().TriggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(pipeline().parameters.TriggerTime, 'yyyy-MM-dd HH:mm:ss')\n",
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(pipeline().TriggerTime,-7),'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7"
@@ -36,7 +36,8 @@
 		],
 		"parameters": {
 			"triggerTime": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@trigger().startTime"
 			}
 		},
 		"folder": {
