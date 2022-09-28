@@ -1,0 +1,27 @@
+{
+	"name": "Testing_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Pre - deep session",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"triggerTime": "@trigger().startTime"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 3,
+				"startTime": "2022-09-28T11:33:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
