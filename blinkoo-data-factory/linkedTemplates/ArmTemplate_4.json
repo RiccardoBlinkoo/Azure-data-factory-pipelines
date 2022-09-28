@@ -42,6 +42,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Testing_Trigger_properties_Pre - deep session_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -103,6 +107,36 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Rest_loganalytics",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"WorkSpaceID": "@dataset().WorkspaceID"
+					}
+				},
+				"parameters": {
+					"WorkspaceID": {
+						"type": "string",
+						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": "query"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -134,62 +168,6 @@
 						"timeZone": "UTC"
 					}
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Pre - deep session')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This pipeline will be used to trigger the execution the pre-deep session calculation, it will be useful in order to automatize the entire process.",
-				"activities": [
-					{
-						"name": "Pre - deep session",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession",
-							"baseParameters": {
-								"endDate": {
-									"value": "@formatDateTime(pipeline().parameters.triggerTime, 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"interval": "7"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		},
@@ -1040,6 +1018,38 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2022-05-31T20:08:58Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/log_analytics_dataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Pre - deep session",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_Pre - deep session_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 3,
+						"startTime": "2022-09-27T00:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
 			},
 			"dependsOn": []
 		},

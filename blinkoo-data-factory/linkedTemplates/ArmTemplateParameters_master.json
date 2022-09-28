@@ -78,6 +78,9 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"Testing_Trigger_properties_Pre - deep session_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"value": [
 				"categories",
