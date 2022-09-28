@@ -12397,7 +12397,7 @@
 				"parameters": {
 					"startTime": {
 						"type": "string",
-						"defaultValue": "@trigger().startTime"
+						"defaultValue": "2022-09-28 00:00:00"
 					}
 				},
 				"folder": {
