@@ -9737,11 +9737,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
 							"baseParameters": {
 								"endDate": {
-									"value": "@formatDateTime(pipeline().parameters.TriggerTime, 'yyyy-MM-dd HH:mm:ss')\n",
+									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().TriggerTime,-7),'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"interval": "7"
@@ -12379,8 +12379,14 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession",
 							"baseParameters": {
-								"endDate": "@formatDateTime(addHours(pipeline().TriggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
-								"startDate": "@formatDateTime(pipeline().parameters.startTime, 'yyyy-MM-dd HH:mm:ss')",
+								"endDate": {
+									"value": "@formatDateTime(pipeline().parameters.triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
 								"interval": "7"
 							}
 						},
@@ -12395,7 +12401,7 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"startTime": {
+					"triggerTime": {
 						"type": "string",
 						"defaultValue": "2022-09-28 00:00:00"
 					}
