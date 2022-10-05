@@ -1076,65 +1076,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Feature_usage')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "feature_usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Feature_Usage",
-							"baseParameters": {
-								"StartDate": {
-									"value": "@pipeline().parameters.StartDate",
-									"type": "Expression"
-								},
-								"EndDate": {
-									"value": "@pipeline().parameters.EndDate",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"StartDate": {
-						"type": "string",
-						"defaultValue": "2022-07-08 00:00:00"
-					},
-					"EndDate": {
-						"type": "string",
-						"defaultValue": "2022-07-14 00:00:00"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-07-06T15:00:04Z"
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1438,6 +1379,33 @@
 						"type": "AzureBlobFSLocation",
 						"fileName": "Categories",
 						"folderPath": "Categories",
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sink_Feed')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageDev",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Feed_delta",
+						"folderPath": "Feed",
 						"fileSystem": "bronze"
 					},
 					"compressionCodec": "snappy"

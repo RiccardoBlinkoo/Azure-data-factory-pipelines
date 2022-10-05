@@ -13,33 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Sink_Feed')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Feed_delta",
-						"folderPath": "Feed",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Sink_GeoLocation')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1770,6 +1743,36 @@
 						"type": "INT64"
 					}
 				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Rest_loganalytics",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"WorkSpaceID": "@dataset().WorkspaceID"
+					}
+				},
+				"parameters": {
+					"WorkspaceID": {
+						"type": "string",
+						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": "query"
+				},
+				"schema": []
 			},
 			"dependsOn": []
 		}

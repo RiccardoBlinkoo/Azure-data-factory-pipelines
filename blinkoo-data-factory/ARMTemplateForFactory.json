@@ -9717,67 +9717,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Feature_usage')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "feature_usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Feature_Usage",
-							"baseParameters": {
-								"StartDate": {
-									"value": "@pipeline().parameters.StartDate",
-									"type": "Expression"
-								},
-								"EndDate": {
-									"value": "@pipeline().parameters.EndDate",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"StartDate": {
-						"type": "string",
-						"defaultValue": "2022-07-08 00:00:00"
-					},
-					"EndDate": {
-						"type": "string",
-						"defaultValue": "2022-07-14 00:00:00"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-07-06T15:00:04Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -12450,6 +12389,62 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weekly_KPI_Standard')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "KPI_Standard",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks2",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks2')]"
+			]
 		}
 	]
 }
