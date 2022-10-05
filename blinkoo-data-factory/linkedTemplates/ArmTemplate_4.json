@@ -163,11 +163,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
 							"baseParameters": {
 								"endDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd')",
 									"type": "Expression"
 								},
 								"startDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addDays(pipeline().triggerTime,-7),'yyyy-MM-dd')",
 									"type": "Expression"
 								}
 							}
