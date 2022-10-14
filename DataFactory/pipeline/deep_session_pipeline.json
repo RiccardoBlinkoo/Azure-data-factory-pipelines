@@ -33,6 +33,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"triggerTime": {
+				"type": "string",
+				"defaultValue": "@trigger().startTime"
+			}
+		},
 		"folder": {
 			"name": "Dev/Draft"
 		},
