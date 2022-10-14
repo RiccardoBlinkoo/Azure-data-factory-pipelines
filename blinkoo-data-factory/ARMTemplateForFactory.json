@@ -12394,7 +12394,7 @@
 				"typeProperties": {
 					"recurrence": {
 						"frequency": "Minute",
-						"interval": 3,
+						"interval": 2,
 						"startTime": "2022-09-28T11:33:00",
 						"timeZone": "W. Europe Standard Time"
 					}
