@@ -1,6 +1,38 @@
 {
 	"name": "deep_session_pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "Pre-deep session",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
+					"baseParameters": {
+						"startDate": {
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
 		"folder": {
 			"name": "Dev/Draft"
 		},
