@@ -1056,7 +1056,10 @@
 												"value": "@addDays(variables('EndTime'), -7)",
 												"type": "Expression"
 											},
-											"endDate": "@variables('EndTime')"
+											"endDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
 										}
 									},
 									"linkedServiceName": {
@@ -1359,6 +1362,60 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/deep_session_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Pre-deep session",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1443,33 +1500,6 @@
 						"fileSystem": "users"
 					},
 					"compressionCodec": "gzip"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Sink_Categories')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Categories",
-						"folderPath": "Categories",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
 				},
 				"schema": []
 			},
