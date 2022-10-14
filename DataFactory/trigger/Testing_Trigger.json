@@ -6,15 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Pre - deep session",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"triggerTime": "@trigger().startTime"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "deep_session_pipeline",
 					"type": "PipelineReference"
 				}
