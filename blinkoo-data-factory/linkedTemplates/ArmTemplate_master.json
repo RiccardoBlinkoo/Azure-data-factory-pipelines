@@ -98,10 +98,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"Testing_Trigger_properties_Pre - deep session_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -279,9 +275,6 @@
 					},
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-					},
-					"Testing_Trigger_properties_Pre - deep session_parameters_triggerTime": {
-						"value": "[parameters('Testing_Trigger_properties_Pre - deep session_parameters_triggerTime')]"
 					},
 					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"

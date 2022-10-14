@@ -42,10 +42,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"Testing_Trigger_properties_Pre - deep session_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -106,98 +102,6 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/bronze_feed')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "Feed",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "id",
-						"type": "UTF8"
-					},
-					{
-						"name": "type",
-						"type": "UTF8"
-					},
-					{
-						"name": "geometry_type",
-						"type": "UTF8"
-					},
-					{
-						"name": "geometry_coordinates",
-						"type": "UTF8"
-					},
-					{
-						"name": "key",
-						"type": "UTF8"
-					},
-					{
-						"name": "name",
-						"type": "UTF8"
-					},
-					{
-						"name": "level_name",
-						"type": "UTF8"
-					},
-					{
-						"name": "level_key",
-						"type": "UTF8"
-					},
-					{
-						"name": "level",
-						"type": "INT64"
-					},
-					{
-						"name": "properties_sub_areas",
-						"type": "UTF8"
-					},
-					{
-						"name": "area",
-						"type": "UTF8"
-					},
-					{
-						"name": "area_name",
-						"type": "UTF8"
-					},
-					{
-						"name": "_rid",
-						"type": "UTF8"
-					},
-					{
-						"name": "_self",
-						"type": "UTF8"
-					},
-					{
-						"name": "_etag",
-						"type": "UTF8"
-					},
-					{
-						"name": "_attachments",
-						"type": "UTF8"
-					},
-					{
-						"name": "_ts",
-						"type": "INT64"
-					}
-				]
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -1150,15 +1054,6 @@
 				"annotations": [],
 				"runtimeState": "Stopped",
 				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Pre - deep session",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Testing_Trigger_properties_Pre - deep session_parameters_triggerTime')]"
-						}
-					},
 					{
 						"pipelineReference": {
 							"referenceName": "deep_session_pipeline",
