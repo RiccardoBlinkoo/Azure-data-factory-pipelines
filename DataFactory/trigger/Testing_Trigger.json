@@ -2,7 +2,7 @@
 	"name": "Testing_Trigger",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -11,6 +11,12 @@
 				},
 				"parameters": {
 					"triggerTime": "@trigger().startTime"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "deep_session_pipeline",
+					"type": "PipelineReference"
 				}
 			}
 		],
