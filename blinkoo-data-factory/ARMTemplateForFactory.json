@@ -8663,67 +8663,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/KPIs_Calculation_dev')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Notebook1",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/UserTesting01",
-							"baseParameters": {
-								"startDate": {
-									"value": "@pipeline().parameters.startDate",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@pipeline().parameters.endDate",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"startDate": {
-						"type": "string",
-						"defaultValue": "2022-05-17 00:00:00"
-					},
-					"endDate": {
-						"type": "string",
-						"defaultValue": "2022-05-23 00:00:00"
-					}
-				},
-				"folder": {
-					"name": "Dev/Draft"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-21T15:45:23Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/KPIs_prototype')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -9393,6 +9332,27 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "Badge and coin pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Deep Session",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "badge_and_coin_calculation_test",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -9436,6 +9396,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/deep_session_pipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/badge_and_coin_calculation_test')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
@@ -12515,6 +12476,63 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/badge_and_coin_calculation_test')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Badge Coin Calc",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
 		}
 	]
 }
