@@ -13,6 +13,26 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ManagedVirtualNetworkIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -883,176 +903,6 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2022-06-24T06:02:38Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Silver_LogAnalytics')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "For Each Table",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.TableNames",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Set Variable Table",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "Table",
-										"value": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Set Variable End Date",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set Variable Table",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@formatDateTime(addHours(pipeline().parameters.start_time,-3),'yyyy-MM-dd')",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "BronzeToSilver_por_version",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set Variable End Date",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Delta",
-										"baseParameters": {
-											"Table": {
-												"value": "@variables('Table')",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Pre-deep session",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "BronzeToSilver_por_version",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
-										"baseParameters": {
-											"startDate": {
-												"value": "@addDays(variables('EndTime'), -7)",
-												"type": "Expression"
-											},
-											"endDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"TableNames": {
-						"type": "array",
-						"defaultValue": [
-							"AppDependencies",
-							"AppEvents",
-							"AppExceptions",
-							"AppMetrics",
-							"AppPageViews",
-							"AppPerformanceCounters",
-							"AppRequests",
-							"AppSystemEvents",
-							"AppTraces",
-							"Usage"
-						]
-					},
-					"start_time": {
-						"type": "string",
-						"defaultValue": "2022-07-01 03:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					},
-					"Table": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "LogAnalytics"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
 			"dependsOn": []
 		},
