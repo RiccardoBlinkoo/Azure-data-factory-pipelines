@@ -7,41 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "blinkoo-data-factory"
 		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-			"type": "string",
-			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
-			"type": "string",
-			"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
-			"type": "string",
-			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
-			"type": "string",
-			"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-			"type": "array",
-			"defaultValue": [
-				"AppDependencies",
-				"AppEvents",
-				"AppExceptions",
-				"AppMetrics",
-				"AppPageViews",
-				"AppPerformanceCounters",
-				"AppRequests",
-				"AppSystemEvents",
-				"AppTraces",
-				"Usage"
-			]
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -102,41 +67,6 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_LogAnalytics",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
-							"ClientID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]",
-							"TenantID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]",
-							"WorkspaceID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]",
-							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
-							"end_time": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 1,
-						"startTime": "2022-05-13T18:00:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Pre-deep session')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -638,181 +568,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Silver_LogAnalytics')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "For Each Table",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.TableNames",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Set Variable Table",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "Table",
-										"value": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Set Variable End Date",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set Variable Table",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@formatDateTime(addHours(pipeline().parameters.start_time,-3),'yyyy-MM-dd')",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "BronzeToSilver_por_version",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set Variable End Date",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Delta",
-										"baseParameters": {
-											"Table": {
-												"value": "@variables('Table')",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Deep Session",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "For Each Table",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "deep_session_pipeline",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "Badge and coin pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Deep Session",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "badge_and_coin_calculation_test",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"TableNames": {
-						"type": "array",
-						"defaultValue": [
-							"AppDependencies",
-							"AppEvents",
-							"AppExceptions",
-							"AppMetrics",
-							"AppPageViews",
-							"AppPerformanceCounters",
-							"AppRequests",
-							"AppSystemEvents",
-							"AppTraces",
-							"Usage"
-						]
-					},
-					"start_time": {
-						"type": "string",
-						"defaultValue": "2022-07-01 03:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					},
-					"Table": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "LogAnalytics"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-07-06T21:34:31Z"
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1071,6 +826,84 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/deep_session_pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "deep session",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Execute Pipeline1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Execute Pipeline1",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Pre-deep session",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Pre-deep session')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/get_log_analytics_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1245,36 +1078,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Pre-deep session",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 2,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Pre-deep session')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1312,6 +1115,183 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Silver_LogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "For Each Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.TableNames",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set Variable Table",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "Table",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Set Variable End Date",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Set Variable Table",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@formatDateTime(addHours(pipeline().parameters.start_time,-3),'yyyy-MM-dd')",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "BronzeToSilver_por_version",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set Variable End Date",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Delta",
+										"baseParameters": {
+											"Table": {
+												"value": "@variables('Table')",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Deep Session",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "For Each Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "deep_session_pipeline",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Badge and coin pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Deep Session",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "badge_and_coin_calculation_test",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"TableNames": {
+						"type": "array",
+						"defaultValue": [
+							"AppDependencies",
+							"AppEvents",
+							"AppExceptions",
+							"AppMetrics",
+							"AppPageViews",
+							"AppPerformanceCounters",
+							"AppRequests",
+							"AppSystemEvents",
+							"AppTraces",
+							"Usage"
+						]
+					},
+					"start_time": {
+						"type": "string",
+						"defaultValue": "2022-07-01 03:00:00"
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					},
+					"Table": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-06T21:34:31Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/deep_session_pipeline')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DailyCosmosDB')]",
@@ -1355,6 +1335,44 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Pre-deep session",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "deep_session_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Pre-deep session')]",
+				"[concat(variables('factoryId'), '/pipelines/deep_session_pipeline')]"
 			]
 		},
 		{

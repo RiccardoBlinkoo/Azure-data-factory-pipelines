@@ -237,6 +237,24 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 					}
 				}
 			},
@@ -257,24 +275,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"
