@@ -15,6 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 					"baseParameters": {
 						"startDate": {
 							"value": "@formatDateTime(addDays(pipeline().triggerTime, -1), 'yyyy-MM-dd HH:mm:ss')",
