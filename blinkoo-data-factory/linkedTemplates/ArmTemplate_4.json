@@ -138,13 +138,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/badge_and_coin_calculation_test')]",
+			"name": "[concat(parameters('factoryName'), '/Pre-deep session')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Badge Coin Calc",
+						"name": "PreDeepSession",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -156,17 +156,17 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -1), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"endDate": {
 									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"interval": "7"
+								"interval": "1"
 							}
 						},
 						"linkedServiceName": {
@@ -810,9 +810,7 @@
 				"annotations": [],
 				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/badge_and_coin_calculation_test')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",
@@ -1245,6 +1243,36 @@
 				"lastPublishTime": "2022-05-31T20:08:58Z"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Pre-deep session",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Pre-deep session')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
