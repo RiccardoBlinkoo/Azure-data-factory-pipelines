@@ -9,6 +9,12 @@
 					"referenceName": "deep_session_pipeline",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Pre-deep session",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
