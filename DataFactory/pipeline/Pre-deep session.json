@@ -26,7 +26,14 @@
 							"type": "Expression"
 						},
 						"interval": "1"
-					}
+					},
+					"libraries": [
+						{
+							"pypi": {
+								"package": "pandas==1.4.0"
+							}
+						}
+					]
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
