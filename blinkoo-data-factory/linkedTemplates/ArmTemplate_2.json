@@ -366,7 +366,7 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -2), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"endDate": {
