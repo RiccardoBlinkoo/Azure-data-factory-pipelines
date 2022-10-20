@@ -12387,11 +12387,11 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Pre-deep session",
+							"referenceName": "deep_session_pipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -12408,7 +12408,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Pre-deep session')]"
+				"[concat(variables('factoryId'), '/pipelines/deep_session_pipeline')]"
 			]
 		},
 		{
