@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "deep_session_pipeline",
+					"referenceName": "test_deep_session",
 					"type": "PipelineReference"
 				}
 			}
