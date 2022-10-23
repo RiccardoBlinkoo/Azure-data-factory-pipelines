@@ -103,36 +103,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Rest_loganalytics",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"WorkSpaceID": "@dataset().WorkspaceID"
-					}
-				},
-				"parameters": {
-					"WorkspaceID": {
-						"type": "string",
-						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
-					}
-				},
-				"folder": {
-					"name": "LogAnalytics"
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {
-					"relativeUrl": "query"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -164,6 +134,62 @@
 						"timeZone": "UTC"
 					}
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_badge_coin_calculation')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Badge_lite",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"timeBack": "30"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
 			},
 			"dependsOn": []
 		},
@@ -871,17 +897,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/deep_session_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/test_deep_session')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "deep session",
+						"name": "Deep session",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Execute Pipeline1",
+								"activity": "Pre-deep session pipeline",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -915,13 +941,34 @@
 						}
 					},
 					{
-						"name": "Execute Pipeline1",
+						"name": "Pre-deep session pipeline",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "Pre-deep session",
+								"referenceName": "test_pre-deep_session",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "badge and coin pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Deep session",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "test_badge_coin_calculation",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -944,7 +991,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/test_badge_coin_calculation')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/get_log_analytics_data')]",
@@ -1118,9 +1167,7 @@
 				"annotations": [],
 				"lastPublishTime": "2022-05-31T20:08:58Z"
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/log_analytics_dataset')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
@@ -1251,7 +1298,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "deep_session_pipeline",
+							"referenceName": "test_deep_session",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1268,7 +1315,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/deep_session_pipeline')]"
+				"[concat(variables('factoryId'), '/pipelines/test_deep_session')]"
 			]
 		},
 		{
