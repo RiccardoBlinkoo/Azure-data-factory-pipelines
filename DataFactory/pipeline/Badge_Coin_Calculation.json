@@ -1,6 +1,39 @@
 {
 	"name": "Badge_Coin_Calculation",
 	"properties": {
+		"activities": [
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"baseParameters": {
+						"endDate": {
+							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"startDate": {
+							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"interval": "7",
+						"timeBack": "30"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
 		"folder": {
 			"name": "Dev/Draft"
 		},
