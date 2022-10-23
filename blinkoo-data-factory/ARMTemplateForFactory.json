@@ -8752,7 +8752,7 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -4), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"endDate": {
@@ -10027,7 +10027,7 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -4), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
 								"endDate": {
@@ -12387,7 +12387,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
