@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
+				"name": "Badge_lite",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
