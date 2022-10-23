@@ -1,13 +1,13 @@
 {
-	"name": "deep_session_pipeline",
+	"name": "test_deep_session",
 	"properties": {
 		"activities": [
 			{
-				"name": "deep session",
+				"name": "Deep session",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "Pre-deep session pipeline",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -41,13 +41,33 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline1",
+				"name": "Pre-deep session pipeline",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Pre-deep session",
+						"referenceName": "test_pre-deep_session",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "badge and coin pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Deep session",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "test_badge_coin_calculation",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
