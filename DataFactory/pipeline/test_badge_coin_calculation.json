@@ -26,7 +26,19 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"timeback": "30"
+						"timeback": "30",
+						"isTest": {
+							"value": "True",
+							"type": "Expression"
+						},
+						"postTableName": {
+							"value": "by_post_daily",
+							"type": "Expression"
+						},
+						"userTableName": {
+							"value": "by_user_daily",
+							"type": "Expression"
+						}
 					}
 				},
 				"linkedServiceName": {
