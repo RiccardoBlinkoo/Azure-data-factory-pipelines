@@ -8426,33 +8426,6 @@
 											"type": "Expression"
 										}
 									}
-								},
-								{
-									"name": "South Team Update",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Bronze ETL",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/BabboChallenge/UpdateGiornalieri"
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
 								}
 							]
 						}
