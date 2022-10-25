@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"testNumber": "30"
+					"isTest": "True"
 				}
 			}
 		],
