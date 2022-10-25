@@ -12,6 +12,12 @@
 				"parameters": {
 					"testNumber": "30"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "test_pre-deep_session",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
