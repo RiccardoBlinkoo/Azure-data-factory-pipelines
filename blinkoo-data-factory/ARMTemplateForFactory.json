@@ -12798,7 +12798,7 @@
 					},
 					"testNumber": {
 						"type": "string",
-						"defaultValue": "@trigger.testNumber"
+						"defaultValue": "@trigger().testNumber"
 					}
 				},
 				"folder": {
