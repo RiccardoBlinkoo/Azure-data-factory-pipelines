@@ -6,15 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "test_deep_session",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"testNumber": "30"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "test_pre-deep_session",
 					"type": "PipelineReference"
 				},
