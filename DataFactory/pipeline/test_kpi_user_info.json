@@ -1,9 +1,9 @@
 {
-	"name": "test_badge_coin_calculation",
+	"name": "test_kpi_user_info",
 	"properties": {
 		"activities": [
 			{
-				"name": "Badge_lite",
+				"name": "User info",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -15,30 +15,19 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 					"baseParameters": {
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
-							"type": "Expression"
-						},
-						"startDate": {
 							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
+						"startDate": {
+							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
 						"interval": "7",
-						"timeback": "30",
-						"isTest": {
-							"value": "True",
-							"type": "Expression"
-						},
-						"postTableName": {
-							"value": "by_post",
-							"type": "Expression"
-						},
-						"userTableName": {
-							"value": "by_user",
-							"type": "Expression"
-						},
+						"extractionName": "kpi_userinfo",
+						"isTest": "True",
 						"testNumber": "25"
 					}
 				},
@@ -55,7 +44,7 @@
 			}
 		},
 		"folder": {
-			"name": "Dev/Draft"
+			"name": "Dev/Draft/KPIs"
 		},
 		"annotations": []
 	}

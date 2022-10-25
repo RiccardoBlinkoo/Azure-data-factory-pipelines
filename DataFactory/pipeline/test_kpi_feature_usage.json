@@ -26,8 +26,9 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"extractionName": "feature_usage",
-						"isTest": "True"
+						"extractionName": "kpi_feature_usage",
+						"isTest": "True",
+						"testNumber": "25"
 					}
 				},
 				"linkedServiceName": {
