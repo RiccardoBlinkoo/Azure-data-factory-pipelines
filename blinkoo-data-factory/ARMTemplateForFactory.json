@@ -127,10 +127,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"Testing_Trigger_properties_test_deep_session_parameters_testNumber": {
-			"type": "string",
-			"defaultValue": "27"
 		}
 	},
 	"variables": {
@@ -12827,9 +12823,7 @@
 							"referenceName": "test_deep_session",
 							"type": "PipelineReference"
 						},
-						"parameters": {
-							"testNumber": "[parameters('Testing_Trigger_properties_test_deep_session_parameters_testNumber')]"
-						}
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
