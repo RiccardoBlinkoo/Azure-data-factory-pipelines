@@ -29,7 +29,10 @@
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
 						},
-						"isTest": "True"
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						}
 					},
 					"libraries": [
 						{
@@ -75,7 +78,10 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"isTest": "True",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
@@ -120,7 +126,10 @@
 						},
 						"interval": "7",
 						"extractionName": "kpi_featureusage",
-						"isTest": "True",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
@@ -165,7 +174,10 @@
 						},
 						"interval": "7",
 						"extractionName": "kpi_userinfo",
-						"isTest": "True",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
@@ -210,7 +222,10 @@
 						},
 						"interval": "7",
 						"extractionName": "kpi_userperforming",
-						"isTest": "True",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
@@ -255,7 +270,7 @@
 						"interval": "7",
 						"timeback": "30",
 						"isTest": {
-							"value": "True",
+							"value": "@pipeline().parameters.isTest",
 							"type": "Expression"
 						},
 						"postTableName": {
@@ -286,6 +301,10 @@
 			"testNumber": {
 				"type": "string",
 				"defaultValue": "@trigger().parameters.testNumber"
+			},
+			"isTest": {
+				"type": "string",
+				"defaultValue": "@trigger().parameters.isTest"
 			}
 		},
 		"folder": {
