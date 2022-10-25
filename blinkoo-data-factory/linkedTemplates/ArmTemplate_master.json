@@ -128,6 +128,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Testing_Trigger_properties_test_deep_session_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "27"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -298,6 +302,9 @@
 					},
 					"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time": {
 						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time')]"
+					},
+					"Testing_Trigger_properties_test_deep_session_parameters_testNumber": {
+						"value": "[parameters('Testing_Trigger_properties_test_deep_session_parameters_testNumber')]"
 					}
 				}
 			},

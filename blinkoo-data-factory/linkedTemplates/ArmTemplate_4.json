@@ -95,6 +95,10 @@
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_test_deep_session_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "27"
 		}
 	},
 	"variables": {
@@ -1549,14 +1553,16 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
 							"referenceName": "test_deep_session",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"testNumber": "[parameters('Testing_Trigger_properties_test_deep_session_parameters_testNumber')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
