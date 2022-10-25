@@ -39,6 +39,29 @@
 			"type": "string",
 			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"Feed",
+				"FeedList",
+				"PostStat",
+				"UserInfo"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"place_tip"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"type": "string",
 			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
@@ -102,29 +125,6 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"Feed",
-				"FeedList",
-				"PostStat",
-				"UserInfo"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"place_tip"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		}
@@ -12308,6 +12308,50 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DailyCosmosDB')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_Update_CosmosDB",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]",
+							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServer",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables')]",
+							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-06-02T03:00:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -12512,47 +12556,62 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DailyCosmosDB')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/test_kpi_feature_usage')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
+				"activities": [
 					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_Update_CosmosDB",
-							"type": "PipelineReference"
+						"name": "Feature Usage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
 						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]",
-							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServer",
-							"type": "PipelineReference"
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"extractionName": "feature_usage",
+								"testing": "True"
+							}
 						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables')]",
-							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
 						}
 					}
 				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-06-02T03:00:00Z",
-						"timeZone": "UTC"
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
 					}
-				}
+				},
+				"folder": {
+					"name": "Dev/Draft/KPIs"
+				},
+				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		}
 	]

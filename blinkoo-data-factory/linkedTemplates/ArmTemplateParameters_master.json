@@ -29,6 +29,25 @@
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"value": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
+			"value": [
+				"Feed",
+				"FeedList",
+				"PostStat",
+				"UserInfo"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"value": [
+				"place_tip"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"value": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
 		},
@@ -83,25 +102,6 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-			"value": "@trigger().startTime"
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
-			"value": [
-				"Feed",
-				"FeedList",
-				"PostStat",
-				"UserInfo"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_end_time": {
-			"value": "@trigger().startTime"
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
-			"value": [
-				"place_tip"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
 		"containerUri": {
