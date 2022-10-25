@@ -119,7 +119,7 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"extractionName": "kpi_feature_usage",
+						"extractionName": "kpi_featureusage",
 						"isTest": "True",
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
