@@ -17,6 +17,9 @@
 				"pipelineReference": {
 					"referenceName": "test_pre-deep_session",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"testNumber": "30"
 				}
 			}
 		],
