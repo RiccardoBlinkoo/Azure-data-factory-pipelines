@@ -29,7 +29,7 @@
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
 						},
-						"isTest": "True"
+						"isTest": "False"
 					},
 					"libraries": [
 						{
@@ -75,7 +75,7 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"isTest": "True",
+						"isTest": "False",
 						"testNumber": {
 							"value": "@pipeline().parameters.testNumber",
 							"type": "Expression"
