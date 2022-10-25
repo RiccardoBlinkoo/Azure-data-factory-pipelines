@@ -104,7 +104,7 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
 		},
-		"Testing_Trigger_properties_test_deep_session_parameters_testNumber": {
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
 			"value": "30"
 		}
 	}
