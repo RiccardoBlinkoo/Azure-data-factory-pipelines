@@ -8,9 +8,6 @@
 				"pipelineReference": {
 					"referenceName": "test_deep_session",
 					"type": "PipelineReference"
-				},
-				"parameters": {
-					"testNumber": "27"
 				}
 			}
 		],
