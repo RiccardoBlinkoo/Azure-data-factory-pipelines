@@ -8,6 +8,9 @@
 				"pipelineReference": {
 					"referenceName": "test_KPI_pipeline",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"isTest": "False"
 				}
 			}
 		],
