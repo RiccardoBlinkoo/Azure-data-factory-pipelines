@@ -25,7 +25,10 @@
 							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
-						"testNumber": "25",
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						},
 						"isTest": "True"
 					},
 					"libraries": [
@@ -46,6 +49,10 @@
 			"triggerTime": {
 				"type": "string",
 				"defaultValue": "@trigger().startTime"
+			},
+			"testNumber": {
+				"type": "string",
+				"defaultValue": "@trigger().testNumber"
 			}
 		},
 		"folder": {

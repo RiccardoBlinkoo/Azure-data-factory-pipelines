@@ -28,7 +28,10 @@
 						"interval": "7",
 						"extractionName": "kpi_userperforming",
 						"isTest": "True",
-						"testNumber": "25"
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						}
 					}
 				},
 				"linkedServiceName": {
@@ -41,6 +44,10 @@
 			"triggerTime": {
 				"type": "string",
 				"defaultValue": "@trigger().startTime"
+			},
+			"testNumber": {
+				"type": "string",
+				"defaultValue": "@trigger.testNumber"
 			}
 		},
 		"folder": {
