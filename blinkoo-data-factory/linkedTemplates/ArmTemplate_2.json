@@ -1245,13 +1245,14 @@
 									"type": "Expression"
 								},
 								"postTableName": {
-									"value": "by_post_daily",
+									"value": "by_post",
 									"type": "Expression"
 								},
 								"userTableName": {
-									"value": "by_user_daily",
+									"value": "by_user",
 									"type": "Expression"
-								}
+								},
+								"testNumber": "25"
 							}
 						},
 						"linkedServiceName": {
@@ -1306,7 +1307,8 @@
 									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"interval": "1"
+								"testNumber": "25",
+								"isTest": "True"
 							},
 							"libraries": [
 								{
