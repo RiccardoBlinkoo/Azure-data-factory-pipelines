@@ -13,7 +13,6 @@
 					"Tables": [
 						"Feed",
 						"FeedList",
-						"Post",
 						"PostStat",
 						"UserInfo"
 					],
