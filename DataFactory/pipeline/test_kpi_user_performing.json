@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Feature Usage",
+				"name": "User Performing",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {

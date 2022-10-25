@@ -39,7 +39,10 @@
 							"value": "by_user",
 							"type": "Expression"
 						},
-						"testNumber": "25"
+						"testNumber": {
+							"value": "@pipeline.parameters.testNumber",
+							"type": "Expression"
+						}
 					}
 				},
 				"linkedServiceName": {
