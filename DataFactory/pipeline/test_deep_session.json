@@ -74,6 +74,66 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "KPI_Feature_usage",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Deep session",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "test_kpi_feature_usage",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "KPI_Userinfo",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Deep session",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "test_kpi_user_info",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "KPI_Userperforming",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Deep session",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "test_kpi_user_performing",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
