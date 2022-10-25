@@ -26,7 +26,8 @@
 							"type": "Expression"
 						},
 						"interval": "7",
-						"extractionName": "feature_usage"
+						"extractionName": "feature_usage",
+						"testing": "True"
 					}
 				},
 				"linkedServiceName": {
