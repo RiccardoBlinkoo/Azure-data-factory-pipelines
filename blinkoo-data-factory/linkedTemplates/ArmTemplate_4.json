@@ -198,7 +198,10 @@
 								"interval": "7",
 								"extractionName": "kpi_feature_usage",
 								"isTest": "True",
-								"testNumber": "25"
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -215,6 +218,10 @@
 					"triggerTime": {
 						"type": "string",
 						"defaultValue": "@trigger().startTime"
+					},
+					"testNumber": {
+						"type": "string",
+						"defaultValue": "@trigger().testNumber"
 					}
 				},
 				"folder": {
@@ -256,7 +263,10 @@
 								"interval": "7",
 								"extractionName": "kpi_userinfo",
 								"isTest": "True",
-								"testNumber": "25"
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -273,6 +283,10 @@
 					"triggerTime": {
 						"type": "string",
 						"defaultValue": "@trigger().startTime"
+					},
+					"testNumber": {
+						"type": "string",
+						"defaultValue": "@trigger().testNumber"
 					}
 				},
 				"folder": {
@@ -314,7 +328,10 @@
 								"interval": "7",
 								"extractionName": "kpi_userperforming",
 								"isTest": "True",
-								"testNumber": "25"
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -331,6 +348,10 @@
 					"triggerTime": {
 						"type": "string",
 						"defaultValue": "@trigger().startTime"
+					},
+					"testNumber": {
+						"type": "string",
+						"defaultValue": "@trigger.testNumber"
 					}
 				},
 				"folder": {
@@ -1230,7 +1251,10 @@
 								},
 								"interval": "7",
 								"isTest": "True",
-								"testNumber": "25"
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -1345,6 +1369,10 @@
 					"triggerTime": {
 						"type": "string",
 						"defaultValue": "@trigger().startTime"
+					},
+					"testNumber": {
+						"type": "string",
+						"defaultValue": "@trigger().testNumber"
 					}
 				},
 				"folder": {
@@ -1478,36 +1506,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "test_deep_session",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/test_deep_session')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/WeeklyCosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1543,6 +1541,36 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Weekly_Bronze_SqlServer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "test_deep_session",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/test_deep_session')]"
 			]
 		}
 	]
