@@ -1395,11 +1395,11 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
-								"endDate": {
+								"startDate": {
 									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"startDate": {
+								"endDate": {
 									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
@@ -1440,11 +1440,11 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
-								"endDate": {
+								"startDate": {
 									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"startDate": {
+								"endDate": {
 									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
@@ -1485,11 +1485,11 @@
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
-								"endDate": {
+								"startDate": {
 									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"startDate": {
+								"endDate": {
 									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
