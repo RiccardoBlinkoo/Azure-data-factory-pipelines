@@ -25,7 +25,8 @@
 							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
-						"interval": "7"
+						"interval": "7",
+						"extractionName": "feature_usage"
 					}
 				},
 				"linkedServiceName": {
