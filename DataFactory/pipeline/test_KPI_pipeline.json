@@ -18,11 +18,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -8), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"testNumber": {
@@ -70,11 +70,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -8), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -117,11 +117,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -169,7 +169,7 @@
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -213,11 +213,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -264,7 +264,7 @@
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -323,11 +323,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"isTest": {
@@ -369,11 +369,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"isTest": {
