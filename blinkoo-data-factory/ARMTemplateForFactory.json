@@ -10189,10 +10189,10 @@
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Feature Usage",
+								"activity": "User Performing",
 								"dependencyConditions": [
-									"Failed",
-									"Succeeded"
+									"Succeeded",
+									"Failed"
 								]
 							}
 						],
@@ -10341,13 +10341,6 @@
 						"dependsOn": [
 							{
 								"activity": "User info",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							},
-							{
-								"activity": "User Performing",
 								"dependencyConditions": [
 									"Succeeded",
 									"Failed"
