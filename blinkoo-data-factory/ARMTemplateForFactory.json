@@ -97,6 +97,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "False"
+		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -127,14 +135,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "False"
-		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "True"
 		}
 	},
 	"variables": {
@@ -10036,80 +10036,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/test_badge_coin_calculation')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Badge_lite",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "30",
-								"isTest": {
-									"value": "True",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline.parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"folder": {
-					"name": "Dev/Draft"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/test_KPI_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -10404,6 +10330,107 @@
 							"referenceName": "AzureDatabricks1",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "KPI Standard",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "User info",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							},
+							{
+								"activity": "User Performing",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"isTest": {
+									"value": "@pipeline().parameters.isTest",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "KPI SearchUsage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "KPI Standard",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"isTest": {
+									"value": "@pipeline().parameters.isTest",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"searchedWords": "False"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -10422,6 +10449,80 @@
 					"isTest": {
 						"type": "string",
 						"defaultValue": "@trigger().parameters.isTest"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_badge_coin_calculation')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Badge_lite",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"timeback": "30",
+								"isTest": {
+									"value": "True",
+									"type": "Expression"
+								},
+								"postTableName": {
+									"value": "by_post",
+									"type": "Expression"
+								},
+								"userTableName": {
+									"value": "by_user",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline.parameters.testNumber",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"folder": {
@@ -12560,6 +12661,81 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "test_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"isTest": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-10-25T06:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								6
+							],
+							"weekDays": [
+								"Wednesday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "test_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/WeeklyCosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -12695,81 +12871,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"isTest": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-10-25T06:00:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								6
-							],
-							"weekDays": [
-								"Wednesday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
-			]
 		}
 	]
 }

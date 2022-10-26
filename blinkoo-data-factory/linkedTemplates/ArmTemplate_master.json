@@ -97,6 +97,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "False"
+		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -127,14 +135,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "False"
-		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "True"
 		},
 		"containerUri": {
 			"type": "string",
@@ -283,17 +283,17 @@
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
-					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
-					},
 					"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
 					},
 					"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

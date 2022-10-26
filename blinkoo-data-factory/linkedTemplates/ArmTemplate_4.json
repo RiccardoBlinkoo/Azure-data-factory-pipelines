@@ -42,6 +42,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "False"
+		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
+		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -60,14 +68,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "False"
-		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "True"
 		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
@@ -1027,6 +1027,77 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "test_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"isTest": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-10-25T06:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								6
+							],
+							"weekDays": [
+								"Wednesday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "test_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1096,77 +1167,6 @@
 								"Wednesday"
 							]
 						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"isTest": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-10-25T06:00:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								6
-							],
-							"weekDays": [
-								"Wednesday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},

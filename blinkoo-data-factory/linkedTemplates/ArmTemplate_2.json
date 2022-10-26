@@ -1210,78 +1210,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/test_badge_coin_calculation')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Badge_lite",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "30",
-								"isTest": {
-									"value": "True",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline.parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"folder": {
-					"name": "Dev/Draft"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/test_KPI_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1576,6 +1504,107 @@
 							"referenceName": "AzureDatabricks1",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "KPI Standard",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "User info",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							},
+							{
+								"activity": "User Performing",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"isTest": {
+									"value": "@pipeline().parameters.isTest",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "KPI SearchUsage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "KPI Standard",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"isTest": {
+									"value": "@pipeline().parameters.isTest",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"searchedWords": "False"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -1594,6 +1623,78 @@
 					"isTest": {
 						"type": "string",
 						"defaultValue": "@trigger().parameters.isTest"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_badge_coin_calculation')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Badge_lite",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"timeback": "30",
+								"isTest": {
+									"value": "True",
+									"type": "Expression"
+								},
+								"postTableName": {
+									"value": "by_post",
+									"type": "Expression"
+								},
+								"userTableName": {
+									"value": "by_user",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline.parameters.testNumber",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"folder": {

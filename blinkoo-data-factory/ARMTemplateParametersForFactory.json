@@ -77,6 +77,12 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"value": "False"
+		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+			"value": "True"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"value": [
 				"categories",
@@ -103,12 +109,6 @@
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"value": "False"
-		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
-			"value": "True"
 		}
 	}
 }
