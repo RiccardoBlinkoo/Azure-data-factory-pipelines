@@ -101,6 +101,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "31"
+		},
 		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "True"
@@ -285,6 +289,9 @@
 					},
 					"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+					},
+					"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+						"value": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber')]"
 					},
 					"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"

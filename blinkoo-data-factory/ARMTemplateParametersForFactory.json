@@ -80,6 +80,9 @@
 		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+			"value": "31"
+		},
 		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
 			"value": "True"
 		},

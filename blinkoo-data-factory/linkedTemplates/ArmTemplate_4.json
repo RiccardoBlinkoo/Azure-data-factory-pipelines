@@ -46,6 +46,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "31"
+		},
 		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "True"
@@ -1081,6 +1085,7 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
+							"testNumber": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber')]",
 							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
 						}
 					}
