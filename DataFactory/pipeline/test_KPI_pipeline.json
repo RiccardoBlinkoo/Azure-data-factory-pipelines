@@ -291,6 +291,107 @@
 					"referenceName": "AzureDatabricks1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "KPI Standard",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "User info",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					},
+					{
+						"activity": "User Performing",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
+					"baseParameters": {
+						"startDate": {
+							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "KPI SearchUsage",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "KPI Standard",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
+					"baseParameters": {
+						"startDate": {
+							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						},
+						"interval": "7",
+						"searchedWords": "False"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
