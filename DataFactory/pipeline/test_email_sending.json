@@ -5,7 +5,14 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -21,7 +28,7 @@
 					},
 					"method": "POST",
 					"body": {
-						"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.",
+						"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}. It seems that the copy activity is working fine, check the data lake.",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}",
 						"receiver": "@{pipeline().parameters.receiver}"
@@ -31,14 +38,7 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Notebook1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -55,6 +55,17 @@
 							"type": "AzureDatabricksDeltaLakeExportCommand"
 						}
 					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -62,20 +73,13 @@
 						"referenceName": "test_blinkoo_gold_delta_dataset",
 						"type": "DatasetReference"
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "test_delimited_text_kpi_featureusage",
+						"type": "DatasetReference"
+					}
 				]
-			},
-			{
-				"name": "Notebook1",
-				"type": "DatabricksNotebook",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": []
 			}
 		],
 		"parameters": {
