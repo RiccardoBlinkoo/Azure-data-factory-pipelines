@@ -48,8 +48,21 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "AzureDatabricksDeltaLakeSource",
+						"query": "SELECT * FROM blinkoo_gold.kpi_featureusage",
+						"exportSettings": {
+							"type": "AzureDatabricksDeltaLakeExportCommand"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "test_blinkoo_gold_delta_dataset",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
 				"name": "Notebook1",
