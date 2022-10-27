@@ -10,11 +10,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "KPI_Feature_Usage",
+				"fileName": "KPI_Feature_Usage.csv",
 				"folderPath": "KPI",
 				"fileSystem": "test_intprod"
 			},
 			"columnDelimiter": ",",
+			"rowDelimiter": "\r",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
