@@ -194,9 +194,6 @@
 					"AzureDatabricks2_accessToken": {
 						"value": "[parameters('AzureDatabricks2_accessToken')]"
 					},
-					"blinkoorepo_connectionString": {
-						"value": "[parameters('blinkoorepo_connectionString')]"
-					},
 					"AzureDataLakeStorageDev_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageDev_properties_typeProperties_url')]"
 					},
@@ -228,6 +225,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"blinkoorepo_connectionString": {
+						"value": "[parameters('blinkoorepo_connectionString')]"
 					}
 				}
 			},
