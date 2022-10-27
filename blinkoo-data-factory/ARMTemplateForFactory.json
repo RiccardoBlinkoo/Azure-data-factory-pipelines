@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
 		},
+		"test_blinkoo_gold_connection_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'test_blinkoo_gold_connection'"
+		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
@@ -10571,7 +10575,14 @@
 					{
 						"name": "Web1",
 						"type": "WebActivity",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -10588,12 +10599,60 @@
 							"method": "POST",
 							"headers": {},
 							"body": {
-								"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.",
+								"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}. It seems that the copy activity is working fine, check the data lake.",
 								"dataFactoryName": "@{pipeline().DataFactory}",
 								"pipelineName": "@{pipeline().Pipeline}",
 								"receiver": "@{pipeline().parameters.receiver}"
 							}
 						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureDatabricksDeltaLakeSource",
+								"query": "SELECT * FROM blinkoo_gold.kpi_featureusage",
+								"exportSettings": {
+									"type": "AzureDatabricksDeltaLakeExportCommand"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "test_blinkoo_gold_delta_dataset",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "test_delimited_text_kpi_featureusage",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -10611,7 +10670,10 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/test_blinkoo_gold_delta_dataset')]",
+				"[concat(variables('factoryId'), '/datasets/test_delimited_text_kpi_featureusage')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/CosmosDB')]",
@@ -12951,6 +13013,259 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_blinkoo_gold_connection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "First test connection between azure data factory and the blinkoo's gold layer.",
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLake",
+				"typeProperties": {
+					"domain": "https://adb-673365400340149.9.azuredatabricks.net",
+					"clusterId": "0304-092528-p5078pvj",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('test_blinkoo_gold_connection_accessToken')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_blinkoo_gold_delta_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "test_blinkoo_gold_connection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLakeDataset",
+				"typeProperties": {
+					"database": "blinkoo_gold",
+					"table": "kpi_featureusage"
+				},
+				"schema": [
+					{
+						"name": "metricName",
+						"type": "string"
+					},
+					{
+						"name": "nUsers",
+						"type": "double"
+					},
+					{
+						"name": "nOfSessionsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionTimeInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "longestSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "meanSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "medianSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnFeedInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnNewFeedInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnSearchInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnPostDetailInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnPlaylistInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnCreatorProfileInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "medianNOfVideoPerSessionWeek",
+						"type": "double"
+					},
+					{
+						"name": "nLikeWeek",
+						"type": "double"
+					},
+					{
+						"name": "nBookmarkWeek",
+						"type": "double"
+					},
+					{
+						"name": "nUnbookmarkWeek",
+						"type": "double"
+					},
+					{
+						"name": "nBookWeek",
+						"type": "double"
+					},
+					{
+						"name": "nSharesWeek",
+						"type": "double"
+					},
+					{
+						"name": "nDetailOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nContributorProfileOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nMapOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nPlaylistOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nTagClickAndFeedScrollWeek",
+						"type": "double"
+					},
+					{
+						"name": "nViewsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nSkipsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nWordsSearchedWeek",
+						"type": "double"
+					},
+					{
+						"name": "updatedAt",
+						"type": "timestamp"
+					},
+					{
+						"name": "from",
+						"type": "timestamp"
+					},
+					{
+						"name": "to",
+						"type": "timestamp"
+					},
+					{
+						"name": "dayOfWeek",
+						"type": "integer"
+					},
+					{
+						"name": "weekOfYear",
+						"type": "integer"
+					},
+					{
+						"name": "Year",
+						"type": "integer"
+					},
+					{
+						"name": "Month",
+						"type": "integer"
+					},
+					{
+						"name": "Day",
+						"type": "integer"
+					},
+					{
+						"name": "repoWeek",
+						"type": "integer"
+					},
+					{
+						"name": "displayName",
+						"type": "string"
+					},
+					{
+						"name": "Timestamp",
+						"type": "timestamp"
+					},
+					{
+						"name": "searchedWord",
+						"type": "string"
+					},
+					{
+						"name": "nResults",
+						"type": "integer"
+					},
+					{
+						"name": "tagSelected",
+						"type": "string"
+					},
+					{
+						"name": "nTagsOn",
+						"type": "integer"
+					},
+					{
+						"name": "tagsOn",
+						"type": "string"
+					},
+					{
+						"name": "sourceOfSelection",
+						"type": "string"
+					},
+					{
+						"name": "Success",
+						"type": "integer"
+					},
+					{
+						"name": "tagName",
+						"type": "string"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/test_blinkoo_gold_connection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/test_delimited_text_kpi_featureusage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageDev",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "KPI",
+						"fileSystem": "test_intprod"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\r",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorageDev')]"
+			]
 		}
 	]
 }

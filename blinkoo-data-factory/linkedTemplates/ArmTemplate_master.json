@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
 		},
+		"test_blinkoo_gold_connection_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'test_blinkoo_gold_connection'"
+		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blinkoodatalakedev.dfs.core.windows.net"
@@ -194,6 +198,9 @@
 					"AzureDatabricks2_accessToken": {
 						"value": "[parameters('AzureDatabricks2_accessToken')]"
 					},
+					"blinkoorepo_connectionString": {
+						"value": "[parameters('blinkoorepo_connectionString')]"
+					},
 					"AzureDataLakeStorageDev_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageDev_properties_typeProperties_url')]"
 					},
@@ -226,8 +233,8 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"blinkoorepo_connectionString": {
-						"value": "[parameters('blinkoorepo_connectionString')]"
+					"test_blinkoo_gold_connection_accessToken": {
+						"value": "[parameters('test_blinkoo_gold_connection_accessToken')]"
 					}
 				}
 			},
