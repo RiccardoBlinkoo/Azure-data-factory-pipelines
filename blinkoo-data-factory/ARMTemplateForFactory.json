@@ -10523,7 +10523,13 @@
 									"fileExtension": ".csv"
 								}
 							},
-							"enableStaging": false
+							"enableStaging": true,
+							"stagingSettings": {
+								"linkedServiceName": {
+									"referenceName": "AzureDataLakeStorageDev",
+									"type": "LinkedServiceReference"
+								}
+							}
 						},
 						"inputs": [
 							{
@@ -10558,7 +10564,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/test_blinkoo_gold_delta_dataset')]",
-				"[concat(variables('factoryId'), '/datasets/test_delimited_text_kpi_featureusage')]"
+				"[concat(variables('factoryId'), '/datasets/test_delimited_text_kpi_featureusage')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorageDev')]"
 			]
 		},
 		{
