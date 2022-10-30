@@ -245,7 +245,15 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Feature Usage",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -261,11 +269,107 @@
 					},
 					"method": "POST",
 					"body": {
-						"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId}.",
+						"message": "This is a custom dynamic message from your pipeline with run ID @{pipeline().RunId, the KPI Calculation is finished, come to check and see if something goes wrong}.",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}",
 						"receiver": "@{pipeline().parameters.receiver}"
 					}
+				}
+			},
+			{
+				"name": "Feature Usage",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "User info",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
+					"baseParameters": {
+						"startDate": {
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"interval": "7",
+						"extractionName": "kpi_featureusage",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "User info",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "KPI SearchUsage",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
+					"baseParameters": {
+						"startDate": {
+							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endDate": {
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"interval": "7",
+						"extractionName": "kpi_userinfo",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
