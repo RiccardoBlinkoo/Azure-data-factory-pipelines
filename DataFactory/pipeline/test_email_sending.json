@@ -66,13 +66,7 @@
 							"fileExtension": ".csv"
 						}
 					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "AzureDataLakeStorageDev",
-							"type": "LinkedServiceReference"
-						}
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
