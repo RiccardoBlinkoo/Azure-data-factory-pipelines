@@ -12741,7 +12741,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"folderPath": "KPI",
-						"fileSystem": "test_intprod"
+						"fileSystem": "testCopyActivity"
 					},
 					"columnDelimiter": ",",
 					"rowDelimiter": "\r",
