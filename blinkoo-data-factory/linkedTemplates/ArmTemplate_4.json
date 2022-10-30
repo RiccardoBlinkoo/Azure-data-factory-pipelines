@@ -1315,7 +1315,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureDatabricksDeltaLakeSource",
-								"query": "SELECT * FROM blinkoo_gold.kpi_featureusage",
+								"query": "SELECT * FROM blinkoo_gold.kpi_featureusage;",
 								"exportSettings": {
 									"type": "AzureDatabricksDeltaLakeExportCommand"
 								}
