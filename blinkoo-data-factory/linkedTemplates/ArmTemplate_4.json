@@ -114,98 +114,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/bronze_feed')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "Feed",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": [
-					{
-						"name": "id",
-						"type": "UTF8"
-					},
-					{
-						"name": "type",
-						"type": "UTF8"
-					},
-					{
-						"name": "geometry_type",
-						"type": "UTF8"
-					},
-					{
-						"name": "geometry_coordinates",
-						"type": "UTF8"
-					},
-					{
-						"name": "key",
-						"type": "UTF8"
-					},
-					{
-						"name": "name",
-						"type": "UTF8"
-					},
-					{
-						"name": "level_name",
-						"type": "UTF8"
-					},
-					{
-						"name": "level_key",
-						"type": "UTF8"
-					},
-					{
-						"name": "level",
-						"type": "INT64"
-					},
-					{
-						"name": "properties_sub_areas",
-						"type": "UTF8"
-					},
-					{
-						"name": "area",
-						"type": "UTF8"
-					},
-					{
-						"name": "area_name",
-						"type": "UTF8"
-					},
-					{
-						"name": "_rid",
-						"type": "UTF8"
-					},
-					{
-						"name": "_self",
-						"type": "UTF8"
-					},
-					{
-						"name": "_etag",
-						"type": "UTF8"
-					},
-					{
-						"name": "_attachments",
-						"type": "UTF8"
-					},
-					{
-						"name": "_ts",
-						"type": "INT64"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -232,41 +140,6 @@
 					"relativeUrl": "query"
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_LogAnalytics",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
-							"ClientID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]",
-							"TenantID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]",
-							"WorkspaceID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]",
-							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
-							"end_time": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 1,
-						"startTime": "2022-05-13T18:00:00Z",
-						"timeZone": "UTC"
-					}
-				}
 			},
 			"dependsOn": []
 		},
@@ -497,6 +370,41 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Bronze_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
+							"ClientID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]",
+							"TenantID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]",
+							"WorkspaceID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_WorkspaceID')]",
+							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
+							"end_time": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2022-05-13T18:00:00Z",
+						"timeZone": "UTC"
+					}
+				}
 			},
 			"dependsOn": []
 		},
