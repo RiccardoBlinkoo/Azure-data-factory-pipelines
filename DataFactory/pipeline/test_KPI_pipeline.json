@@ -94,7 +94,7 @@
 				}
 			},
 			{
-				"name": "Badge_lite",
+				"name": "Coin Monthly",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -153,7 +153,14 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Badge_lite",
+						"activity": "Coin Monthly",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					},
+					{
+						"activity": "Coin Bi-Weekly",
 						"dependencyConditions": [
 							"Succeeded",
 							"Failed"
@@ -372,6 +379,61 @@
 						"extractionName": "kpi_userperforming",
 						"isTest": {
 							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"testNumber": {
+							"value": "@pipeline().parameters.testNumber",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Coin Bi-Weekly",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Coin Monthly",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+					"baseParameters": {
+						"endDate": {
+							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"startDate": {
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"interval": "7",
+						"timeback": "14",
+						"isTest": {
+							"value": "@pipeline().parameters.isTest",
+							"type": "Expression"
+						},
+						"postTableName": {
+							"value": "by_post",
+							"type": "Expression"
+						},
+						"userTableName": {
+							"value": "by_user",
 							"type": "Expression"
 						},
 						"testNumber": {
