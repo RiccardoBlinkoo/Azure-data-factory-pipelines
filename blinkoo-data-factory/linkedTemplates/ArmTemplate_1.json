@@ -19,9 +19,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
 		},
-		"blinkoorepo_connectionString": {
+		"AzureSqlDatabase_test_v0_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
@@ -3458,6 +3458,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase_test_v0')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Rest_loganalytics')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -3474,19 +3487,6 @@
 					"url": "[parameters('Rest_loganalytics_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/blinkoorepo')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "CosmosDb",
-				"typeProperties": {
-					"connectionString": "[parameters('blinkoorepo_connectionString')]"
 				}
 			},
 			"dependsOn": []

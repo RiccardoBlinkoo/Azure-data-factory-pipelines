@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
 		},
+		"AzureSqlDatabase_test_v0_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
+		},
 		"blinkoorepo_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
@@ -26,10 +30,6 @@
 		"test_blinkoo_gold_connection_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'test_blinkoo_gold_connection'"
-		},
-		"AzureSqlDatabase_test_v0_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
@@ -105,15 +105,15 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
 			"type": "string",
 			"defaultValue": "31"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "True"
 		},
@@ -202,8 +202,8 @@
 					"AzureDatabricks2_accessToken": {
 						"value": "[parameters('AzureDatabricks2_accessToken')]"
 					},
-					"blinkoorepo_connectionString": {
-						"value": "[parameters('blinkoorepo_connectionString')]"
+					"AzureSqlDatabase_test_v0_connectionString": {
+						"value": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
 					},
 					"AzureDataLakeStorageDev_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageDev_properties_typeProperties_url')]"
@@ -237,11 +237,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"blinkoorepo_connectionString": {
+						"value": "[parameters('blinkoorepo_connectionString')]"
+					},
 					"test_blinkoo_gold_connection_accessToken": {
 						"value": "[parameters('test_blinkoo_gold_connection_accessToken')]"
-					},
-					"AzureSqlDatabase_test_v0_connectionString": {
-						"value": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
 					}
 				}
 			},
@@ -301,14 +301,14 @@
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 					},
-					"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
-						"value": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
+						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
-					"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
-						"value": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber')]"
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]"
 					},
-					"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
-						"value": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
 					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"

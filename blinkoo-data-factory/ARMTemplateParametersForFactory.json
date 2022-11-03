@@ -14,13 +14,13 @@
 		"AzureDatabricks2_accessToken": {
 			"value": ""
 		},
+		"AzureSqlDatabase_test_v0_connectionString": {
+			"value": ""
+		},
 		"blinkoorepo_connectionString": {
 			"value": ""
 		},
 		"test_blinkoo_gold_connection_accessToken": {
-			"value": ""
-		},
-		"AzureSqlDatabase_test_v0_connectionString": {
 			"value": ""
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
@@ -83,13 +83,13 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
 			"value": "31"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "True"
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {

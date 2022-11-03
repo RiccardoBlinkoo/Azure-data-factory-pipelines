@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
 		},
+		"AzureSqlDatabase_test_v0_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
+		},
 		"blinkoorepo_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'blinkoorepo'"
@@ -26,10 +30,6 @@
 		"test_blinkoo_gold_connection_accessToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'test_blinkoo_gold_connection'"
-		},
-		"AzureSqlDatabase_test_v0_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
 		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"type": "string",
@@ -105,15 +105,15 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
 			"type": "string",
 			"defaultValue": "31"
 		},
-		"Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest": {
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "True"
 		},
@@ -8655,74 +8655,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/KPIs_prototype')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "KPIs_prototype",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/KPIs_prototype",
-							"baseParameters": {
-								"startDate": {
-									"value": "@pipeline().parameters.startDate",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@pipeline().parameters.endDate",
-									"type": "Expression"
-								},
-								"interval": {
-									"value": "@pipeline().parameters.interval",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"startDate": {
-						"type": "string",
-						"defaultValue": "last"
-					},
-					"endDate": {
-						"type": "string"
-					},
-					"interval": {
-						"type": "string",
-						"defaultValue": "7"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-07-06T10:51:20Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Silver_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -9613,119 +9545,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_KPI_Standard')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "KPI_Standard",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
-							"baseParameters": {
-								"endDate": {
-									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@formatDateTime(addDays(pipeline().triggerTime,-7),'yyyy-MM-dd')",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks2",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Playlist_Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
-							"baseParameters": {
-								"endDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime,-12), -7), 'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime,-12),'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"interval": "7"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks2",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks2')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Silver_SqlServer')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -10048,7 +9867,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/test_KPI_pipeline')]",
+			"name": "[concat(parameters('factoryName'), '/full_KPI_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -10181,11 +10000,11 @@
 									"type": "Expression"
 								},
 								"postTableName": {
-									"value": "by_post",
+									"value": "by_post_",
 									"type": "Expression"
 								},
 								"userTableName": {
-									"value": "by_user",
+									"value": "by_user_",
 									"type": "Expression"
 								},
 								"testNumber": {
@@ -10214,6 +10033,12 @@
 								"activity": "Coin Bi-Weekly",
 								"dependencyConditions": [
 									"Succeeded",
+									"Failed"
+								]
+							},
+							{
+								"activity": "Coin Weekly",
+								"dependencyConditions": [
 									"Failed"
 								]
 							}
@@ -10253,7 +10078,7 @@
 						}
 					},
 					{
-						"name": "KPI SearchUsage",
+						"name": "KPI Search Usage",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -10301,11 +10126,11 @@
 						}
 					},
 					{
-						"name": "Feature Usage",
+						"name": "KPI Feature Usage",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "User info",
+								"activity": "KPI User info",
 								"dependencyConditions": [
 									"Succeeded",
 									"Failed"
@@ -10349,11 +10174,11 @@
 						}
 					},
 					{
-						"name": "User info",
+						"name": "KPI User info",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "KPI SearchUsage",
+								"activity": "KPI Search Usage",
 								"dependencyConditions": [
 									"Succeeded",
 									"Failed"
@@ -10397,13 +10222,14 @@
 						}
 					},
 					{
-						"name": "User Performin",
+						"name": "KPI User Performing",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Feature Usage",
+								"activity": "KPI Feature Usage",
 								"dependencyConditions": [
-									"Succeeded"
+									"Succeeded",
+									"Failed"
 								]
 							}
 						],
@@ -10480,17 +10306,111 @@
 									"type": "Expression"
 								},
 								"postTableName": {
-									"value": "by_post",
+									"value": "by_post_bi_weekly_",
 									"type": "Expression"
 								},
 								"userTableName": {
-									"value": "by_user",
+									"value": "by_user_bi_weekly_",
 									"type": "Expression"
 								},
 								"testNumber": {
 									"value": "@pipeline().parameters.testNumber",
 									"type": "Expression"
 								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Coin Weekly",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Coin Bi-Weekly",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
+							"baseParameters": {
+								"endDate": {
+									"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7",
+								"timeback": "7",
+								"isTest": {
+									"value": "@pipeline().parameters.isTest",
+									"type": "Expression"
+								},
+								"postTableName": {
+									"value": "by_post_weekly_",
+									"type": "Expression"
+								},
+								"userTableName": {
+									"value": "by_user_weekly_",
+									"type": "Expression"
+								},
+								"testNumber": {
+									"value": "@pipeline().parameters.testNumber",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "KPI Playlist Usage",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "KPI User Performing",
+								"dependencyConditions": [
+									"Succeeded",
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
+							"baseParameters": {
+								"startDate": {
+									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"interval": "7"
 							}
 						},
 						"linkedServiceName": {
@@ -10522,7 +10442,7 @@
 					}
 				},
 				"folder": {
-					"name": "Dev/Draft"
+					"name": "KPIs"
 				},
 				"annotations": []
 			},
@@ -10637,6 +10557,27 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/test_blinkoo_gold_delta_dataset')]",
 				"[concat(variables('factoryId'), '/datasets/test_delimited_text_kpi_featureusage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_dataset_test_v0')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_test_v0",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "feature_usage_monthly"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_test_v0')]"
 			]
 		},
 		{
@@ -12885,6 +12826,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase_test_v0')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Rest_loganalytics')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -13028,11 +12982,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
+							"referenceName": "full_KPI_pipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"isTest": "[parameters('Kpis_trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 						}
 					}
 				],
@@ -13058,7 +13012,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
+				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
 			]
 		},
 		{
@@ -13071,12 +13025,12 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "test_KPI_pipeline",
+							"referenceName": "full_KPI_pipeline",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"testNumber": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_testNumber')]",
-							"isTest": "[parameters('Testing_Trigger_properties_test_KPI_pipeline_parameters_isTest')]"
+							"testNumber": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]",
+							"isTest": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 						}
 					}
 				],
@@ -13091,7 +13045,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/test_KPI_pipeline')]"
+				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
 			]
 		},
 		{
@@ -13171,47 +13125,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Playlist_Usage')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Weekly_Playlist_Usage",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-08-01T14:23:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								9
-							],
-							"weekDays": [
-								"Wednesday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Weekly_Playlist_Usage')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ManagedVirtualNetworkIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -13230,112 +13143,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sqlConnectionTest')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureDatabricksDeltaLakeSource",
-								"query": "SELECT * FROM blinkoo_gold.kpi_featureusage;",
-								"exportSettings": {
-									"type": "AzureDatabricksDeltaLakeExportCommand"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": true,
-							"stagingSettings": {
-								"linkedServiceName": {
-									"referenceName": "AzureDataLakeStorageDev",
-									"type": "LinkedServiceReference"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "test_blinkoo_gold_delta_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AzureSqlTable_dataset_test_v0",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "Dev"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/test_blinkoo_gold_delta_dataset')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable_dataset_test_v0')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorageDev')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase_test_v0')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable_dataset_test_v0')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_test_v0",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "feature_usage_monthly"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_test_v0')]"
-			]
 		}
 	]
 }
