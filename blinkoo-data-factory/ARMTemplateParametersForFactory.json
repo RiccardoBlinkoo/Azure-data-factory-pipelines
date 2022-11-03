@@ -20,6 +20,9 @@
 		"test_blinkoo_gold_connection_accessToken": {
 			"value": ""
 		},
+		"AzureSqlDatabase_test_v0_connectionString": {
+			"value": ""
+		},
 		"AzureDataLakeStorageDev_properties_typeProperties_url": {
 			"value": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
