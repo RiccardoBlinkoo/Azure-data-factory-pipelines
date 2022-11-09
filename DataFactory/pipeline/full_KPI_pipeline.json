@@ -169,7 +169,8 @@
 					{
 						"activity": "Coin Weekly",
 						"dependencyConditions": [
-							"Failed"
+							"Failed",
+							"Succeeded"
 						]
 					}
 				],
