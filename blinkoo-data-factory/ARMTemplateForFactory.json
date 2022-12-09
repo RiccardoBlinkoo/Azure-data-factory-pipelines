@@ -9259,7 +9259,7 @@
 					},
 					"start_time": {
 						"type": "string",
-						"defaultValue": "2022-07-01 03:00:00"
+						"defaultValue": "2022-12-06 09:00:00"
 					}
 				},
 				"variables": {
@@ -12982,7 +12982,7 @@
 								0
 							],
 							"hours": [
-								6
+								7
 							],
 							"weekDays": [
 								"Wednesday"
