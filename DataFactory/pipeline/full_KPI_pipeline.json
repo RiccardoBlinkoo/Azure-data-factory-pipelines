@@ -116,11 +116,11 @@
 					"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 					"baseParameters": {
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -328,7 +328,7 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 					"baseParameters": {
 						"startDate": {
-							"value": "@formatDateTime(addDays(pipeline().triggerTime, -7), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"endDate": {
@@ -423,11 +423,11 @@
 					"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 					"baseParameters": {
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
@@ -478,11 +478,11 @@
 					"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 					"baseParameters": {
 						"endDate": {
-							"value": "@formatDateTime(pipeline().triggerTime, 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+							"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
 						"interval": "7",
