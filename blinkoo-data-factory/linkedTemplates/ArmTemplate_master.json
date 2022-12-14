@@ -142,7 +142,7 @@
 		},
 		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
-			"defaultValue": "@trigger.startTime"
+			"defaultValue": "@trigger().startTime"
 		},
 		"containerUri": {
 			"type": "string",

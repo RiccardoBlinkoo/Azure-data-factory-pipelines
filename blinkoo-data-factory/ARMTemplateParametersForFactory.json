@@ -114,7 +114,7 @@
 			"value": "@trigger().startTime"
 		},
 		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
-			"value": "@trigger.startTime"
+			"value": "@trigger().startTime"
 		}
 	}
 }
