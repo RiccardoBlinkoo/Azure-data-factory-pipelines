@@ -12,6 +12,17 @@
 				"parameters": {
 					"triggerTime": "@trigger().startTime"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "full_KPI_pipeline",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"triggerTime": "@trigger().startTime",
+					"testNumber": "31",
+					"isTest": "True"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
