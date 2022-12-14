@@ -73,6 +73,48 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TestTime')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Set variable1",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-3),'yyyy-MM-dd HH-mm-ss')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"start_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Dev"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Full_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -924,6 +966,12 @@
 					},
 					"Table": {
 						"type": "String"
+					},
+					"TriggerTime": {
+						"type": "String"
+					},
+					"start_time": {
+						"type": "String"
 					}
 				},
 				"folder": {
@@ -1650,6 +1698,14 @@
 						"defaultValue": "riccardo.perelli@blinkoo.com"
 					}
 				},
+				"variables": {
+					"TriggerTime": {
+						"type": "String"
+					},
+					"start_time": {
+						"type": "String"
+					}
+				},
 				"folder": {
 					"name": "KPIs"
 				},
@@ -1795,33 +1851,6 @@
 						"type": "AzureBlobFSLocation",
 						"fileName": "Feed_delta",
 						"folderPath": "Feed",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Sink_GeoLocation')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "GeoLocation",
-						"folderPath": "GeoLocation",
 						"fileSystem": "bronze"
 					},
 					"compressionCodec": "snappy"

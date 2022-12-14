@@ -13,6 +13,33 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Sink_GeoLocation')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageDev",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "GeoLocation",
+						"folderPath": "GeoLocation",
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Sink_Geometry')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1746,210 +1773,6 @@
 					"relativeUrl": "query"
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/test_blinkoo_gold_delta_dataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "test_blinkoo_gold_connection",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureDatabricksDeltaLakeDataset",
-				"typeProperties": {
-					"database": "blinkoo_gold",
-					"table": "kpi_featureusage"
-				},
-				"schema": [
-					{
-						"name": "metricName",
-						"type": "string"
-					},
-					{
-						"name": "nUsers",
-						"type": "double"
-					},
-					{
-						"name": "nOfSessionsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionTimeInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "longestSessionInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "meanSessionInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "medianSessionInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnFeedInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnNewFeedInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnSearchInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnPostDetailInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnPlaylistInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "totalSessionOnCreatorProfileInSecondsWeek",
-						"type": "double"
-					},
-					{
-						"name": "medianNOfVideoPerSessionWeek",
-						"type": "double"
-					},
-					{
-						"name": "nLikeWeek",
-						"type": "double"
-					},
-					{
-						"name": "nBookmarkWeek",
-						"type": "double"
-					},
-					{
-						"name": "nUnbookmarkWeek",
-						"type": "double"
-					},
-					{
-						"name": "nBookWeek",
-						"type": "double"
-					},
-					{
-						"name": "nSharesWeek",
-						"type": "double"
-					},
-					{
-						"name": "nDetailOpeningsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nContributorProfileOpeningsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nMapOpeningsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nPlaylistOpeningsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nTagClickAndFeedScrollWeek",
-						"type": "double"
-					},
-					{
-						"name": "nViewsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nSkipsWeek",
-						"type": "double"
-					},
-					{
-						"name": "nWordsSearchedWeek",
-						"type": "double"
-					},
-					{
-						"name": "updatedAt",
-						"type": "timestamp"
-					},
-					{
-						"name": "from",
-						"type": "timestamp"
-					},
-					{
-						"name": "to",
-						"type": "timestamp"
-					},
-					{
-						"name": "dayOfWeek",
-						"type": "integer"
-					},
-					{
-						"name": "weekOfYear",
-						"type": "integer"
-					},
-					{
-						"name": "Year",
-						"type": "integer"
-					},
-					{
-						"name": "Month",
-						"type": "integer"
-					},
-					{
-						"name": "Day",
-						"type": "integer"
-					},
-					{
-						"name": "repoWeek",
-						"type": "integer"
-					},
-					{
-						"name": "displayName",
-						"type": "string"
-					},
-					{
-						"name": "Timestamp",
-						"type": "timestamp"
-					},
-					{
-						"name": "searchedWord",
-						"type": "string"
-					},
-					{
-						"name": "nResults",
-						"type": "integer"
-					},
-					{
-						"name": "tagSelected",
-						"type": "string"
-					},
-					{
-						"name": "nTagsOn",
-						"type": "integer"
-					},
-					{
-						"name": "tagsOn",
-						"type": "string"
-					},
-					{
-						"name": "sourceOfSelection",
-						"type": "string"
-					},
-					{
-						"name": "Success",
-						"type": "integer"
-					},
-					{
-						"name": "tagName",
-						"type": "string"
-					}
-				]
 			},
 			"dependsOn": []
 		}

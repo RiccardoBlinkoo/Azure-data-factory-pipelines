@@ -46,14 +46,6 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
-			"type": "string",
-			"defaultValue": "31"
-		},
-		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "True"
-		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -114,6 +106,210 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/test_blinkoo_gold_delta_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "test_blinkoo_gold_connection",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLakeDataset",
+				"typeProperties": {
+					"database": "blinkoo_gold",
+					"table": "kpi_featureusage"
+				},
+				"schema": [
+					{
+						"name": "metricName",
+						"type": "string"
+					},
+					{
+						"name": "nUsers",
+						"type": "double"
+					},
+					{
+						"name": "nOfSessionsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionTimeInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "longestSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "meanSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "medianSessionInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnFeedInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnNewFeedInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnSearchInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnPostDetailInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnPlaylistInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "totalSessionOnCreatorProfileInSecondsWeek",
+						"type": "double"
+					},
+					{
+						"name": "medianNOfVideoPerSessionWeek",
+						"type": "double"
+					},
+					{
+						"name": "nLikeWeek",
+						"type": "double"
+					},
+					{
+						"name": "nBookmarkWeek",
+						"type": "double"
+					},
+					{
+						"name": "nUnbookmarkWeek",
+						"type": "double"
+					},
+					{
+						"name": "nBookWeek",
+						"type": "double"
+					},
+					{
+						"name": "nSharesWeek",
+						"type": "double"
+					},
+					{
+						"name": "nDetailOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nContributorProfileOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nMapOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nPlaylistOpeningsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nTagClickAndFeedScrollWeek",
+						"type": "double"
+					},
+					{
+						"name": "nViewsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nSkipsWeek",
+						"type": "double"
+					},
+					{
+						"name": "nWordsSearchedWeek",
+						"type": "double"
+					},
+					{
+						"name": "updatedAt",
+						"type": "timestamp"
+					},
+					{
+						"name": "from",
+						"type": "timestamp"
+					},
+					{
+						"name": "to",
+						"type": "timestamp"
+					},
+					{
+						"name": "dayOfWeek",
+						"type": "integer"
+					},
+					{
+						"name": "weekOfYear",
+						"type": "integer"
+					},
+					{
+						"name": "Year",
+						"type": "integer"
+					},
+					{
+						"name": "Month",
+						"type": "integer"
+					},
+					{
+						"name": "Day",
+						"type": "integer"
+					},
+					{
+						"name": "repoWeek",
+						"type": "integer"
+					},
+					{
+						"name": "displayName",
+						"type": "string"
+					},
+					{
+						"name": "Timestamp",
+						"type": "timestamp"
+					},
+					{
+						"name": "searchedWord",
+						"type": "string"
+					},
+					{
+						"name": "nResults",
+						"type": "integer"
+					},
+					{
+						"name": "tagSelected",
+						"type": "string"
+					},
+					{
+						"name": "nTagsOn",
+						"type": "integer"
+					},
+					{
+						"name": "tagsOn",
+						"type": "string"
+					},
+					{
+						"name": "sourceOfSelection",
+						"type": "string"
+					},
+					{
+						"name": "Success",
+						"type": "integer"
+					},
+					{
+						"name": "tagName",
+						"type": "string"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/test_delimited_text_kpi_featureusage')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -169,6 +365,34 @@
 						"interval": 1,
 						"startTime": "2022-05-13T18:00:00Z",
 						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
@@ -452,6 +676,12 @@
 				"variables": {
 					"EndTime": {
 						"type": "String"
+					},
+					"TriggerTime": {
+						"type": "String"
+					},
+					"start_time": {
+						"type": "String"
 					}
 				},
 				"folder": {
@@ -581,6 +811,12 @@
 				},
 				"variables": {
 					"EndTime": {
+						"type": "String"
+					},
+					"TriggerTime": {
+						"type": "String"
+					},
+					"start_time": {
 						"type": "String"
 					}
 				},
@@ -1129,6 +1365,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/test_blinkoo_gold_delta_dataset')]",
 				"[concat(variables('factoryId'), '/datasets/test_delimited_text_kpi_featureusage')]"
 			]
 		},
@@ -1168,37 +1405,6 @@
 								"Wednesday"
 							]
 						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "full_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"testNumber": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]",
-							"isTest": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
