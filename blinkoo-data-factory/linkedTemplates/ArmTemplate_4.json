@@ -42,10 +42,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
@@ -66,6 +62,10 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -369,36 +369,6 @@
 						"interval": 1,
 						"startTime": "2022-05-13T18:00:00Z",
 						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "TestTime",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
@@ -1435,6 +1405,36 @@
 								"Wednesday"
 							]
 						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},

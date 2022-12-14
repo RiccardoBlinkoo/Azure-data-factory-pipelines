@@ -34,6 +34,10 @@
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0304-092528-p5078pvj"
+		},
+		"Rest_loganalytics_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		}
 	},
 	"variables": {
@@ -3401,48 +3405,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/TestTime')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-3),'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Dev"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorageDev')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -3504,6 +3466,27 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Rest_loganalytics')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"WorkSpaceID": {
+						"type": "string",
+						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+					}
+				},
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('Rest_loganalytics_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
 				}
 			},
 			"dependsOn": []
