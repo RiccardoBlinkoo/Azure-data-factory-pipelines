@@ -86,6 +86,9 @@
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"value": [
 				"categories",
@@ -111,9 +114,6 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-			"value": "@trigger().startTime"
-		},
-		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		}
 	}

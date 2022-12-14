@@ -109,6 +109,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -137,10 +141,6 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		}
@@ -9770,7 +9770,14 @@
 					{
 						"name": "PreDeepSession",
 						"type": "DatabricksNotebook",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Set End time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -9783,11 +9790,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"testNumber": {
@@ -9835,11 +9842,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -9881,11 +9888,11 @@
 							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 							"baseParameters": {
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -9951,11 +9958,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"isTest": {
@@ -9997,11 +10004,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"isTest": {
@@ -10045,11 +10052,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -10093,11 +10100,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -10141,11 +10148,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -10188,11 +10195,11 @@
 							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 							"baseParameters": {
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -10243,11 +10250,11 @@
 							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
 							"baseParameters": {
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"interval": "7",
@@ -10299,11 +10306,11 @@
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
 							"baseParameters": {
 								"startDate": {
-									"value": "@formatDateTime(addDays(addHours(pipeline().triggerTime, -6), -7), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
 								"endDate": {
-									"value": "@formatDateTime(addHours(pipeline().triggerTime, -6), 'yyyy-MM-dd HH:mm:ss')",
+									"value": "@variables('end_time')",
 									"type": "Expression"
 								},
 								"interval": "7"
@@ -10312,6 +10319,39 @@
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
 							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Start Time",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-6), -7),'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set End time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Start Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_time",
+							"value": {
+								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-6),'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -10339,6 +10379,9 @@
 				},
 				"variables": {
 					"start_time": {
+						"type": "String"
+					},
+					"end_time": {
 						"type": "String"
 					}
 				},
@@ -13053,8 +13096,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2022-10-25T06:59:59",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-10-25T06:59:59Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								59
@@ -13071,6 +13114,38 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/TestTime')]"
 			]
 		},
 		{
@@ -13168,38 +13243,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "TestTime",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/TestTime')]"
-			]
 		}
 	]
 }

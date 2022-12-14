@@ -46,6 +46,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -62,10 +66,6 @@
 			]
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -1356,8 +1356,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2022-10-25T06:59:59",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-10-25T06:59:59Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								59
@@ -1369,6 +1369,36 @@
 								"Wednesday"
 							]
 						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00Z",
+						"timeZone": "UTC"
 					}
 				}
 			},
@@ -1405,36 +1435,6 @@
 								"Wednesday"
 							]
 						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "TestTime",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
