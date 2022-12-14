@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"triggerTime": "@trigger.startTime"
+					"triggerTime": "@trigger().startTime"
 				}
 			}
 		],
