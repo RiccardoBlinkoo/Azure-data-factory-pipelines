@@ -6,16 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "full_KPI_pipeline",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"testNumber": "31",
-					"isTest": "True"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "TestTime",
 					"type": "PipelineReference"
 				}
