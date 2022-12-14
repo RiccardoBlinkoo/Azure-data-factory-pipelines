@@ -8,6 +8,9 @@
 				"pipelineReference": {
 					"referenceName": "TestTime",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"triggerTime": "@trigger.startTime"
 				}
 			}
 		],
