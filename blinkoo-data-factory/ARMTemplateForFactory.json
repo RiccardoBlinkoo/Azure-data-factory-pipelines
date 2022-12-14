@@ -105,6 +105,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
@@ -112,6 +116,18 @@
 		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "31"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
@@ -13087,6 +13103,7 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
+							"triggerTime": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
 							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 						}
 					}
@@ -13132,6 +13149,17 @@
 						"parameters": {
 							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "full_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
+							"testNumber": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]",
+							"isTest": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -13145,7 +13173,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/TestTime')]"
+				"[concat(variables('factoryId'), '/pipelines/TestTime')]",
+				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
 			]
 		},
 		{

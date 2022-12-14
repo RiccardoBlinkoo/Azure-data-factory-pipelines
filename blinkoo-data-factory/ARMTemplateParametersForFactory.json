@@ -83,11 +83,23 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
 		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"value": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+			"value": "31"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+			"value": "True"
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"value": [

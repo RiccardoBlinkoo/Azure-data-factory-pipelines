@@ -105,6 +105,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
@@ -112,6 +116,18 @@
 		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "31"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
@@ -297,11 +313,23 @@
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
 					},
+					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
+					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
 					"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
 						"value": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
 					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
