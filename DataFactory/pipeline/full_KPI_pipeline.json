@@ -162,14 +162,12 @@
 					{
 						"activity": "Coin Monthly",
 						"dependencyConditions": [
-							"Succeeded",
 							"Failed"
 						]
 					},
 					{
 						"activity": "Coin Bi-Weekly",
 						"dependencyConditions": [
-							"Succeeded",
 							"Failed"
 						]
 					},
