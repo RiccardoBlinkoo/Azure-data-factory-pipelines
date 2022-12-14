@@ -19,8 +19,8 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 1,
-				"startTime": "2022-09-28T11:33:00",
-				"timeZone": "W. Europe Standard Time"
+				"startTime": "2022-09-28T11:33:00Z",
+				"timeZone": "UTC"
 			}
 		}
 	}
