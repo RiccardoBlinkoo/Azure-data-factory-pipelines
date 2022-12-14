@@ -568,6 +568,14 @@
 				"defaultValue": "riccardo.perelli@blinkoo.com"
 			}
 		},
+		"variables": {
+			"TriggerTime": {
+				"type": "String"
+			},
+			"start_time": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "KPIs"
 		},

@@ -1,0 +1,35 @@
+{
+	"name": "TestTime",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "start_time",
+					"value": {
+						"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-3),'yyyy-MM-dd HH-mm-ss')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"triggerTime": {
+				"type": "string",
+				"defaultValue": "@trigger().startTime"
+			}
+		},
+		"variables": {
+			"start_time": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Dev"
+		},
+		"annotations": []
+	}
+}
