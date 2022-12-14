@@ -139,6 +139,10 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger.startTime"
 		}
 	},
 	"variables": {
@@ -613,12 +617,6 @@
 						"type": "String"
 					},
 					"end_date": {
-						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
 						"type": "String"
 					}
 				},
@@ -8363,12 +8361,6 @@
 				"variables": {
 					"EndTime": {
 						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
-						"type": "String"
 					}
 				},
 				"folder": {
@@ -8501,12 +8493,6 @@
 				},
 				"variables": {
 					"EndTime": {
-						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
 						"type": "String"
 					}
 				},
@@ -9278,12 +9264,6 @@
 					},
 					"Table": {
 						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
-						"type": "String"
 					}
 				},
 				"folder": {
@@ -9295,6 +9275,48 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TestTime')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Set variable1",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-3),'yyyy-MM-dd')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"start_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Dev"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",
@@ -13020,36 +13042,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "TestTime",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2022-09-28T11:33:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/TestTime')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/WeeklyCosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -13146,46 +13138,36 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/TestTime')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
 					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-3),'yyyy-MM-dd')",
-								"type": "Expression"
-							}
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00",
+						"timeZone": "W. Europe Standard Time"
 					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Dev"
-				},
-				"annotations": []
+				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/TestTime')]"
+			]
 		}
 	]
 }

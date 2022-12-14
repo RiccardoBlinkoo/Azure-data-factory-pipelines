@@ -208,12 +208,6 @@
 					},
 					"end_date": {
 						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
-						"type": "String"
 					}
 				},
 				"folder": {

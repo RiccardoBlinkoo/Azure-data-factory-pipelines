@@ -140,6 +140,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger.startTime"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -205,9 +209,6 @@
 					},
 					"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
-					},
-					"Rest_loganalytics_properties_typeProperties_url": {
-						"value": "[parameters('Rest_loganalytics_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -234,6 +235,9 @@
 					},
 					"test_blinkoo_gold_connection_accessToken": {
 						"value": "[parameters('test_blinkoo_gold_connection_accessToken')]"
+					},
+					"Rest_loganalytics_properties_typeProperties_url": {
+						"value": "[parameters('Rest_loganalytics_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -292,6 +296,9 @@
 					},
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
+					},
+					"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+						"value": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
 					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"

@@ -42,6 +42,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger.startTime"
+		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"type": "string",
 			"defaultValue": "False"
@@ -376,14 +380,16 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
 							"referenceName": "TestTime",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -676,12 +682,6 @@
 				"variables": {
 					"EndTime": {
 						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
-						"type": "String"
 					}
 				},
 				"folder": {
@@ -811,12 +811,6 @@
 				},
 				"variables": {
 					"EndTime": {
-						"type": "String"
-					},
-					"TriggerTime": {
-						"type": "String"
-					},
-					"start_time": {
 						"type": "String"
 					}
 				},
