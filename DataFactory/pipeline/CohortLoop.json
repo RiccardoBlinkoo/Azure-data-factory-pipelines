@@ -1,0 +1,95 @@
+{
+	"name": "CohortLoop",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline.parameters.startDate",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Notebook1",
+							"type": "DatabricksNotebook",
+							"dependsOn": [
+								{
+									"activity": "Set Variable End Date",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/OnRequestExtractions/CohortAnalysisForAndroidUsers",
+								"baseParameters": {
+									"startDate": {
+										"value": "@variables('startDate')",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Set Variable End Date",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "startDate",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"startDate": {
+				"type": "string",
+				"defaultValue": [
+					"2022-11-23 00:00:00",
+					"2022-11-24 00:00:00",
+					"2022-11-25 00:00:00",
+					"2022-11-26 00:00:00",
+					"2022-11-27 00:00:00",
+					"2022-11-28 00:00:00",
+					"2022-11-29 00:00:00",
+					"2022-11-30 00:00:00",
+					"2022-12-01 00:00:00",
+					"2022-12-02 00:00:00",
+					"2022-12-03 00:00:00"
+				]
+			}
+		},
+		"variables": {
+			"startDate": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": []
+	}
+}
