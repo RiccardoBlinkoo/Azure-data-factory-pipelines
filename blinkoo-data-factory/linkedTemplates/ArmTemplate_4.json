@@ -433,7 +433,13 @@
 											"startDate": {
 												"value": "@variables('startDate')",
 												"type": "Expression"
-											}
+											},
+											"endDate": {
+												"value": "@variables('endDate')",
+												"type": "Expression"
+											},
+											"isTest": "False",
+											"testNumber": "35"
 										}
 									},
 									"linkedServiceName": {
@@ -442,7 +448,7 @@
 									}
 								},
 								{
-									"name": "Set Variable End Date",
+									"name": "Set Variable Start Date",
 									"type": "SetVariable",
 									"dependsOn": [],
 									"userProperties": [],
@@ -450,6 +456,26 @@
 										"variableName": "startDate",
 										"value": {
 											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Set Variable End Date",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Set Variable Start Date",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "endDate",
+										"value": {
+											"value": "@formatDateTime(addDays(variables('startDate'),1), 'yyyy-MM-dd HH:mm:ss')",
 											"type": "Expression"
 										}
 									}
@@ -482,6 +508,9 @@
 				},
 				"variables": {
 					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
 						"type": "String"
 					}
 				},
