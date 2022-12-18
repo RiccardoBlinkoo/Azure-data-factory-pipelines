@@ -924,6 +924,9 @@
 					},
 					"Table": {
 						"type": "String"
+					},
+					"startDate": {
+						"type": "String"
 					}
 				},
 				"folder": {
@@ -1768,6 +1771,9 @@
 						"type": "String"
 					},
 					"end_time": {
+						"type": "String"
+					},
+					"startDate": {
 						"type": "String"
 					}
 				},
