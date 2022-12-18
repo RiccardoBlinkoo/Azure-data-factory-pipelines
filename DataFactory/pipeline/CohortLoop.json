@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline.parameters.startDate",
+						"value": "@pipeline().parameters.startDate",
 						"type": "Expression"
 					},
 					"isSequential": true,
