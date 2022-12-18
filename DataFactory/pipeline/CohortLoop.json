@@ -40,7 +40,10 @@
 										"value": "@variables('startDate')",
 										"type": "Expression"
 									},
-									"endDate": "",
+									"endDate": {
+										"value": "@variables('endDate')",
+										"type": "Expression"
+									},
 									"isTest": "False",
 									"testNumber": "35"
 								}
