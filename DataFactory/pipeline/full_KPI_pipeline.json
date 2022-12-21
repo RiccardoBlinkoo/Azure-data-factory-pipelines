@@ -160,18 +160,6 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Coin Monthly",
-						"dependencyConditions": [
-							"Failed"
-						]
-					},
-					{
-						"activity": "Coin Bi-Weekly",
-						"dependencyConditions": [
-							"Failed"
-						]
-					},
-					{
 						"activity": "Coin Weekly",
 						"dependencyConditions": [
 							"Failed",
@@ -412,7 +400,8 @@
 					{
 						"activity": "Coin Monthly",
 						"dependencyConditions": [
-							"Succeeded"
+							"Succeeded",
+							"Failed"
 						]
 					}
 				],
@@ -467,7 +456,8 @@
 					{
 						"activity": "Coin Bi-Weekly",
 						"dependencyConditions": [
-							"Succeeded"
+							"Succeeded",
+							"Failed"
 						]
 					}
 				],
