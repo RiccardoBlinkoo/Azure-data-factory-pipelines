@@ -319,6 +319,168 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/NewExtractionsLoop')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.startDate",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Notebook1",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set Variable End Date",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
+										"baseParameters": {
+											"startDate": {
+												"value": "@variables('startDate')",
+												"type": "Expression"
+											},
+											"endDate": {
+												"value": "@variables('endDate')",
+												"type": "Expression"
+											},
+											"isTest": "False"
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "Set Variable Start Date",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "startDate",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Set Variable End Date",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Set Variable Start Date",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "endDate",
+										"value": {
+											"value": "@formatDateTime(addDays(variables('startDate'),7), 'yyyy-MM-dd HH:mm:ss')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"startDate": {
+						"type": "array",
+						"defaultValue": [
+							"2022-02-23 00:00:00",
+							"2022-03-02 00:00:00",
+							"2022-03-09 00:00:00",
+							"2022-03-16 00:00:00",
+							"2022-03-23 00:00:00",
+							"2022-03-30 00:00:00",
+							"2022-04-06 00:00:00",
+							"2022-04-13 00:00:00",
+							"2022-04-20 00:00:00",
+							"2022-04-27 00:00:00",
+							"2022-05-04 00:00:00",
+							"2022-05-11 00:00:00",
+							"2022-05-18 00:00:00",
+							"2022-05-25 00:00:00",
+							"2022-06-01 00:00:00",
+							"2022-06-08 00:00:00",
+							"2022-06-15 00:00:00",
+							"2022-06-22 00:00:00",
+							"2022-06-29 00:00:00",
+							"2022-07-06 00:00:00",
+							"2022-07-13 00:00:00",
+							"2022-07-20 00:00:00",
+							"2022-07-27 00:00:00",
+							"2022-08-03 00:00:00",
+							"2022-08-10 00:00:00",
+							"2022-08-17 00:00:00",
+							"2022-08-24 00:00:00",
+							"2022-08-31 00:00:00",
+							"2022-09-07 00:00:00",
+							"2022-09-14 00:00:00",
+							"2022-09-21 00:00:00",
+							"2022-09-28 00:00:00",
+							"2022-10-05 00:00:00",
+							"2022-10-12 00:00:00",
+							"2022-10-19 00:00:00",
+							"2022-10-26 00:00:00",
+							"2022-11-02 00:00:00",
+							"2022-11-09 00:00:00",
+							"2022-11-16 00:00:00",
+							"2022-11-23 00:00:00",
+							"2022-11-30 00:00:00",
+							"2022-12-07 00:00:00",
+							"2022-12-14 00:00:00"
+						]
+					}
+				},
+				"variables": {
+					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Silver_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1313,18 +1475,6 @@
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Coin Monthly",
-								"dependencyConditions": [
-									"Failed"
-								]
-							},
-							{
-								"activity": "Coin Bi-Weekly",
-								"dependencyConditions": [
-									"Failed"
-								]
-							},
-							{
 								"activity": "Coin Weekly",
 								"dependencyConditions": [
 									"Failed",
@@ -1565,7 +1715,8 @@
 							{
 								"activity": "Coin Monthly",
 								"dependencyConditions": [
-									"Succeeded"
+									"Succeeded",
+									"Failed"
 								]
 							}
 						],
@@ -1620,7 +1771,8 @@
 							{
 								"activity": "Coin Bi-Weekly",
 								"dependencyConditions": [
-									"Succeeded"
+									"Succeeded",
+									"Failed"
 								]
 							}
 						],
@@ -1931,33 +2083,6 @@
 						"type": "AzureBlobFSLocation",
 						"fileName": "Categories",
 						"folderPath": "Categories",
-						"fileSystem": "bronze"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Sink_Feed')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorageDev",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Feed_delta",
-						"folderPath": "Feed",
 						"fileSystem": "bronze"
 					},
 					"compressionCodec": "snappy"
