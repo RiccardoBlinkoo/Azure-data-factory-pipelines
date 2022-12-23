@@ -126,6 +126,36 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Rest_loganalytics",
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"WorkSpaceID": "@dataset().WorkspaceID"
+					}
+				},
+				"parameters": {
+					"WorkspaceID": {
+						"type": "string",
+						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": "query"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/test_blinkoo_gold_delta_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -387,168 +417,6 @@
 						"timeZone": "UTC"
 					}
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/NewExtractionsLoop')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.startDate",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Notebook1",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set Variable End Date",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
-										"baseParameters": {
-											"startDate": {
-												"value": "@variables('startDate')",
-												"type": "Expression"
-											},
-											"endDate": {
-												"value": "@variables('endDate')",
-												"type": "Expression"
-											},
-											"isTest": "False"
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Set Variable Start Date",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "startDate",
-										"value": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Set Variable End Date",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set Variable Start Date",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "endDate",
-										"value": {
-											"value": "@formatDateTime(addDays(variables('startDate'),7), 'yyyy-MM-dd HH:mm:ss')",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"startDate": {
-						"type": "array",
-						"defaultValue": [
-							"2022-02-22 23:59:59",
-							"2022-03-01 23:59:59",
-							"2022-03-08 23:59:59",
-							"2022-03-15 23:59:59",
-							"2022-03-22 23:59:59",
-							"2022-03-29 23:59:59",
-							"2022-04-05 23:59:59",
-							"2022-04-12 23:59:59",
-							"2022-04-19 23:59:59",
-							"2022-04-26 23:59:59",
-							"2022-05-03 23:59:59",
-							"2022-05-10 23:59:59",
-							"2022-05-17 23:59:59",
-							"2022-05-24 23:59:59",
-							"2022-05-31 23:59:59",
-							"2022-06-07 23:59:59",
-							"2022-06-14 23:59:59",
-							"2022-06-21 23:59:59",
-							"2022-06-28 23:59:59",
-							"2022-07-05 23:59:59",
-							"2022-07-12 23:59:59",
-							"2022-07-19 23:59:59",
-							"2022-07-26 23:59:59",
-							"2022-08-02 23:59:59",
-							"2022-08-09 23:59:59",
-							"2022-08-16 23:59:59",
-							"2022-08-23 23:59:59",
-							"2022-08-30 23:59:59",
-							"2022-09-06 23:59:59",
-							"2022-09-13 23:59:59",
-							"2022-09-20 23:59:59",
-							"2022-09-27 23:59:59",
-							"2022-10-04 23:59:59",
-							"2022-10-11 23:59:59",
-							"2022-10-18 23:59:59",
-							"2022-10-25 23:59:59",
-							"2022-11-01 23:59:59",
-							"2022-11-08 23:59:59",
-							"2022-11-15 23:59:59",
-							"2022-11-22 23:59:59",
-							"2022-11-29 23:59:59",
-							"2022-12-06 23:59:59",
-							"2022-12-13 23:59:59"
-						]
-					}
-				},
-				"variables": {
-					"startDate": {
-						"type": "String"
-					},
-					"endDate": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		},
@@ -1400,7 +1268,9 @@
 				"annotations": [],
 				"lastPublishTime": "2022-05-31T20:08:58Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/log_analytics_dataset')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/test_email_sending')]",
