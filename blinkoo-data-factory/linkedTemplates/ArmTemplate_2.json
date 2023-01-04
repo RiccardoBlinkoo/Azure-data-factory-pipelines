@@ -1034,7 +1034,7 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Delta",
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/1 LogAnalytics/Delta",
 										"baseParameters": {
 											"Table": {
 												"value": "@variables('Table')",
