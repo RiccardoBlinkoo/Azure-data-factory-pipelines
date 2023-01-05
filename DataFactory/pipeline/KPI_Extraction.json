@@ -3,109 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "PreDeepSession",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "Set End time",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
-					"baseParameters": {
-						"startDate": {
-							"value": "@variables('start_time')",
-							"type": "Expression"
-						},
-						"endDate": {
-							"value": "@variables('end_time')",
-							"type": "Expression"
-						},
-						"testNumber": {
-							"value": "@pipeline().parameters.testNumber",
-							"type": "Expression"
-						},
-						"isTest": {
-							"value": "@pipeline().parameters.isTest",
-							"type": "Expression"
-						}
-					},
-					"libraries": [
-						{
-							"pypi": {
-								"package": "pandas==1.4.0"
-							}
-						}
-					]
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "Deep session",
-				"type": "DatabricksNotebook",
-				"dependsOn": [
-					{
-						"activity": "PreDeepSession",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
-					"baseParameters": {
-						"startDate": {
-							"value": "@variables('start_time')",
-							"type": "Expression"
-						},
-						"endDate": {
-							"value": "@variables('end_time')",
-							"type": "Expression"
-						},
-						"interval": "7",
-						"isTest": {
-							"value": "@pipeline().parameters.isTest",
-							"type": "Expression"
-						},
-						"testNumber": {
-							"value": "@pipeline().parameters.testNumber",
-							"type": "Expression"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "Coin Monthly",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Deep session",
+						"activity": "Set End time",
 						"dependencyConditions": [
 							"Succeeded"
 						]
