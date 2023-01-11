@@ -126,6 +126,189 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/bronze_container')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageDev",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "gzip"
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "UTF8"
+					},
+					{
+						"name": "type",
+						"type": "UTF8"
+					},
+					{
+						"name": "geometry_type",
+						"type": "UTF8"
+					},
+					{
+						"name": "geometry_coordinates",
+						"type": "UTF8"
+					},
+					{
+						"name": "key",
+						"type": "UTF8"
+					},
+					{
+						"name": "name",
+						"type": "UTF8"
+					},
+					{
+						"name": "level_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "level_key",
+						"type": "UTF8"
+					},
+					{
+						"name": "level",
+						"type": "INT64"
+					},
+					{
+						"name": "properties_sub_areas",
+						"type": "UTF8"
+					},
+					{
+						"name": "area",
+						"type": "UTF8"
+					},
+					{
+						"name": "area_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "_rid",
+						"type": "UTF8"
+					},
+					{
+						"name": "_self",
+						"type": "UTF8"
+					},
+					{
+						"name": "_etag",
+						"type": "UTF8"
+					},
+					{
+						"name": "_attachments",
+						"type": "UTF8"
+					},
+					{
+						"name": "_ts",
+						"type": "INT64"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/bronze_feed')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorageDev",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Feed",
+						"fileSystem": "bronze"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "UTF8"
+					},
+					{
+						"name": "type",
+						"type": "UTF8"
+					},
+					{
+						"name": "geometry_type",
+						"type": "UTF8"
+					},
+					{
+						"name": "geometry_coordinates",
+						"type": "UTF8"
+					},
+					{
+						"name": "key",
+						"type": "UTF8"
+					},
+					{
+						"name": "name",
+						"type": "UTF8"
+					},
+					{
+						"name": "level_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "level_key",
+						"type": "UTF8"
+					},
+					{
+						"name": "level",
+						"type": "INT64"
+					},
+					{
+						"name": "properties_sub_areas",
+						"type": "UTF8"
+					},
+					{
+						"name": "area",
+						"type": "UTF8"
+					},
+					{
+						"name": "area_name",
+						"type": "UTF8"
+					},
+					{
+						"name": "_rid",
+						"type": "UTF8"
+					},
+					{
+						"name": "_self",
+						"type": "UTF8"
+					},
+					{
+						"name": "_etag",
+						"type": "UTF8"
+					},
+					{
+						"name": "_attachments",
+						"type": "UTF8"
+					},
+					{
+						"name": "_ts",
+						"type": "INT64"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/log_analytics_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -417,1314 +600,6 @@
 						"timeZone": "UTC"
 					}
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/KPI_Extraction')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Coin Monthly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "30",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Standard",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Weekly",
-								"dependencyConditions": [
-									"Failed",
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Search Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Standard",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"searchedWords": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Feature Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI User info",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_featureusage",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI User info",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Search Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_userinfo",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI User Performing",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Feature Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_userperforming",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Coin Bi-Weekly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Monthly",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "14",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_bi_weekly_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_bi_weekly_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Coin Weekly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Bi-Weekly",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "7",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_weekly_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_weekly_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Playlist Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI User Performing",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-6), -7),'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-6),'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "In app Times",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Playlist Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Post publication",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "In app Times",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					},
-					"testNumber": {
-						"type": "string",
-						"defaultValue": "@trigger().parameters.testNumber"
-					},
-					"isTest": {
-						"type": "string",
-						"defaultValue": "@trigger().parameters.isTest"
-					},
-					"receiver": {
-						"type": "string",
-						"defaultValue": "riccardo.perelli@blinkoo.com"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DeepS_Calculation')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "PreDeepSession",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/Pre - DeepSession - Test",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								}
-							},
-							"libraries": [
-								{
-									"pypi": {
-										"package": "pandas==1.4.0"
-									}
-								}
-							]
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Deep session",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "PreDeepSession",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/DeepSession/DeepSession - Test",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Coin Monthly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Deep session",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "30",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Standard",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Weekly",
-								"dependencyConditions": [
-									"Failed",
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/KPI_standard",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Search Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Standard",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"searchedWords": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Feature Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI User info",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_featureusage",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI User info",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Search Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_userinfo",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI User Performing",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Feature Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/FeatureUsage_+_UserInfo_+_Performing",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"extractionName": "kpi_userperforming",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Coin Bi-Weekly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Monthly",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "14",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_bi_weekly_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_bi_weekly_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Coin Weekly",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Coin Bi-Weekly",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/enrico.sartor@blinkoo.com/badges_lite",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "7",
-								"timeback": "7",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_weekly_",
-									"type": "Expression"
-								},
-								"userTableName": {
-									"value": "by_user_weekly_",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "KPI Playlist Usage",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI User Performing",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Playlist_Usage",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"interval": "7"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@formatDateTime(addDays(addHours(pipeline().parameters.triggerTime,-6), -7),'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(addHours(pipeline().parameters.triggerTime,-6),'yyyy-MM-dd HH:mm:ss')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "In app Times",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "KPI Playlist Usage",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Post publication",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "In app Times",
-								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					},
-					"testNumber": {
-						"type": "string",
-						"defaultValue": "@trigger().parameters.testNumber"
-					},
-					"isTest": {
-						"type": "string",
-						"defaultValue": "@trigger().parameters.isTest"
-					},
-					"receiver": {
-						"type": "string",
-						"defaultValue": "riccardo.perelli@blinkoo.com"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		},
@@ -2054,7 +929,7 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/0 Bronze",
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/0 Bronze",
 										"baseParameters": {
 											"Table": {
 												"value": "@item()",
@@ -2313,7 +1188,7 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/0 Bronze",
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/0 Bronze",
 										"baseParameters": {
 											"Table": {
 												"value": "@item()",
