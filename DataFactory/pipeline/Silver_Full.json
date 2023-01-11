@@ -67,7 +67,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB Update/Silver Full",
+								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/Silver Full",
 								"baseParameters": {
 									"StartDate": {
 										"value": "@variables('StartTime')",
