@@ -122,7 +122,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"url": {
-									"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/getLogAnalyticsData",
+									"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/getLogAnalyticsData?",
 									"type": "Expression"
 								},
 								"method": "POST",
