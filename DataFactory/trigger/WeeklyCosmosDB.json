@@ -3,22 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Weekly_Bronze_SqlServer",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"categories",
-						"geo_location",
-						"places"
-					],
-					"end_time": "@trigger().startTime"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
