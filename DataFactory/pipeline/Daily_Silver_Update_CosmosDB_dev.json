@@ -27,7 +27,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/1 Silver",
+								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/1 Silver_dev",
 								"baseParameters": {
 									"Table": {
 										"value": "@item()",
