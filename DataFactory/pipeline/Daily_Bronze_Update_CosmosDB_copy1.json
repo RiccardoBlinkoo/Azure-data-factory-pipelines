@@ -1,5 +1,5 @@
 {
-	"name": "Daily_Bronze_Update_CosmosDB",
+	"name": "Daily_Bronze_Update_CosmosDB_copy1",
 	"properties": {
 		"activities": [
 			{
@@ -65,32 +65,6 @@
 							}
 						}
 					]
-				}
-			},
-			{
-				"name": "Execute Silver Update Pipeline",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "ForEach1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "Daily_Silver_Update_CosmosDB",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true,
-					"parameters": {
-						"Tables": {
-							"value": "@pipeline().parameters.Tables",
-							"type": "Expression"
-						}
-					}
 				}
 			}
 		],
