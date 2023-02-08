@@ -98,7 +98,10 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"place_tip"
+					"place_tip",
+					"categories",
+					"geo_location",
+					"places"
 				]
 			},
 			"end_time": {
