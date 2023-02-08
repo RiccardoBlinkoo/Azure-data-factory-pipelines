@@ -1,0 +1,65 @@
+{
+	"name": "Daily_Silver_Update_CosmosDB_dev",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach Table",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Tables",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Silver Update ETL",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/1 Silver",
+								"baseParameters": {
+									"Table": {
+										"value": "@item()",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Tables": {
+				"type": "array",
+				"defaultValue": [
+					"FeedList",
+					"PostStat",
+					"UserInfo",
+					"Feed"
+				]
+			}
+		},
+		"folder": {
+			"name": "Cosmos DB/Daily"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-24T04:58:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
