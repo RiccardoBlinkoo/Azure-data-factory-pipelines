@@ -75,7 +75,10 @@
 					"FeedList",
 					"PostStat",
 					"UserInfo",
-					"Feed"
+					"Feed",
+					"Categories",
+					"GeoLocation",
+					"Places"
 				]
 			},
 			"end_time": {
