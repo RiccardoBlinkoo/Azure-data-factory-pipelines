@@ -48,10 +48,24 @@
 		},
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
 			"value": [
-				"place_tip"
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
 			]
 		},
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
+			"value": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
