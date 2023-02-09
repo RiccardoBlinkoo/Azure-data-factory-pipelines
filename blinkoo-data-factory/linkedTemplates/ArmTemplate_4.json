@@ -1156,7 +1156,10 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"UserInfo"
+							"FeedList",
+							"PostStat",
+							"UserInfo",
+							"Feed"
 						]
 					},
 					"end_time": {
