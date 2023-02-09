@@ -45,20 +45,6 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "Daily_Silver_SqlServer_dev",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"place_tip",
-						"categories",
-						"geo_location",
-						"places"
-					]
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
