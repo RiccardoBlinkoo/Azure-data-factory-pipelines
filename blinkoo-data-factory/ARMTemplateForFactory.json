@@ -8632,6 +8632,7 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
+							"FeedList",
 							"PostStat",
 							"UserInfo",
 							"Feed"
@@ -8857,6 +8858,7 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
+							"FeedList",
 							"PostStat",
 							"UserInfo",
 							"Feed"
