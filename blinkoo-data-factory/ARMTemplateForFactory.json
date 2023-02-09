@@ -11292,9 +11292,7 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"Categories",
-							"GeoLocation",
-							"Places"
+							"Categories"
 						]
 					},
 					"end_time": {
@@ -11446,9 +11444,7 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"Categories",
-							"GeoLocation",
-							"Places"
+							"Categories"
 						]
 					}
 				},
