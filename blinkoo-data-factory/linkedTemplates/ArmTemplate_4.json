@@ -107,118 +107,24 @@
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"Categories",
+				"GeoLocation",
+				"Places"
+			]
+		},
+		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "2022-06-24 00:00:00"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/Source_UserInfo')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blinkoorepo",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"discriminator": {
-							"type": "string"
-						},
-						"userId": {
-							"type": "string"
-						},
-						"givenName": {
-							"type": "string"
-						},
-						"surname": {
-							"type": "string"
-						},
-						"displayName": {
-							"type": "string"
-						},
-						"profileDescription": {
-							"type": "string"
-						},
-						"avatarKey": {
-							"type": "string"
-						},
-						"profileSlug": {
-							"type": "string"
-						},
-						"isVerified": {
-							"type": "boolean"
-						},
-						"isCertified": {
-							"type": "boolean"
-						},
-						"isBackofficeMade": {
-							"type": "boolean"
-						},
-						"receivedLikesCount": {
-							"type": "integer"
-						},
-						"followingCount": {
-							"type": "integer"
-						},
-						"followerCount": {
-							"type": "integer"
-						},
-						"hasSelectedInterests": {
-							"type": "boolean"
-						},
-						"selectedInterests": {
-							"type": "array"
-						},
-						"relatedThemes": {
-							"type": "array"
-						},
-						"likedPosts": {
-							"type": "array"
-						},
-						"bookmarkedPosts": {
-							"type": "array"
-						},
-						"posts": {
-							"type": "array"
-						},
-						"excludedPosts": {
-							"type": "array"
-						},
-						"termsAndConditions": {
-							"type": "null"
-						},
-						"thirdPartyMarketing": {
-							"type": "null"
-						},
-						"userProfiling": {
-							"type": "null"
-						},
-						"createdAt": {
-							"type": "string"
-						},
-						"deletedAt": {
-							"type": "null"
-						},
-						"userDevices": {
-							"type": "array"
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "UserInfo"
-				}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/adls_bronze')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -1976,6 +1882,44 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WeeklyCosmosDB')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Weekly_Bronze_Update_CosmosDB",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]",
+							"end_time": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-07-07T03:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"weekDays": [
+								"Wednesday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Weekly_Bronze_Update_CosmosDB')]"
 			]
 		}
 	]
