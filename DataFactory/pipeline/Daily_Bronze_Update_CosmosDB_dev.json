@@ -98,7 +98,6 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"FeedList",
 					"PostStat",
 					"UserInfo",
 					"Feed"
