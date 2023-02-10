@@ -50,24 +50,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"triggerTime": {
-				"type": "string",
-				"defaultValue": "@trigger().startTime"
-			},
-			"testNumber": {
-				"type": "string",
-				"defaultValue": "@trigger().parameters.testNumber"
-			},
-			"isTest": {
-				"type": "string",
-				"defaultValue": "@trigger().parameters.isTest"
-			},
-			"receiver": {
-				"type": "string",
-				"defaultValue": "riccardo.perelli@blinkoo.com"
-			}
-		},
 		"variables": {
 			"start_time": {
 				"type": "String"
