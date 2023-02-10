@@ -334,24 +334,6 @@
 					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
-					},
-					"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
-						"value": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
-					},
-					"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
-						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
-					},
-					"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
-						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]"
-					},
-					"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
-						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
-					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
-					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					}
 				}
 			},
@@ -372,6 +354,24 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+						"value": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]"
+					},
+					"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					},
+					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

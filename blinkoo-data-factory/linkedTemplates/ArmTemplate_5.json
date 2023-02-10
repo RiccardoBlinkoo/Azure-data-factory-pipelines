@@ -7,6 +7,41 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "blinkoo-data-factory"
 		},
+		"Testing_Trigger_properties_TestTime_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber": {
+			"type": "string",
+			"defaultValue": "31"
+		},
+		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "True"
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -64,6 +99,122 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "TestTime",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_TestTime_parameters_triggerTime')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "full_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
+							"testNumber": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_testNumber')]",
+							"isTest": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 1,
+						"startTime": "2022-09-28T11:33:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Silver_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"TableNames": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
+							"start_time": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-07-13T03:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"weekDays": [
+								"Wednesday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TriggerMonday')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "UserPreferences",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-02-10T16:38:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								0
+							],
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DailyCosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -108,8 +259,7 @@
 						"frequency": "Day",
 						"interval": 1,
 						"startTime": "2022-06-02T03:00:00Z",
-						"timeZone": "UTC",
-						"schedule": {}
+						"timeZone": "UTC"
 					}
 				}
 			},
