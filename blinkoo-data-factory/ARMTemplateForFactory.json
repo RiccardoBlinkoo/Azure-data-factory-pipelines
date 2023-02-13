@@ -11298,7 +11298,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist",
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/FeedList",
 							"baseParameters": {
 								"OperationType": {
 									"value": "@pipeline().parameters.OperationType",
@@ -11331,7 +11331,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist_dev"
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/FeedList_dev"
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
