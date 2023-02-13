@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"Type": "weekly"
+					"OperationType": "weekly"
 				}
 			}
 		],

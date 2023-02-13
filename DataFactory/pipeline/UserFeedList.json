@@ -18,7 +18,7 @@
 					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist",
 					"baseParameters": {
 						"Type": {
-							"value": "@pipeline().parameters.Type",
+							"value": "@pipeline().parameters.OperationType",
 							"type": "Expression"
 						}
 					}
@@ -111,7 +111,7 @@
 			}
 		],
 		"parameters": {
-			"Type": {
+			"OperationType": {
 				"type": "string",
 				"defaultValue": "daily"
 			}
