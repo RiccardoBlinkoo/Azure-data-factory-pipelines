@@ -2639,7 +2639,7 @@
 						"typeProperties": {
 							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist",
 							"baseParameters": {
-								"Type": {
+								"OperationType": {
 									"value": "@pipeline().parameters.OperationType",
 									"type": "Expression"
 								}
