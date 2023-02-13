@@ -11,9 +11,7 @@
 				},
 				"parameters": {
 					"Tables": [
-						"Categories",
-						"GeoLocation",
-						"Places"
+						"Categories"
 					],
 					"end_time": "2022-06-24 00:00:00"
 				}
