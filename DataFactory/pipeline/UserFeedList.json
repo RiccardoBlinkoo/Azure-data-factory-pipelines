@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/CalcData"
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
@@ -42,7 +42,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/CalcData_dev"
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist_dev"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
