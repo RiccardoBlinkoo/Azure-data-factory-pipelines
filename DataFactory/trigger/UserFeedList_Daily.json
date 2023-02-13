@@ -17,7 +17,7 @@
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Day",
+				"frequency": "Week",
 				"interval": 1,
 				"startTime": "2023-02-10T16:52:00",
 				"timeZone": "W. Europe Standard Time",
@@ -27,6 +27,14 @@
 					],
 					"hours": [
 						7
+					],
+					"weekDays": [
+						"Sunday",
+						"Tuesday",
+						"Wednesday",
+						"Thursday",
+						"Saturday",
+						"Friday"
 					]
 				}
 			}
