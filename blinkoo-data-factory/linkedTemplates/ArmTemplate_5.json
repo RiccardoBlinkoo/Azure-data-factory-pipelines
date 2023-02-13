@@ -140,7 +140,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
+			"name": "[concat(parameters('factoryName'), '/TriggerDaily')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -149,25 +149,25 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Silver_LogAnalytics",
+							"referenceName": "UserFeedList",
 							"type": "PipelineReference"
 						},
-						"parameters": {
-							"TableNames": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
-							"start_time": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
-						}
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
-						"frequency": "Week",
+						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2022-07-13T03:00:00Z",
-						"timeZone": "UTC",
+						"startTime": "2023-02-10T16:52:00",
+						"timeZone": "W. Europe Standard Time",
 						"schedule": {
-							"weekDays": [
-								"Wednesday"
+							"minutes": [
+								0
+							],
+							"hours": [
+								7
 							]
 						}
 					}
@@ -203,10 +203,46 @@
 								0
 							],
 							"hours": [
-								0
+								4
 							],
 							"weekDays": [
 								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Silver_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"TableNames": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
+							"start_time": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-07-13T03:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"weekDays": [
+								"Wednesday"
 							]
 						}
 					}
