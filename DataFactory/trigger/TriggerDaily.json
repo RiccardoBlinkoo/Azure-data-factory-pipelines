@@ -8,6 +8,9 @@
 				"pipelineReference": {
 					"referenceName": "UserFeedList",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Type": "daily"
 				}
 			}
 		],

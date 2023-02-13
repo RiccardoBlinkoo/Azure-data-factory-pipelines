@@ -15,7 +15,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist"
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist",
+					"baseParameters": {
+						"Type": {
+							"value": "@pipeline().parameters.Type",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
@@ -104,6 +110,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"Type": {
+				"type": "string",
+				"defaultValue": "daily"
+			}
+		},
 		"variables": {
 			"start_time": {
 				"type": "String"
