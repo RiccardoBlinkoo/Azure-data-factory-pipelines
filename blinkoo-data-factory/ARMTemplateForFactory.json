@@ -145,12 +145,14 @@
 			"type": "string",
 			"defaultValue": "True"
 		},
+		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+			"type": "string",
+			"defaultValue": "daily"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
-				"Categories",
-				"GeoLocation",
-				"Places"
+				"Categories"
 			]
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
@@ -175,6 +177,10 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+			"type": "string",
+			"defaultValue": "weekly"
 		}
 	},
 	"variables": {
@@ -11292,7 +11298,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist"
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User FeedList/Feedlist",
+							"baseParameters": {
+								"Type": {
+									"value": "@pipeline().parameters.OperationType",
+									"type": "Expression"
+								}
+							}
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
@@ -11384,6 +11396,12 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"OperationType": {
+						"type": "string",
+						"defaultValue": "daily"
+					}
 				},
 				"variables": {
 					"start_time": {
@@ -15392,7 +15410,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/TriggerDaily')]",
+			"name": "[concat(parameters('factoryName'), '/UserFeedList_Daily')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -15404,7 +15422,9 @@
 							"referenceName": "UserFeedList",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"OperationType": "[parameters('UserFeedList_Daily_properties_UserFeedList_parameters_OperationType')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -15430,7 +15450,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/TriggerMonday')]",
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Monday')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -15565,6 +15585,49 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserFeedList_Monday')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "UserFeedList",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"OperationType": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-02-13T10:55:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								7
+							],
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/UserFeedList')]"
+			]
 		}
 	]
 }

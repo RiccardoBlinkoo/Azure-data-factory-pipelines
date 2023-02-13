@@ -115,11 +115,12 @@
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "True"
 		},
+		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+			"value": "daily"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
 			"value": [
-				"Categories",
-				"GeoLocation",
-				"Places"
+				"Categories"
 			]
 		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
@@ -141,6 +142,9 @@
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
+		},
+		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+			"value": "weekly"
 		}
 	}
 }
