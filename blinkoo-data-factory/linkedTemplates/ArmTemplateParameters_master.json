@@ -118,6 +118,9 @@
 		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
 			"value": "daily"
 		},
+		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+			"value": "weekly"
+		},
 		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
 			"value": [
 				"Categories"
@@ -142,9 +145,6 @@
 		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
-		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
-			"value": "weekly"
 		},
 		"containerUri": {
 			"value": ""

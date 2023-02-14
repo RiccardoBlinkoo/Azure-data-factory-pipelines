@@ -27,6 +27,10 @@
 			"type": "string",
 			"defaultValue": "daily"
 		},
+		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+			"type": "string",
+			"defaultValue": "weekly"
+		},
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -45,10 +49,6 @@
 		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
-			"type": "string",
-			"defaultValue": "weekly"
 		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
@@ -175,7 +175,7 @@
 								0
 							],
 							"hours": [
-								7
+								6
 							],
 							"weekDays": [
 								"Sunday",
@@ -184,6 +184,47 @@
 								"Thursday",
 								"Saturday",
 								"Friday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserFeedList_Monday')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "UserFeedList",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"OperationType": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-02-13T10:55:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								6
+							],
+							"weekDays": [
+								"Monday"
 							]
 						}
 					}
@@ -219,7 +260,7 @@
 								0
 							],
 							"hours": [
-								6
+								5
 							],
 							"weekDays": [
 								"Monday"
@@ -265,47 +306,6 @@
 							],
 							"weekDays": [
 								"Wednesday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UserFeedList_Monday')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "UserFeedList",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2023-02-13T10:55:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								7
-							],
-							"weekDays": [
-								"Monday"
 							]
 						}
 					}
