@@ -293,7 +293,7 @@
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
-						"frequency": "Week",
+						"frequency": "Day",
 						"interval": 1,
 						"startTime": "2022-07-13T03:00:00",
 						"timeZone": "W. Europe Standard Time",
@@ -303,9 +303,6 @@
 							],
 							"hours": [
 								3
-							],
-							"weekDays": [
-								"Wednesday"
 							]
 						}
 					}
