@@ -163,7 +163,7 @@
 			"type": "string",
 			"defaultValue": "2022-06-24 00:00:00"
 		},
-		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
 				"AppDependencies",
@@ -178,7 +178,7 @@
 				"Usage"
 			]
 		},
-		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -379,11 +379,11 @@
 					"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
 						"value": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
 					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
 					},
-					"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-						"value": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

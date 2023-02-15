@@ -31,7 +31,7 @@
 			"type": "string",
 			"defaultValue": "weekly"
 		},
-		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
 				"AppDependencies",
@@ -46,7 +46,7 @@
 				"Usage"
 			]
 		},
-		"WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -272,7 +272,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/WeeklySilverLogAnalytics')]",
+			"name": "[concat(parameters('factoryName'), '/DailySilverLogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -285,8 +285,8 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"TableNames": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
-							"start_time": "[parameters('WeeklySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+							"TableNames": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
+							"start_time": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 						}
 					}
 				],
