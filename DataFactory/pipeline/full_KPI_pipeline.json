@@ -103,7 +103,21 @@
 			{
 				"name": "KPI Standard",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Rewarding_algorithm",
+						"dependencyConditions": [
+							"Succeeded",
+							"Failed"
+						]
+					},
+					{
+						"activity": "Daily_Interaction_v0",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -538,9 +552,16 @@
 				}
 			},
 			{
-				"name": "Daily_Interaction_v0_copy1",
+				"name": "Rewarding_algorithm",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Daily_Interaction_v0",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
