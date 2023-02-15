@@ -1,5 +1,5 @@
 {
-	"name": "WeeklySilverLogAnalytics",
+	"name": "DailySilverLogAnalytics",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
