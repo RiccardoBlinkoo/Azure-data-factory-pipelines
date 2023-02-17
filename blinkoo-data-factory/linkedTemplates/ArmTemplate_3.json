@@ -13,74 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Silver_Update_CosmosDB')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach Table",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Silver Update ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/1 Silver",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"Categories"
-						]
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Weekly"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T04:59:38Z"
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/full_KPI_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2046,6 +1978,162 @@
 				"schema": {},
 				"typeProperties": {
 					"collectionName": "Media"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Id": {
+							"type": "string"
+						},
+						"Discriminator": {
+							"type": "string"
+						},
+						"PlaceId": {
+							"type": "string"
+						},
+						"DraftId": {
+							"type": "null"
+						},
+						"Activities": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Id": {
+										"type": "string"
+									},
+									"EngName": {
+										"type": "null"
+									},
+									"Label": {
+										"type": "string"
+									},
+									"Level": {
+										"type": "integer"
+									},
+									"Name": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"SuggestedMonths": {
+							"type": "object",
+							"properties": {
+								"April": {
+									"type": "boolean"
+								},
+								"August": {
+									"type": "boolean"
+								},
+								"December": {
+									"type": "boolean"
+								},
+								"Discriminator": {
+									"type": "string"
+								},
+								"February": {
+									"type": "boolean"
+								},
+								"January": {
+									"type": "boolean"
+								},
+								"July": {
+									"type": "boolean"
+								},
+								"June": {
+									"type": "boolean"
+								},
+								"March": {
+									"type": "boolean"
+								},
+								"May": {
+									"type": "boolean"
+								},
+								"November": {
+									"type": "boolean"
+								},
+								"October": {
+									"type": "boolean"
+								},
+								"September": {
+									"type": "boolean"
+								}
+							}
+						},
+						"Tags": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Tag": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"VideoShootingMonths": {
+							"type": "object",
+							"properties": {
+								"April": {
+									"type": "boolean"
+								},
+								"August": {
+									"type": "boolean"
+								},
+								"December": {
+									"type": "boolean"
+								},
+								"February": {
+									"type": "boolean"
+								},
+								"January": {
+									"type": "boolean"
+								},
+								"July": {
+									"type": "boolean"
+								},
+								"June": {
+									"type": "boolean"
+								},
+								"March": {
+									"type": "boolean"
+								},
+								"May": {
+									"type": "boolean"
+								},
+								"November": {
+									"type": "boolean"
+								},
+								"October": {
+									"type": "boolean"
+								},
+								"September": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "Post"
 				}
 			},
 			"dependsOn": []

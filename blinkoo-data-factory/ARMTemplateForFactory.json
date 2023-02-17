@@ -11153,6 +11153,27 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "Execute Pipeline PostInteractions",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "For Each Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PostInteractions",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -11195,6 +11216,7 @@
 				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PostInteractions')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},

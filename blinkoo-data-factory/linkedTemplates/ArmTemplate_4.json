@@ -48,162 +48,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blinkoorepo",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "CosmosDB"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"Id": {
-							"type": "string"
-						},
-						"Discriminator": {
-							"type": "string"
-						},
-						"PlaceId": {
-							"type": "string"
-						},
-						"DraftId": {
-							"type": "null"
-						},
-						"Activities": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"Id": {
-										"type": "string"
-									},
-									"EngName": {
-										"type": "null"
-									},
-									"Label": {
-										"type": "string"
-									},
-									"Level": {
-										"type": "integer"
-									},
-									"Name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"SuggestedMonths": {
-							"type": "object",
-							"properties": {
-								"April": {
-									"type": "boolean"
-								},
-								"August": {
-									"type": "boolean"
-								},
-								"December": {
-									"type": "boolean"
-								},
-								"Discriminator": {
-									"type": "string"
-								},
-								"February": {
-									"type": "boolean"
-								},
-								"January": {
-									"type": "boolean"
-								},
-								"July": {
-									"type": "boolean"
-								},
-								"June": {
-									"type": "boolean"
-								},
-								"March": {
-									"type": "boolean"
-								},
-								"May": {
-									"type": "boolean"
-								},
-								"November": {
-									"type": "boolean"
-								},
-								"October": {
-									"type": "boolean"
-								},
-								"September": {
-									"type": "boolean"
-								}
-							}
-						},
-						"Tags": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"Tag": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"VideoShootingMonths": {
-							"type": "object",
-							"properties": {
-								"April": {
-									"type": "boolean"
-								},
-								"August": {
-									"type": "boolean"
-								},
-								"December": {
-									"type": "boolean"
-								},
-								"February": {
-									"type": "boolean"
-								},
-								"January": {
-									"type": "boolean"
-								},
-								"July": {
-									"type": "boolean"
-								},
-								"June": {
-									"type": "boolean"
-								},
-								"March": {
-									"type": "boolean"
-								},
-								"May": {
-									"type": "boolean"
-								},
-								"November": {
-									"type": "boolean"
-								},
-								"October": {
-									"type": "boolean"
-								},
-								"September": {
-									"type": "boolean"
-								}
-							}
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "Post"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Source_PostStat')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1623,6 +1467,162 @@
 				"lastPublishTime": "2022-06-24T05:03:08Z"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Silver_LogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "For Each Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.TableNames",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set Variable Table",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "Table",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Set Variable End Date",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "Set Variable Table",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@formatDateTime(addHours(pipeline().parameters.start_time,-3),'yyyy-MM-dd')",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "BronzeToSilver_por_version",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set Variable End Date",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 1,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/1 LogAnalytics/Delta",
+										"baseParameters": {
+											"Table": {
+												"value": "@variables('Table')",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Execute Pipeline PostInteractions",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "For Each Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PostInteractions",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"TableNames": {
+						"type": "array",
+						"defaultValue": [
+							"AppDependencies",
+							"AppEvents",
+							"AppExceptions",
+							"AppMetrics",
+							"AppPageViews",
+							"AppPerformanceCounters",
+							"AppRequests",
+							"AppSystemEvents",
+							"AppTraces",
+							"Usage"
+						]
+					},
+					"start_time": {
+						"type": "string",
+						"defaultValue": "2023-12-07 03:00:00"
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					},
+					"Table": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-06T21:34:31Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PostInteractions')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",

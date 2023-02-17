@@ -355,12 +355,6 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
-						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
-					},
-					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
-					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
 					},
@@ -402,6 +396,12 @@
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
+					},
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					},
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
 					"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]"
