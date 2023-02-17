@@ -334,12 +334,6 @@
 					},
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-					},
-					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
-						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
-					},
-					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
-						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					}
 				}
 			},
@@ -360,6 +354,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
+					},
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
