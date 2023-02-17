@@ -1,0 +1,39 @@
+{
+	"name": "PostInteractions",
+	"properties": {
+		"activities": [
+			{
+				"name": "PostInteractions",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"variables": {
+			"start_time": {
+				"type": "String"
+			},
+			"end_time": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": []
+	}
+}
