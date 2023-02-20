@@ -19,8 +19,8 @@
 			"recurrence": {
 				"frequency": "Week",
 				"interval": 1,
-				"startTime": "2023-02-13T10:55:00",
-				"timeZone": "W. Europe Standard Time",
+				"startTime": "2023-02-13T10:55:00Z",
+				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
 						0
