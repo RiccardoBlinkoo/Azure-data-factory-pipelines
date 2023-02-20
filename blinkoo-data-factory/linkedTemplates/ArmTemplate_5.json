@@ -136,8 +136,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2022-10-25T06:59:59",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-10-25T06:59:59Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -218,8 +218,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-02-10T16:52:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2023-02-10T16:52:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -264,8 +264,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-02-13T10:55:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2023-02-13T10:55:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -303,8 +303,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-02-10T16:38:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2023-02-10T16:38:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -365,8 +365,8 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2022-06-02T03:00:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-06-02T03:00:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -404,8 +404,8 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2022-07-13T03:00:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-07-13T03:00:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
@@ -443,8 +443,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2022-07-07T03:00:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2022-07-07T03:00:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
 								0
