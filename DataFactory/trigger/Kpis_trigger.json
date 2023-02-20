@@ -20,8 +20,8 @@
 			"recurrence": {
 				"frequency": "Week",
 				"interval": 1,
-				"startTime": "2022-10-25T06:59:59",
-				"timeZone": "Greenwich Standard Time",
+				"startTime": "2022-10-25T06:59:59Z",
+				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
 						0
