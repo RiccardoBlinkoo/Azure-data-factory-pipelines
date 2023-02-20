@@ -56,7 +56,7 @@
 				"frequency": "Day",
 				"interval": 1,
 				"startTime": "2022-06-02T03:00:00",
-				"timeZone": "W. Europe Standard Time",
+				"timeZone": "Greenwich Standard Time",
 				"schedule": {
 					"minutes": [
 						0
