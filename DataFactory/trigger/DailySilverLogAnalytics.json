@@ -31,8 +31,8 @@
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2022-07-13T03:00:00",
-				"timeZone": "Greenwich Standard Time",
+				"startTime": "2022-07-13T03:00:00Z",
+				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
 						0
