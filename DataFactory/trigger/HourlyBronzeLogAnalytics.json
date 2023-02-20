@@ -35,8 +35,8 @@
 			"recurrence": {
 				"frequency": "Hour",
 				"interval": 1,
-				"startTime": "2022-05-13T18:00:00",
-				"timeZone": "Greenwich Standard Time"
+				"startTime": "2022-05-13T18:00:00Z",
+				"timeZone": "UTC"
 			}
 		}
 	}
