@@ -22,8 +22,8 @@
 			"recurrence": {
 				"frequency": "Week",
 				"interval": 1,
-				"startTime": "2022-07-07T03:00:00",
-				"timeZone": "W. Europe Standard Time",
+				"startTime": "2022-07-07T03:00:00Z",
+				"timeZone": "UTC",
 				"schedule": {
 					"minutes": [
 						0
