@@ -21,7 +21,7 @@
 				"frequency": "Week",
 				"interval": 1,
 				"startTime": "2022-10-25T06:59:59",
-				"timeZone": "W. Europe Standard Time",
+				"timeZone": "Greenwich Standard Time",
 				"schedule": {
 					"minutes": [
 						0
