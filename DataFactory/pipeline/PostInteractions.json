@@ -5,7 +5,14 @@
 			{
 				"name": "PostInteractions",
 				"type": "DatabricksNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set End time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -15,11 +22,54 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily"
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
+					"baseParameters": {
+						"StartAt": {
+							"value": "@variables('start_time')",
+							"type": "Expression"
+						},
+						"EndAt": {
+							"value": "@variables('end_time')",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Start Time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "start_time",
+					"value": {
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), '00:00:000')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set End time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set Start Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "end_time",
+					"value": {
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), '23:59:59')",
+						"type": "Expression"
+					}
 				}
 			}
 		],
