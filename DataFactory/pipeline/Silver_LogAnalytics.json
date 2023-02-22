@@ -135,6 +135,9 @@
 			},
 			"Table": {
 				"type": "String"
+			},
+			"StartTime": {
+				"type": "String"
 			}
 		},
 		"folder": {
