@@ -47,7 +47,7 @@
 				"typeProperties": {
 					"variableName": "start_time",
 					"value": {
-						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), ' ', '00:00:000')",
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
 						"type": "Expression"
 					}
 				}
