@@ -78,6 +78,19 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"Feed",
+				"FeedList",
+				"PostStat",
+				"UserInfo"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -357,6 +370,16 @@
 						"parameters": {
 							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]",
 							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_Update_CosmosDB_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_Tables')]",
+							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time')]"
 						}
 					}
 				],
