@@ -1674,7 +1674,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "For Each Table",
+								"activity": "Set Variable Start Time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1687,7 +1687,32 @@
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
-							"parameters": {}
+							"parameters": {
+								"triggerStartTime": {
+									"value": "StartTime",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Set Variable Start Time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "For Each Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "EndTime",
+							"value": {
+								"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -1714,6 +1739,10 @@
 					"start_time": {
 						"type": "string",
 						"defaultValue": "2023-12-07 03:00:00"
+					},
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
 					}
 				},
 				"variables": {
