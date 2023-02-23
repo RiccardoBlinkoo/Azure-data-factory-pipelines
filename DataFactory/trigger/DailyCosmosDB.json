@@ -48,6 +48,21 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_Update_CosmosDB_dev",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"Feed",
+						"FeedList",
+						"PostStat",
+						"UserInfo"
+					],
+					"end_time": "@trigger().startTime"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
