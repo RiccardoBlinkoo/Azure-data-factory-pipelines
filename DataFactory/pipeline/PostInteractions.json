@@ -47,7 +47,7 @@
 				"typeProperties": {
 					"variableName": "start_time",
 					"value": {
-						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
 						"type": "Expression"
 					}
 				}
@@ -67,7 +67,7 @@
 				"typeProperties": {
 					"variableName": "end_time",
 					"value": {
-						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
 						"type": "Expression"
 					}
 				}

@@ -107,7 +107,7 @@
 					"waitOnCompletion": true,
 					"parameters": {
 						"triggerStartTime": {
-							"value": "@{concat('{ \"triggerStartTime\": \"', pipeline1_output_variable_name, '\" }')}",
+							"value": "StartTime",
 							"type": "Expression"
 						}
 					}
