@@ -91,9 +91,11 @@
 									"TopCreatorsRatio": "30",
 									"MidCreatorsRatio": "40",
 									"BottomCreatorsRatio": "30",
-									"TotalCoin": "125000",
+									"TotalCoin": "100000",
 									"firstRoundPercentage": "20",
-									"secondRoundPercentage": "80"
+									"secondRoundPercentage": "80",
+									"postTableName": "by_post_rewarding_",
+									"userTableName": "by_user_rewarding_"
 								}
 							},
 							"linkedServiceName": {
