@@ -95,11 +95,11 @@
 					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
 					"baseParameters": {
 						"endDate": {
-							"value": "@variables('endDate')",
+							"value": "@variables('end_time')",
 							"type": "Expression"
 						},
 						"startDate": {
-							"value": "@variables('startDate')",
+							"value": "@variables('start_time')",
 							"type": "Expression"
 						},
 						"BookedWeight": "30",
