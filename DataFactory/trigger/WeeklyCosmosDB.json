@@ -3,20 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Weekly_Bronze_Update_CosmosDB",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"Categories"
-					],
-					"end_time": "2022-06-24 00:00:00"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
