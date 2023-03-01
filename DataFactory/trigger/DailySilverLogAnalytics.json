@@ -22,7 +22,8 @@
 						"AppTraces",
 						"Usage"
 					],
-					"start_time": "@trigger().startTime"
+					"start_time": "@trigger().startTime",
+					"triggerTime": "@trigger().startTime"
 				}
 			}
 		],
