@@ -110,21 +110,189 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"Categories"
-			]
-		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime": {
 			"type": "string",
-			"defaultValue": "2022-06-24 00:00:00"
+			"defaultValue": "@trigger().startTime"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/get_log_analytics_data')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "getBearerToken",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "getClientSecret",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": {
+								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',activity('getClientSecret').output.value,\n'&resource=',variables('Resource')\n)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "getClientSecret",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultClientSecretURI,'?api-version=7.0')",
+								"type": "Expression"
+							},
+							"connectVia": {
+								"referenceName": "ManagedVirtualNetworkIntegrationRuntime",
+								"type": "IntegrationRuntimeReference"
+							},
+							"method": "GET",
+							"headers": {},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "copyData",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "getBearerToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "POST",
+								"requestBody": "{\"query\": \"AppRequests | where TimeGenerated > ago(12h) | summarize avgRequestDuration=avg(DurationMs) by bin(TimeGenerated, 10m), _ResourceId\"}",
+								"additionalHeaders": {
+									"Content-Type": "application/json;charset=utf-8",
+									"Authorization": {
+										"value": "@concat('Bearer ',activity('getBearerToken').output.access_token)",
+										"type": "Expression"
+									}
+								},
+								"paginationRules": {
+									"supportRFC5988": "true"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "log_analytics_dataset",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkspaceID": {
+										"value": "@pipeline().parameters.WorkspaceID",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "adls_bronze",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"KeyVaultClientSecretURI": {
+						"type": "string",
+						"defaultValue": "https://kv-adf-dslab.vault.azure.net/secrets/LogAnaliticsClient-Secret/9ceb4860df994011ad92632b4b950477"
+					},
+					"ClientID": {
+						"type": "string",
+						"defaultValue": "75437993-3cde-47a2-9665-e5116db47c25"
+					},
+					"TenantID": {
+						"type": "string",
+						"defaultValue": "f98a3e64-1a37-4d3c-a324-f75eb3b0b7e4"
+					},
+					"WorkspaceID": {
+						"type": "string",
+						"defaultValue": "3a8b702f-dc94-4327-bf49-d7bd58804a90"
+					}
+				},
+				"variables": {
+					"Resource": {
+						"type": "String",
+						"defaultValue": "https://api.loganalytics.io"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-05-31T20:08:58Z"
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/test_email_sending')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -524,7 +692,8 @@
 						},
 						"parameters": {
 							"TableNames": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]",
-							"start_time": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
+							"start_time": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]",
+							"triggerTime": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime')]"
 						}
 					}
 				],
@@ -541,48 +710,6 @@
 							],
 							"hours": [
 								3
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/WeeklyCosmosDB')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Weekly_Bronze_Update_CosmosDB",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]",
-							"end_time": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-07-07T03:00:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								3
-							],
-							"weekDays": [
-								"Wednesday"
 							]
 						}
 					}

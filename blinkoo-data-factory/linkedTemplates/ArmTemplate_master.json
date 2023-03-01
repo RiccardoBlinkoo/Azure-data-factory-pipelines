@@ -118,6 +118,10 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"type": "string",
 			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
@@ -184,16 +188,6 @@
 		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
-		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"Categories"
-			]
-		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "2022-06-24 00:00:00"
 		},
 		"containerUri": {
 			"type": "string",
@@ -422,11 +416,8 @@
 					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time')]"
 					},
-					"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
-						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables')]"
-					},
-					"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
-						"value": "[parameters('WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time')]"
+					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime": {
+						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime')]"
 					}
 				}
 			},

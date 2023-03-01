@@ -96,6 +96,9 @@
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_start_time": {
 			"value": "@trigger().startTime"
 		},
+		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"value": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
 		},
@@ -148,14 +151,6 @@
 		},
 		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
 			"value": "weekly"
-		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_Tables": {
-			"value": [
-				"Categories"
-			]
-		},
-		"WeeklyCosmosDB_properties_Weekly_Bronze_Update_CosmosDB_parameters_end_time": {
-			"value": "2022-06-24 00:00:00"
 		},
 		"containerUri": {
 			"value": ""
