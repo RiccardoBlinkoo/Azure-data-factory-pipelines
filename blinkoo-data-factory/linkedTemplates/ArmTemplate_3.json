@@ -121,16 +121,9 @@
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Rewarding_algorithm",
+								"activity": "Deep session",
 								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
-								]
-							},
-							{
-								"activity": "Daily_Interaction_v0",
-								"dependencyConditions": [
-									"Failed"
+									"Succeeded"
 								]
 							}
 						],
@@ -370,6 +363,18 @@
 									"Succeeded",
 									"Failed"
 								]
+							},
+							{
+								"activity": "KPI Standard",
+								"dependencyConditions": [
+									"Failed"
+								]
+							},
+							{
+								"activity": "Deep session",
+								"dependencyConditions": [
+									"Failed"
+								]
 							}
 						],
 						"policy": {
@@ -509,111 +514,6 @@
 									"value": "@pipeline().parameters.isTest",
 									"type": "Expression"
 								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Daily_Interaction_v0",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Deep session",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/badges_lite_daily",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"interval": "1",
-								"timeback": "600",
-								"isTest": {
-									"value": "@pipeline().parameters.isTest",
-									"type": "Expression"
-								},
-								"postTableName": {
-									"value": "by_post_daily_interactions",
-									"type": "Expression"
-								},
-								"testNumber": {
-									"value": "@pipeline().parameters.testNumber",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Rewarding_algorithm",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Daily_Interaction_v0",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v1",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"BookedWeight": "30",
-								"DetailedWeight": "15",
-								"LikedWeight": "20",
-								"MappedWeight": "18",
-								"SavedWeight": "50",
-								"SharedWeight": "100",
-								"ViewWeight": "1.5",
-								"Tau": "10",
-								"TopCreators": "10",
-								"MidCreators": "50",
-								"BottomCreators": "100",
-								"TopCreatorsRatio": "30",
-								"MidCreatorsRatio": "40",
-								"BottomCreatorsRatio": "30",
-								"TotalCoin": "125000",
-								"firstRoundPercentage": "20",
-								"secondRoundPercentage": "80"
 							}
 						},
 						"linkedServiceName": {

@@ -1310,62 +1310,6 @@
 								"type": "Expression"
 							}
 						}
-					},
-					{
-						"name": "Rewarding_algorithm",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "PostInteractions",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
-							"baseParameters": {
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"BookedWeight": "30",
-								"DetailedWeight": "15",
-								"LikedWeight": "20",
-								"MappedWeight": "18",
-								"BookmarkedWeight": "50",
-								"SharedWeight": "100",
-								"ViewWeight": "1.5",
-								"Tau": "10",
-								"TopCreators": "10",
-								"MidCreators": "50",
-								"BottomCreators": "100",
-								"TopCreatorsRatio": "30",
-								"MidCreatorsRatio": "40",
-								"BottomCreatorsRatio": "30",
-								"TotalCoin": "125000",
-								"firstRoundPercentage": "20",
-								"secondRoundPercentage": "80",
-								"postTableName": "by_post_rewarding_",
-								"userTableName": "by_user_rewarding_"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
 					}
 				],
 				"policy": {
