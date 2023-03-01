@@ -14736,6 +14736,129 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BlinkoinAssignment')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Rewarding_algorithm",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set Variable End Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
+							"baseParameters": {
+								"endDate": {
+									"value": "@variables('endDate')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@variables('startDate')",
+									"type": "Expression"
+								},
+								"BookedWeight": "30",
+								"DetailedWeight": "15",
+								"LikedWeight": "20",
+								"MappedWeight": "18",
+								"BookmarkedWeight": "50",
+								"SharedWeight": "100",
+								"ViewWeight": "1.5",
+								"Tau": "10",
+								"TopCreators": "10",
+								"MidCreators": "50",
+								"BottomCreators": "100",
+								"TopCreatorsRatio": "30",
+								"MidCreatorsRatio": "40",
+								"BottomCreatorsRatio": "30",
+								"TotalCoin": "125000",
+								"firstRoundPercentage": "20",
+								"secondRoundPercentage": "80",
+								"postTableName": "by_post_rewarding_",
+								"userTableName": "by_user_rewarding_"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Variable Start Date",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "startDate",
+							"value": {
+								"value": "@concat(formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '00:00:00')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set Variable End Date",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Variable Start Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "endDate",
+							"value": {
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '23:59:59')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
 		}
 	]
 }
