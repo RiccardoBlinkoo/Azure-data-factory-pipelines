@@ -48,7 +48,7 @@
 				"typeProperties": {
 					"variableName": "start_time",
 					"value": {
-						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
+						"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
 						"type": "Expression"
 					}
 				}
@@ -68,16 +68,19 @@
 				"typeProperties": {
 					"variableName": "end_time",
 					"value": {
-						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
+						"value": "@formatDateTime(pipeline().parameters.endTime)",
 						"type": "Expression"
 					}
 				}
 			}
 		],
 		"parameters": {
-			"triggerStartTime": {
+			"triggerTime": {
 				"type": "string",
 				"defaultValue": "2023-12-07 03:00:00"
+			},
+			"endTime": {
+				"type": "string"
 			}
 		},
 		"variables": {
