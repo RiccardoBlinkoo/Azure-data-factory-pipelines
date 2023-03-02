@@ -1,0 +1,95 @@
+{
+	"name": "User info ext pre-processing",
+	"properties": {
+		"activities": [
+			{
+				"name": "PostInteractions",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Set End time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
+					"baseParameters": {
+						"StartAt": {
+							"value": "@variables('start_time')",
+							"type": "Expression"
+						},
+						"EndAt": {
+							"value": "@variables('end_time')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Start Time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "start_time",
+					"value": {
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set End time",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set Start Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "end_time",
+					"value": {
+						"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"triggerStartTime": {
+				"type": "string",
+				"defaultValue": "2023-12-07 03:00:00"
+			}
+		},
+		"variables": {
+			"start_time": {
+				"type": "String"
+			},
+			"end_time": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": []
+	}
+}
