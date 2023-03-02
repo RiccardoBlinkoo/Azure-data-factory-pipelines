@@ -88,7 +88,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline PostInteractions",
+				"name": "Post Interactions",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -130,6 +130,32 @@
 					"value": {
 						"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
 						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "User info ext pre-processing",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set Variable Start Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PostInteractions",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"triggerStartTime": {
+							"value": "StartTime",
+							"type": "Expression"
+						}
 					}
 				}
 			}
