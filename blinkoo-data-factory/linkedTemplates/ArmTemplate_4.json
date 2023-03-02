@@ -41,20 +41,168 @@
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
-			"type": "string",
-			"defaultValue": "False"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Id": {
+							"type": "string"
+						},
+						"Discriminator": {
+							"type": "string"
+						},
+						"PlaceId": {
+							"type": "string"
+						},
+						"DraftId": {
+							"type": "null"
+						},
+						"Activities": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Id": {
+										"type": "string"
+									},
+									"EngName": {
+										"type": "null"
+									},
+									"Label": {
+										"type": "string"
+									},
+									"Level": {
+										"type": "integer"
+									},
+									"Name": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"SuggestedMonths": {
+							"type": "object",
+							"properties": {
+								"April": {
+									"type": "boolean"
+								},
+								"August": {
+									"type": "boolean"
+								},
+								"December": {
+									"type": "boolean"
+								},
+								"Discriminator": {
+									"type": "string"
+								},
+								"February": {
+									"type": "boolean"
+								},
+								"January": {
+									"type": "boolean"
+								},
+								"July": {
+									"type": "boolean"
+								},
+								"June": {
+									"type": "boolean"
+								},
+								"March": {
+									"type": "boolean"
+								},
+								"May": {
+									"type": "boolean"
+								},
+								"November": {
+									"type": "boolean"
+								},
+								"October": {
+									"type": "boolean"
+								},
+								"September": {
+									"type": "boolean"
+								}
+							}
+						},
+						"Tags": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Tag": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"VideoShootingMonths": {
+							"type": "object",
+							"properties": {
+								"April": {
+									"type": "boolean"
+								},
+								"August": {
+									"type": "boolean"
+								},
+								"December": {
+									"type": "boolean"
+								},
+								"February": {
+									"type": "boolean"
+								},
+								"January": {
+									"type": "boolean"
+								},
+								"July": {
+									"type": "boolean"
+								},
+								"June": {
+									"type": "boolean"
+								},
+								"March": {
+									"type": "boolean"
+								},
+								"May": {
+									"type": "boolean"
+								},
+								"November": {
+									"type": "boolean"
+								},
+								"October": {
+									"type": "boolean"
+								},
+								"September": {
+									"type": "boolean"
+								}
+							}
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "Post"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Source_PostStat')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -750,17 +898,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BlinkoinAssignment')]",
+			"name": "[concat(parameters('factoryName'), '/User info ext pre-processing')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Rewarding_algorithm",
+						"name": "PostInteractions",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Set Variable End Date",
+								"activity": "Set End time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -775,35 +923,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
 							"baseParameters": {
-								"endDate": {
-									"value": "@variables('endDate')",
+								"StartAt": {
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
-								"startDate": {
-									"value": "@variables('startDate')",
+								"EndAt": {
+									"value": "@variables('end_time')",
 									"type": "Expression"
-								},
-								"BookedWeight": "30",
-								"DetailedWeight": "15",
-								"LikedWeight": "20",
-								"MappedWeight": "18",
-								"BookmarkedWeight": "50",
-								"SharedWeight": "100",
-								"ViewWeight": "1.5",
-								"Tau": "10",
-								"TopCreators": "10",
-								"MidCreators": "50",
-								"BottomCreators": "100",
-								"TopCreatorsRatio": "30",
-								"MidCreatorsRatio": "40",
-								"BottomCreatorsRatio": "30",
-								"TotalCoin": "125000",
-								"firstRoundPercentage": "20",
-								"secondRoundPercentage": "80",
-								"postTableName": "by_post_rewarding_",
-								"userTableName": "by_user_rewarding_"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -812,24 +941,24 @@
 						}
 					},
 					{
-						"name": "Set Variable Start Date",
+						"name": "Set Start Time",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
-							"variableName": "startDate",
+							"variableName": "start_time",
 							"value": {
-								"value": "@concat(formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '00:00:00')",
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
 								"type": "Expression"
 							}
 						}
 					},
 					{
-						"name": "Set Variable End Date",
+						"name": "Set End time",
 						"type": "SetVariable",
 						"dependsOn": [
 							{
-								"activity": "Set Variable Start Date",
+								"activity": "Set Start Time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -837,9 +966,9 @@
 						],
 						"userProperties": [],
 						"typeProperties": {
-							"variableName": "endDate",
+							"variableName": "end_time",
 							"value": {
-								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '23:59:59')",
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
 								"type": "Expression"
 							}
 						}
@@ -850,16 +979,16 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"triggerTime": {
+					"triggerStartTime": {
 						"type": "string",
-						"defaultValue": "@trigger().startTime"
+						"defaultValue": "2023-12-07 03:00:00"
 					}
 				},
 				"variables": {
-					"startDate": {
+					"start_time": {
 						"type": "String"
 					},
-					"endDate": {
+					"end_time": {
 						"type": "String"
 					}
 				},
@@ -2169,48 +2298,6 @@
 				"[concat(variables('factoryId'), '/datasets/log_analytics_dataset')]",
 				"[concat(variables('factoryId'), '/datasets/adls_bronze')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "full_KPI_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
-							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-10-25T06:59:59Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								6
-							],
-							"weekDays": [
-								"Wednesday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
 		}
 	]
 }

@@ -134,6 +134,9 @@
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
+		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},

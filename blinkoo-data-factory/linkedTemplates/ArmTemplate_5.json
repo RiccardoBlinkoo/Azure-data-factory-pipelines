@@ -7,6 +7,18 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "blinkoo-data-factory"
 		},
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
+			"type": "string",
+			"defaultValue": "False"
+		},
+		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
@@ -107,6 +119,57 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Kpis_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "full_KPI_pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
+							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "BlinkoinAssignment",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2022-10-25T06:59:59Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								6
+							],
+							"weekDays": [
+								"Wednesday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Testing_Trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",

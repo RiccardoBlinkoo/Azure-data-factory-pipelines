@@ -165,6 +165,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
@@ -190,6 +194,129 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/BlinkoinAssignment')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Rewarding_algorithm",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set Variable End Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
+							"baseParameters": {
+								"endDate": {
+									"value": "@variables('endDate')",
+									"type": "Expression"
+								},
+								"startDate": {
+									"value": "@variables('startDate')",
+									"type": "Expression"
+								},
+								"BookedWeight": "30",
+								"DetailedWeight": "15",
+								"LikedWeight": "20",
+								"MappedWeight": "18",
+								"BookmarkedWeight": "50",
+								"SharedWeight": "100",
+								"ViewWeight": "1.5",
+								"Tau": "10",
+								"TopCreators": "10",
+								"MidCreators": "50",
+								"BottomCreators": "100",
+								"TopCreatorsRatio": "30",
+								"MidCreatorsRatio": "40",
+								"BottomCreatorsRatio": "30",
+								"TotalCoin": "125000",
+								"firstRoundPercentage": "20",
+								"secondRoundPercentage": "80",
+								"postTableName": "by_post_rewarding_",
+								"userTableName": "by_user_rewarding_"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Variable Start Date",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "startDate",
+							"value": {
+								"value": "@concat(formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '00:00:00')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set Variable End Date",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Variable Start Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "endDate",
+							"value": {
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '23:59:59')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -14409,6 +14536,15 @@
 							"triggerTime": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
 							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "BlinkoinAssignment",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -14433,7 +14569,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
+				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/BlinkoinAssignment')]"
 			]
 		},
 		{
@@ -14654,17 +14791,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/BlinkoinAssignment')]",
+			"name": "[concat(parameters('factoryName'), '/User info ext pre-processing')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Rewarding_algorithm",
+						"name": "PostInteractions",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
-								"activity": "Set Variable End Date",
+								"activity": "Set End time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -14679,35 +14816,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/RewardingSystem/Coin_algorithm_v2",
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
 							"baseParameters": {
-								"endDate": {
-									"value": "@variables('endDate')",
+								"StartAt": {
+									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
-								"startDate": {
-									"value": "@variables('startDate')",
+								"EndAt": {
+									"value": "@variables('end_time')",
 									"type": "Expression"
-								},
-								"BookedWeight": "30",
-								"DetailedWeight": "15",
-								"LikedWeight": "20",
-								"MappedWeight": "18",
-								"BookmarkedWeight": "50",
-								"SharedWeight": "100",
-								"ViewWeight": "1.5",
-								"Tau": "10",
-								"TopCreators": "10",
-								"MidCreators": "50",
-								"BottomCreators": "100",
-								"TopCreatorsRatio": "30",
-								"MidCreatorsRatio": "40",
-								"BottomCreatorsRatio": "30",
-								"TotalCoin": "125000",
-								"firstRoundPercentage": "20",
-								"secondRoundPercentage": "80",
-								"postTableName": "by_post_rewarding_",
-								"userTableName": "by_user_rewarding_"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -14716,24 +14834,24 @@
 						}
 					},
 					{
-						"name": "Set Variable Start Date",
+						"name": "Set Start Time",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
-							"variableName": "startDate",
+							"variableName": "start_time",
 							"value": {
-								"value": "@concat(formatDateTime(addDays(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '00:00:00')",
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
 								"type": "Expression"
 							}
 						}
 					},
 					{
-						"name": "Set Variable End Date",
+						"name": "Set End time",
 						"type": "SetVariable",
 						"dependsOn": [
 							{
-								"activity": "Set Variable Start Date",
+								"activity": "Set Start Time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -14741,9 +14859,9 @@
 						],
 						"userProperties": [],
 						"typeProperties": {
-							"variableName": "endDate",
+							"variableName": "end_time",
 							"value": {
-								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-7),'yyyy-MM-dd'), ' ', '23:59:59')",
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
 								"type": "Expression"
 							}
 						}
@@ -14754,16 +14872,16 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"triggerTime": {
+					"triggerStartTime": {
 						"type": "string",
-						"defaultValue": "@trigger().startTime"
+						"defaultValue": "2023-12-07 03:00:00"
 					}
 				},
 				"variables": {
-					"startDate": {
+					"start_time": {
 						"type": "String"
 					},
-					"endDate": {
+					"end_time": {
 						"type": "String"
 					}
 				},

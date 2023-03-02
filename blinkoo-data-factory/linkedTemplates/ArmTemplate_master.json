@@ -165,6 +165,10 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
+		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
@@ -337,12 +341,6 @@
 					},
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-					},
-					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
-						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
-					},
-					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
-						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					}
 				}
 			},
@@ -363,6 +361,15 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
+						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
+					},
+					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
+						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
+					},
+					"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+						"value": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
 					},
 					"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
