@@ -10714,7 +10714,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "PostInteractions",
+								"referenceName": "User info ext pre-processing",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -10744,6 +10744,33 @@
 							"value": {
 								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-5),'yyyy-MM-dd'), ' ', '23:59:59')",
 								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Post publication",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Set Variable End Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Post Publication",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"triggerTime": {
+									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endTime": "@variables(\"EndTime\")"
 							}
 						}
 					}
@@ -10796,6 +10823,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PostInteractions')]",
+				"[concat(variables('factoryId'), '/pipelines/User info ext pre-processing')]",
+				"[concat(variables('factoryId'), '/pipelines/Post Publication')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
@@ -14851,6 +14880,114 @@
 						"userProperties": [],
 						"typeProperties": {
 							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
+							"baseParameters": {
+								"startDate": {
+									"value": "@variables('start_time')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@variables('end_time')",
+									"type": "Expression"
+								},
+								"isTest": "False"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Start Time",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set End time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Start Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_time",
+							"value": {
+								"value": "@formatDateTime(pipeline().parameters.endTime)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "2023-12-07 03:00:00"
+					},
+					"endTime": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"start_time": {
+						"type": "String"
+					},
+					"end_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Post Publication')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Post publication",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set End time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
 							"baseParameters": {
 								"startDate": {
 									"value": "@variables('start_time')",
