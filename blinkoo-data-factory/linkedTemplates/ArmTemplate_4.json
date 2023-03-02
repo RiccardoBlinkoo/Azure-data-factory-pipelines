@@ -949,7 +949,7 @@
 						"typeProperties": {
 							"variableName": "start_time",
 							"value": {
-								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '00:00:00')",
+								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
 								"type": "Expression"
 							}
 						}
@@ -969,7 +969,7 @@
 						"typeProperties": {
 							"variableName": "end_time",
 							"value": {
-								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerStartTime,-4),'yyyy-MM-dd'), ' ', '23:59:59')",
+								"value": "@formatDateTime(pipeline().parameters.endTime)",
 								"type": "Expression"
 							}
 						}
@@ -980,9 +980,12 @@
 					"cancelAfter": {}
 				},
 				"parameters": {
-					"triggerStartTime": {
+					"triggerTime": {
 						"type": "string",
 						"defaultValue": "2023-12-07 03:00:00"
+					},
+					"endTime": {
+						"type": "string"
 					}
 				},
 				"variables": {
@@ -1777,7 +1780,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "Set Variable Start Time",
+								"activity": "Set Variable End Time",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1791,15 +1794,46 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {
-								"triggerStartTime": {
-									"value": "StartTime",
+								"triggerTime": {
+									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endTime": {
+									"value": "@variables('EndTime')",
 									"type": "Expression"
 								}
 							}
 						}
 					},
 					{
-						"name": "Set Variable Start Time",
+						"name": "User info ext pre-processing",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Set Variable End Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PostInteractions",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"triggerTime": {
+									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endTime": "@variables(\"EndTime\")"
+							}
+						}
+					},
+					{
+						"name": "Set Variable End Time",
 						"type": "SetVariable",
 						"dependsOn": [
 							{
@@ -1813,34 +1847,8 @@
 						"typeProperties": {
 							"variableName": "EndTime",
 							"value": {
-								"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+								"value": "@concat(formatDateTime(addHours(pipeline().parameters.triggerTime,-5),'yyyy-MM-dd'), ' ', '23:59:59')",
 								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "User info ext pre-processing",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Set Variable Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PostInteractions",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"triggerStartTime": {
-									"value": "StartTime",
-									"type": "Expression"
-								}
 							}
 						}
 					}
