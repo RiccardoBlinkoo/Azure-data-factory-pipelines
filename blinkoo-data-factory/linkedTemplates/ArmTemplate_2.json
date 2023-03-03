@@ -1382,7 +1382,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Posts_publication",
 							"baseParameters": {
 								"startDate": {
 									"value": "@variables('start_time')",
