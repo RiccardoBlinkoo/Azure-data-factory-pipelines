@@ -48,6 +48,104 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Source_Geometry')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						},
+						"geometry": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string"
+								},
+								"coordinates": {
+									"type": "array",
+									"items": {
+										"type": "array",
+										"items": {
+											"type": "array",
+											"items": {
+												"type": "number"
+											}
+										}
+									}
+								}
+							}
+						},
+						"properties": {
+							"type": "object",
+							"properties": {
+								"key": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"level_name": {
+									"type": "string"
+								},
+								"level_key": {
+									"type": "string"
+								},
+								"sub_areas": {
+									"type": "array"
+								},
+								"level": {
+									"type": "integer"
+								}
+							}
+						},
+						"area": {
+							"type": "string"
+						},
+						"area_name": {
+							"type": "string"
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "Geometry"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Source_Media')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "Media"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Source_Post')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -898,218 +996,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/User info ext pre-processing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Time spent in app",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(pipeline().parameters.endTime)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "2023-12-07 03:00:00"
-					},
-					"endTime": {
-						"type": "string"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Post Publication')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Post publication",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/posts_publication",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(pipeline().parameters.endTime)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "2023-12-07 03:00:00"
-					},
-					"endTime": {
-						"type": "string"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1934,7 +1820,10 @@
 									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"endTime": "@variables(\"EndTime\")"
+								"endTime": {
+									"value": "@variables('EndTime')",
+									"type": "Expression"
+								}
 							}
 						}
 					},
@@ -1981,7 +1870,10 @@
 									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
 									"type": "Expression"
 								},
-								"endTime": "@variables(\"EndTime\")"
+								"endTime": {
+									"value": "@variables('EndTime')",
+									"type": "Expression"
+								}
 							}
 						}
 					}
@@ -2032,10 +1924,7 @@
 				"annotations": [],
 				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/User info ext pre-processing')]",
-				"[concat(variables('factoryId'), '/pipelines/Post Publication')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",
