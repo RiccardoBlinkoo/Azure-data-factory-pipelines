@@ -140,7 +140,10 @@
 							"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
-						"endTime": "@variables(\"EndTime\")"
+						"endTime": {
+							"value": "@variables('EndTime')",
+							"type": "Expression"
+						}
 					}
 				}
 			},
@@ -187,7 +190,10 @@
 							"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
 							"type": "Expression"
 						},
-						"endTime": "@variables(\"EndTime\")"
+						"endTime": {
+							"value": "@variables('EndTime')",
+							"type": "Expression"
+						}
 					}
 				}
 			}
