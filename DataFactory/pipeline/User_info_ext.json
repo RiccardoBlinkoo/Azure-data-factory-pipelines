@@ -1,0 +1,45 @@
+{
+	"name": "User_info_ext",
+	"properties": {
+		"activities": [
+			{
+				"name": "user_info_ext_notebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Weekly_user_accesses"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"triggerTime": {
+				"type": "string",
+				"defaultValue": "@trigger().startTime"
+			}
+		},
+		"variables": {
+			"startDate": {
+				"type": "String"
+			},
+			"endDate": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "KPIs"
+		},
+		"annotations": []
+	}
+}

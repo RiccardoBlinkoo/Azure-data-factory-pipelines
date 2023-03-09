@@ -16,11 +16,17 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "BlinkoinAssignment",
+					"referenceName": "Blinkoin_assignment",
 					"type": "PipelineReference"
 				},
 				"parameters": {
 					"triggerTime": "@trigger().startTime"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "User_info_ext",
+					"type": "PipelineReference"
 				}
 			}
 		],
