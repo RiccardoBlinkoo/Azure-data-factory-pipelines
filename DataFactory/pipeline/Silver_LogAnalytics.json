@@ -88,7 +88,7 @@
 				}
 			},
 			{
-				"name": "Post Interactions",
+				"name": "Post_interactions",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -101,7 +101,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "PostInteractions",
+						"referenceName": "Post_interactions",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -118,7 +118,7 @@
 				}
 			},
 			{
-				"name": "User info ext pre-processing",
+				"name": "User_info_ext_pre_processing",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -131,7 +131,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "User info ext pre-processing",
+						"referenceName": "User_info_ext_pre_processing",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -168,7 +168,7 @@
 				}
 			},
 			{
-				"name": "Post publication",
+				"name": "Post_publication",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -181,7 +181,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Post Publication",
+						"referenceName": "Post_publication",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,

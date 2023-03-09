@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "UserPreferences",
+					"referenceName": "User_preferences",
 					"type": "PipelineReference"
 				}
 			}
