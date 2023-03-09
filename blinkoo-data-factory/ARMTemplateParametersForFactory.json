@@ -27,7 +27,7 @@
 			"value": "https://blinkoodatalakedev.dfs.core.windows.net"
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
-			"value": "0304-092528-p5078pvj"
+			"value": "0306-164132-il89fox9"
 		},
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"value": "0304-092528-p5078pvj"
@@ -134,7 +134,7 @@
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
-		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
@@ -146,10 +146,10 @@
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "True"
 		},
-		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 			"value": "daily"
 		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"value": "weekly"
 		}
 	}

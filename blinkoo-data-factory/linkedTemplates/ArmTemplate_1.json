@@ -29,7 +29,7 @@
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
+			"defaultValue": "0306-164132-il89fox9"
 		},
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",

@@ -37,7 +37,7 @@
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
+			"defaultValue": "0306-164132-il89fox9"
 		},
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -165,7 +165,7 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -181,11 +181,11 @@
 			"type": "string",
 			"defaultValue": "True"
 		},
-		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "daily"
 		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
 		},
@@ -368,8 +368,8 @@
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
-					"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
-						"value": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
+					"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
+						"value": "[parameters('Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime')]"
 					},
 					"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
@@ -380,11 +380,11 @@
 					"Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest": {
 						"value": "[parameters('Testing_Trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 					},
-					"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
-						"value": "[parameters('UserFeedList_Daily_properties_UserFeedList_parameters_OperationType')]"
+					"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
+						"value": "[parameters('UserFeedList_Daily_properties_User_feed_list_parameters_OperationType')]"
 					},
-					"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
-						"value": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
+					"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
+						"value": "[parameters('UserFeedList_Monday_properties_User_feed_list_parameters_OperationType')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

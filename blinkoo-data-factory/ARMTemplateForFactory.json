@@ -37,7 +37,7 @@
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
+			"defaultValue": "0306-164132-il89fox9"
 		},
 		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -165,7 +165,7 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -181,11 +181,11 @@
 			"type": "string",
 			"defaultValue": "True"
 		},
-		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "daily"
 		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
 		}
@@ -195,7 +195,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/BlinkoinAssignment')]",
+			"name": "[concat(parameters('factoryName'), '/Blinkoin_assignment')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -9838,7 +9838,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/NewExtractionsLoop')]",
+			"name": "[concat(parameters('factoryName'), '/New_extractions_loop')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -9982,7 +9982,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Post Publication')]",
+			"name": "[concat(parameters('factoryName'), '/Post_publication')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -10090,7 +10090,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PostInteractions')]",
+			"name": "[concat(parameters('factoryName'), '/Post_interactions')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -10779,7 +10779,7 @@
 						}
 					},
 					{
-						"name": "Post Interactions",
+						"name": "Post_interactions",
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
@@ -10792,7 +10792,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "PostInteractions",
+								"referenceName": "Post_interactions",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -10809,7 +10809,7 @@
 						}
 					},
 					{
-						"name": "User info ext pre-processing",
+						"name": "User_info_ext_pre_processing",
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
@@ -10822,7 +10822,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "User info ext pre-processing",
+								"referenceName": "User_info_ext_pre_processing",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -10859,7 +10859,7 @@
 						}
 					},
 					{
-						"name": "Post publication",
+						"name": "Post_publication",
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
@@ -10872,7 +10872,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "Post Publication",
+								"referenceName": "Post_publication",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -10936,14 +10936,14 @@
 				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PostInteractions')]",
-				"[concat(variables('factoryId'), '/pipelines/User info ext pre-processing')]",
-				"[concat(variables('factoryId'), '/pipelines/Post Publication')]",
+				"[concat(variables('factoryId'), '/pipelines/Post_interactions')]",
+				"[concat(variables('factoryId'), '/pipelines/User_info_ext_pre_processing')]",
+				"[concat(variables('factoryId'), '/pipelines/Post_publication')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/User info ext pre-processing')]",
+			"name": "[concat(parameters('factoryName'), '/User_info_ext_pre_processing')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -11051,7 +11051,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/UserFeedList')]",
+			"name": "[concat(parameters('factoryName'), '/User_feed_list')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -11192,7 +11192,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/UserPreferences')]",
+			"name": "[concat(parameters('factoryName'), '/User_preferences')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -14824,12 +14824,19 @@
 					},
 					{
 						"pipelineReference": {
-							"referenceName": "BlinkoinAssignment",
+							"referenceName": "Blinkoin_assignment",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"triggerTime": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
+							"triggerTime": "[parameters('Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "User_info_ext",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -14847,7 +14854,7 @@
 								6
 							],
 							"weekDays": [
-								"Wednesday"
+								"Monday"
 							]
 						}
 					}
@@ -14855,7 +14862,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]",
-				"[concat(variables('factoryId'), '/pipelines/BlinkoinAssignment')]"
+				"[concat(variables('factoryId'), '/pipelines/Blinkoin_assignment')]",
+				"[concat(variables('factoryId'), '/pipelines/User_info_ext')]"
 			]
 		},
 		{
@@ -14902,11 +14910,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserFeedList",
+							"referenceName": "User_feed_list",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Daily_properties_UserFeedList_parameters_OperationType')]"
+							"OperationType": "[parameters('UserFeedList_Daily_properties_User_feed_list_parameters_OperationType')]"
 						}
 					}
 				],
@@ -14937,7 +14945,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/UserFeedList')]"
+				"[concat(variables('factoryId'), '/pipelines/User_feed_list')]"
 			]
 		},
 		{
@@ -14950,11 +14958,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserFeedList",
+							"referenceName": "User_feed_list",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
+							"OperationType": "[parameters('UserFeedList_Monday_properties_User_feed_list_parameters_OperationType')]"
 						}
 					}
 				],
@@ -14980,7 +14988,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/UserFeedList')]"
+				"[concat(variables('factoryId'), '/pipelines/User_feed_list')]"
 			]
 		},
 		{
@@ -14993,7 +15001,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserPreferences",
+							"referenceName": "User_preferences",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -15021,7 +15029,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/UserPreferences')]"
+				"[concat(variables('factoryId'), '/pipelines/User_preferences')]"
 			]
 		},
 		{
@@ -15074,6 +15082,60 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/User_info_ext')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "user_info_ext_notebook",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Weekly_user_accesses"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
 		}
 	]
 }

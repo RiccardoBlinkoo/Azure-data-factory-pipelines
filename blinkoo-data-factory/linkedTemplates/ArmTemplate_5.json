@@ -15,7 +15,7 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime": {
+		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -31,11 +31,11 @@
 			"type": "string",
 			"defaultValue": "True"
 		},
-		"UserFeedList_Daily_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "daily"
 		},
-		"UserFeedList_Monday_properties_UserFeedList_parameters_OperationType": {
+		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
 		},
@@ -119,6 +119,133 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_Update_CosmosDB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set end_time in timestamp",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/0 Bronze",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "Set end_time in timestamp",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Execute Silver Update Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Weekly_Silver_Update_CosmosDB",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": false,
+							"parameters": {
+								"Tables": {
+									"value": "@pipeline().parameters.Tables",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"Categories"
+						]
+					},
+					"end_time": {
+						"type": "string",
+						"defaultValue": "2022-06-24 04:00:00"
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Weekly"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T05:07:38Z"
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/get_log_analytics_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -313,12 +440,19 @@
 					},
 					{
 						"pipelineReference": {
-							"referenceName": "BlinkoinAssignment",
+							"referenceName": "Blinkoin_assignment",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"triggerTime": "[parameters('Kpis_trigger_properties_BlinkoinAssignment_parameters_triggerTime')]"
+							"triggerTime": "[parameters('Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "User_info_ext",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -336,7 +470,7 @@
 								6
 							],
 							"weekDays": [
-								"Wednesday"
+								"Monday"
 							]
 						}
 					}
@@ -386,11 +520,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserFeedList",
+							"referenceName": "User_feed_list",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Daily_properties_UserFeedList_parameters_OperationType')]"
+							"OperationType": "[parameters('UserFeedList_Daily_properties_User_feed_list_parameters_OperationType')]"
 						}
 					}
 				],
@@ -432,11 +566,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserFeedList",
+							"referenceName": "User_feed_list",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Monday_properties_UserFeedList_parameters_OperationType')]"
+							"OperationType": "[parameters('UserFeedList_Monday_properties_User_feed_list_parameters_OperationType')]"
 						}
 					}
 				],
@@ -473,7 +607,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "UserPreferences",
+							"referenceName": "User_preferences",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
