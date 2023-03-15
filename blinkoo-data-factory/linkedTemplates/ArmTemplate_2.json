@@ -1357,13 +1357,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Post_publication')]",
+			"name": "[concat(parameters('factoryName'), '/Post_interactions')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Post publication",
+						"name": "PostInteractions",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -1382,17 +1382,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Posts_publication",
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
 							"baseParameters": {
-								"startDate": {
+								"StartAt": {
 									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
-								"endDate": {
+								"EndAt": {
 									"value": "@variables('end_time')",
 									"type": "Expression"
-								},
-								"isTest": "False"
+								}
 							}
 						},
 						"linkedServiceName": {
@@ -1463,13 +1462,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Post_interactions')]",
+			"name": "[concat(parameters('factoryName'), '/Post_publication')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "PostInteractions",
+						"name": "Post publication",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -1488,16 +1487,17 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/Post Interactions/Interactions Daily",
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Posts_publication",
 							"baseParameters": {
-								"StartAt": {
+								"startDate": {
 									"value": "@variables('start_time')",
 									"type": "Expression"
 								},
-								"EndAt": {
+								"endDate": {
 									"value": "@variables('end_time')",
 									"type": "Expression"
-								}
+								},
+								"isTest": "False"
 							}
 						},
 						"linkedServiceName": {
@@ -2051,112 +2051,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/User_info_ext_pre_processing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Time spent in app",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(pipeline().parameters.endTime)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "2023-12-07 03:00:00"
-					},
-					"endTime": {
-						"type": "string"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/User_feed_list')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2285,6 +2179,58 @@
 						"type": "String"
 					},
 					"end_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/User_info_ext')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "user_info_ext_notebook",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Weekly_user_accesses"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "@trigger().startTime"
+					}
+				},
+				"variables": {
+					"startDate": {
+						"type": "String"
+					},
+					"endDate": {
 						"type": "String"
 					}
 				},
