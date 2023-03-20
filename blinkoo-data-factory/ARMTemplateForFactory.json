@@ -124,11 +124,11 @@
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"type": "string",
-			"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+			"defaultValue": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH"
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
 			"type": "string",
-			"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+			"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
 			"type": "array",
@@ -735,7 +735,7 @@
 				"parameters": {
 					"ClientSecret": {
 						"type": "string",
-						"defaultValue": "b0w7Q~IGjV3RcA~b3N2yXYWmVN.gTd1GUeA-."
+						"defaultValue": "kNU8Q~502ZM0tGfrYdDArJy~W97JhJUTurJPKcFt"
 					},
 					"ClientID": {
 						"type": "string",
