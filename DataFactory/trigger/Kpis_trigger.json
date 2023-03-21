@@ -13,15 +13,6 @@
 					"triggerTime": "@trigger().startTime",
 					"isTest": "False"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "Blinkoin_assignment",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"triggerTime": "@trigger().startTime"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
