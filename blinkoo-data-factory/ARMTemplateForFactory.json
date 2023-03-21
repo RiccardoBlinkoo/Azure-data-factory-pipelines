@@ -161,10 +161,6 @@
 			"type": "string",
 			"defaultValue": "False"
 		},
-		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
@@ -184,6 +180,14 @@
 		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
+		},
+		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
 		}
 	},
 	"variables": {
@@ -14866,22 +14870,6 @@
 							"triggerTime": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]",
 							"isTest": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest')]"
 						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Blinkoin_assignment",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"triggerTime": "[parameters('Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "User_info_ext",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -14899,16 +14887,14 @@
 								6
 							],
 							"weekDays": [
-								"Monday"
+								"Wednesday"
 							]
 						}
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]",
-				"[concat(variables('factoryId'), '/pipelines/Blinkoin_assignment')]",
-				"[concat(variables('factoryId'), '/pipelines/User_info_ext')]"
+				"[concat(variables('factoryId'), '/pipelines/full_KPI_pipeline')]"
 			]
 		},
 		{
@@ -15127,6 +15113,86 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/user_info_ext_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "User_info_ext",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-03-20T10:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"hours": [
+								8
+							],
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/User_info_ext')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Blinkoin_assignment')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Blinkoin_assignment",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"triggerTime": "[parameters('Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-03-21T11:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"hours": [
+								6
+							],
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Blinkoin_assignment')]"
+			]
 		}
 	]
 }

@@ -131,9 +131,6 @@
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_isTest": {
 			"value": "False"
 		},
-		"Kpis_trigger_properties_Blinkoin_assignment_parameters_triggerTime": {
-			"value": "@trigger().startTime"
-		},
 		"Testing_Trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
@@ -148,6 +145,12 @@
 		},
 		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
 			"value": "weekly"
+		},
+		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
+		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
+			"value": "@trigger().startTime"
 		}
 	}
 }
