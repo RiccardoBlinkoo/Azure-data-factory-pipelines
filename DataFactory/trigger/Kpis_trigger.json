@@ -22,12 +22,6 @@
 				"parameters": {
 					"triggerTime": "@trigger().startTime"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "User_info_ext",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
