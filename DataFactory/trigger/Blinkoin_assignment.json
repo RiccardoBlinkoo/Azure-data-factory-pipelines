@@ -1,0 +1,25 @@
+{
+	"name": "Blinkoin_assignment",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2023-03-21T11:00:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"hours": [
+						6
+					],
+					"weekDays": [
+						"Monday"
+					]
+				}
+			}
+		}
+	}
+}
