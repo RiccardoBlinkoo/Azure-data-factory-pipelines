@@ -196,6 +196,36 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Search_Analysis",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set Variable End Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Search_Analysis",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"triggerTime": {
+							"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+							"type": "Expression"
+						},
+						"endTime": {
+							"value": "@variables('EndTime')",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
