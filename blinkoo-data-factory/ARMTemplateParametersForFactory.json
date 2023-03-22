@@ -35,6 +35,9 @@
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"value": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		},
+		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"value": [
 				"Feed",
@@ -147,9 +150,6 @@
 			"value": "weekly"
 		},
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
-			"value": "@trigger().startTime"
-		},
-		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		}
 	}

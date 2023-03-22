@@ -47,6 +47,10 @@
 			"type": "string",
 			"defaultValue": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"
 		},
+		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -182,10 +186,6 @@
 			"defaultValue": "weekly"
 		},
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -359,6 +359,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
+						"value": "[parameters('Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime')]"
+					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
 					},
@@ -382,9 +385,6 @@
 					},
 					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
-					},
-					"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
-						"value": "[parameters('Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

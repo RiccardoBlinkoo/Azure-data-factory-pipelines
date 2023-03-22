@@ -1137,6 +1137,111 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Search_Analysis')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Search_Exploration",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set End time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search_Exploration",
+							"baseParameters": {
+								"startDate": {
+									"value": "@variables('start_time')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@variables('end_time')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Start Time",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set End time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Start Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_time",
+							"value": {
+								"value": "@formatDateTime(pipeline().parameters.endTime)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "2023-12-07 03:00:00"
+					},
+					"endTime": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"start_time": {
+						"type": "String"
+					},
+					"end_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2017,6 +2122,36 @@
 								}
 							}
 						}
+					},
+					{
+						"name": "Search_Analysis",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Set Variable End Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Search_Analysis",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"triggerTime": {
+									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
+									"type": "Expression"
+								},
+								"endTime": {
+									"value": "@variables('EndTime')",
+									"type": "Expression"
+								}
+							}
+						}
 					}
 				],
 				"policy": {
@@ -2065,136 +2200,9 @@
 				"annotations": [],
 				"lastPublishTime": "2022-07-06T21:34:31Z"
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_SqlServer')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set end_time in timestamp",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronze",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Set end_time in timestamp",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Execute Silver Update Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Weekly_Silver_SqlServer",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": false,
-							"parameters": {
-								"Tables": {
-									"value": "@pipeline().parameters.Tables",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"categories",
-							"geo_location",
-							"places"
-						]
-					},
-					"end_time": {
-						"type": "string",
-						"defaultValue": "2022-06-24 04:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Weekly"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T05:07:38Z"
-			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Search_Analysis')]"
+			]
 		}
 	]
 }
