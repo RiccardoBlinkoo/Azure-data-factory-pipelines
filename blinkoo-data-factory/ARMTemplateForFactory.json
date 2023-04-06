@@ -10193,6 +10193,113 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Search_Analysis')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Search_Exploration",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Set End time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search_Exploration",
+							"baseParameters": {
+								"startDate": {
+									"value": "@variables('start_time')",
+									"type": "Expression"
+								},
+								"endDate": {
+									"value": "@variables('end_time')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Set Start Time",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set End time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Start Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_time",
+							"value": {
+								"value": "@formatDateTime(pipeline().parameters.endTime)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "2023-12-07 03:00:00"
+					},
+					"endTime": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"start_time": {
+						"type": "String"
+					},
+					"end_time": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "KPIs"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Silver_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -10855,36 +10962,6 @@
 						}
 					},
 					{
-						"name": "Post_publication",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Set Variable End Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Post_publication",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"triggerTime": {
-									"value": "@formatDateTime(pipeline().parameters.triggerTime,'yyyy-MM-dd HH:mm:ss')",
-									"type": "Expression"
-								},
-								"endTime": {
-									"value": "@variables('EndTime')",
-									"type": "Expression"
-								}
-							}
-						}
-					},
-					{
 						"name": "Search_Analysis",
 						"type": "ExecutePipeline",
 						"dependsOn": [
@@ -10964,7 +11041,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Post_interactions')]",
 				"[concat(variables('factoryId'), '/pipelines/User_info_ext_pre_processing')]",
-				"[concat(variables('factoryId'), '/pipelines/Post_publication')]",
 				"[concat(variables('factoryId'), '/pipelines/Search_Analysis')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
@@ -15224,113 +15300,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Search_Analysis')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Search_Exploration",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/KPI/Search_Exploration",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(pipeline().parameters.endTime)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "2023-12-07 03:00:00"
-					},
-					"endTime": {
-						"type": "string"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
 		}
 	]
 }
