@@ -13,164 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/User_info_ext')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "user_info_ext_notebook",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/Weekly_user_accesses"
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "@trigger().startTime"
-					}
-				},
-				"variables": {
-					"startDate": {
-						"type": "String"
-					},
-					"endDate": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/User_info_ext_pre_processing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Time spent in app",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Set End time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
-							"baseParameters": {
-								"startDate": {
-									"value": "@variables('start_time')",
-									"type": "Expression"
-								},
-								"endDate": {
-									"value": "@variables('end_time')",
-									"type": "Expression"
-								},
-								"isTest": "False"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Set Start Time",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "start_time",
-							"value": {
-								"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set End time",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set Start Time",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "end_time",
-							"value": {
-								"value": "@formatDateTime(pipeline().parameters.endTime)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"triggerTime": {
-						"type": "string",
-						"defaultValue": "2023-12-07 03:00:00"
-					},
-					"endTime": {
-						"type": "string"
-					}
-				},
-				"variables": {
-					"start_time": {
-						"type": "String"
-					},
-					"end_time": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "KPIs"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/User_preferences')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1438,6 +1280,660 @@
 				},
 				"typeProperties": {
 					"collectionName": "Categories"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Source_Feed')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"postType": {
+							"type": "string"
+						},
+						"primaryTip": {
+							"type": "object",
+							"properties": {
+								"tipId": {
+									"type": "string"
+								},
+								"activities": {
+									"type": "array",
+									"items": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"categoryId": {
+													"type": "string"
+												},
+												"engName": {
+													"type": "null"
+												},
+												"label": {
+													"type": "string"
+												},
+												"level": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"tags": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											}
+										}
+									}
+								},
+								"content": {
+									"type": "object",
+									"properties": {
+										"placeId": {
+											"type": "string"
+										},
+										"geoLocation": {
+											"type": "object",
+											"properties": {
+												"Type": {
+													"type": "string"
+												},
+												"Coordinates": {
+													"type": "object",
+													"properties": {
+														"Lat": {
+															"type": "number"
+														},
+														"Lon": {
+															"type": "number"
+														}
+													}
+												}
+											}
+										},
+										"mapUrl": {
+											"type": "string"
+										},
+										"address": {
+											"type": "string"
+										},
+										"title": {
+											"type": "string"
+										},
+										"categories": {
+											"type": "array",
+											"items": {
+												"type": "array",
+												"items": {
+													"type": "object",
+													"properties": {
+														"categoryId": {
+															"type": "string"
+														},
+														"engName": {
+															"type": "null"
+														},
+														"label": {
+															"type": "string"
+														},
+														"level": {
+															"type": "integer"
+														},
+														"name": {
+															"type": "string"
+														}
+													}
+												}
+											}
+										},
+										"description": {
+											"type": "null"
+										},
+										"images": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"associatedTo": {
+														"type": "string"
+													},
+													"imageKey": {
+														"type": "string"
+													}
+												}
+											}
+										},
+										"geoHierarchy": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"key": {
+														"type": "string"
+													},
+													"name": {
+														"type": "string"
+													},
+													"levelName": {
+														"type": "string"
+													},
+													"levelKey": {
+														"type": "string"
+													},
+													"level": {
+														"type": "integer"
+													}
+												}
+											}
+										},
+										"officialWebsite": {
+											"type": "null"
+										},
+										"wikipediaLink": {
+											"type": "null"
+										},
+										"phoneNumber": {
+											"type": "null"
+										},
+										"affiliation": {
+											"type": "object",
+											"properties": {
+												"bookable": {
+													"type": "boolean"
+												},
+												"affiliationLinks": {
+													"type": "array"
+												}
+											}
+										},
+										"placeType": {
+											"type": "string"
+										},
+										"isHidden": {
+											"type": "boolean"
+										}
+									}
+								},
+								"suggestedMonths": {
+									"type": "object",
+									"properties": {
+										"January": {
+											"type": "boolean"
+										},
+										"February": {
+											"type": "boolean"
+										},
+										"March": {
+											"type": "boolean"
+										},
+										"April": {
+											"type": "boolean"
+										},
+										"May": {
+											"type": "boolean"
+										},
+										"June": {
+											"type": "boolean"
+										},
+										"July": {
+											"type": "boolean"
+										},
+										"August": {
+											"type": "boolean"
+										},
+										"September": {
+											"type": "boolean"
+										},
+										"October": {
+											"type": "boolean"
+										},
+										"November": {
+											"type": "boolean"
+										},
+										"December": {
+											"type": "boolean"
+										}
+									}
+								},
+								"videoShootingMonths": {
+									"type": "object",
+									"properties": {
+										"January": {
+											"type": "boolean"
+										},
+										"February": {
+											"type": "boolean"
+										},
+										"March": {
+											"type": "boolean"
+										},
+										"April": {
+											"type": "boolean"
+										},
+										"May": {
+											"type": "boolean"
+										},
+										"June": {
+											"type": "boolean"
+										},
+										"July": {
+											"type": "boolean"
+										},
+										"August": {
+											"type": "boolean"
+										},
+										"September": {
+											"type": "boolean"
+										},
+										"October": {
+											"type": "boolean"
+										},
+										"November": {
+											"type": "boolean"
+										},
+										"December": {
+											"type": "boolean"
+										}
+									}
+								},
+								"suggestedMonthsList": {
+									"type": "array"
+								},
+								"videoShootingMonthsList": {
+									"type": "array"
+								}
+							}
+						},
+						"secondaryTips": {
+							"type": "array"
+						},
+						"postId": {
+							"type": "string"
+						},
+						"draftId": {
+							"type": "string"
+						},
+						"keyId": {
+							"type": "string"
+						},
+						"userId": {
+							"type": "string"
+						},
+						"discriminator": {
+							"type": "string"
+						},
+						"caption": {
+							"type": "string"
+						},
+						"creator": {
+							"type": "object",
+							"properties": {
+								"avatarKey": {
+									"type": "string"
+								},
+								"givenName": {
+									"type": "string"
+								},
+								"surname": {
+									"type": "string"
+								},
+								"displayName": {
+									"type": "string"
+								},
+								"profileSlug": {
+									"type": "string"
+								},
+								"isVerified": {
+									"type": "boolean"
+								},
+								"isCertified": {
+									"type": "boolean"
+								}
+							}
+						},
+						"originalLanguage": {
+							"type": "object",
+							"properties": {
+								"languageId": {
+									"type": "string"
+								},
+								"languageTag": {
+									"type": "string"
+								},
+								"familyName": {
+									"type": "string"
+								}
+							}
+						},
+						"video": {
+							"type": "object",
+							"properties": {
+								"videoId": {
+									"type": "string"
+								},
+								"eclexiaVideoId": {
+									"type": "integer"
+								},
+								"videoGuid": {
+									"type": "string"
+								},
+								"lengthInSeconds": {
+									"type": "integer"
+								},
+								"selectedThumbnailUrl": {
+									"type": "string"
+								},
+								"coverImageUrl": {
+									"type": "string"
+								},
+								"shareImageUrl": {
+									"type": "string"
+								},
+								"formats": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"Url": {
+												"type": "string"
+											},
+											"VideoBitrateMax": {
+												"type": "integer"
+											},
+											"AudioBitrate": {
+												"type": "integer"
+											},
+											"WidthMax": {
+												"type": "integer"
+											},
+											"HeightMax": {
+												"type": "integer"
+											},
+											"Language": {
+												"type": "string"
+											}
+										}
+									}
+								},
+								"formatsMP4": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"Url": {
+												"type": "string"
+											},
+											"VideoBitrateMax": {
+												"type": "integer"
+											},
+											"AudioBitrate": {
+												"type": "integer"
+											},
+											"WidthMax": {
+												"type": "integer"
+											},
+											"HeightMax": {
+												"type": "integer"
+											},
+											"Language": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						},
+						"status": {
+							"type": "object",
+							"properties": {
+								"isPrivate": {
+									"type": "boolean"
+								},
+								"isDeleted": {
+									"type": "boolean"
+								},
+								"isBanned": {
+									"type": "boolean"
+								},
+								"bannedFor": {
+									"type": "null"
+								}
+							}
+						},
+						"images": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"ImageKey": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"styles": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"styleId": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"tags": {
+							"type": "array"
+						},
+						"feedListIds": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"listNameId": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"ctCode": {
+							"type": "string"
+						},
+						"publicationDate": {
+							"type": "string"
+						},
+						"lastUpdate": {
+							"type": "string"
+						},
+						"numberOfViews": {
+							"type": "integer"
+						},
+						"numberOfLikes": {
+							"type": "integer"
+						},
+						"numberOfBookmarks": {
+							"type": "integer"
+						},
+						"numberOfShares": {
+							"type": "integer"
+						},
+						"ranking": {
+							"type": "number"
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "Feed"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Source_GeoLocation')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"geoId": {
+							"type": "string"
+						},
+						"country": {
+							"type": "string"
+						},
+						"discriminator": {
+							"type": "string"
+						},
+						"level": {
+							"type": "integer"
+						},
+						"itaName": {
+							"type": "string"
+						},
+						"geometryKey": {
+							"type": "string"
+						},
+						"geonameKey": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"asciiName": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"geometry": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string"
+								},
+								"coordinates": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								}
+							}
+						},
+						"featureClass": {
+							"type": "string"
+						},
+						"featureCode": {
+							"type": "string"
+						},
+						"cc2": {
+							"type": "string"
+						},
+						"admin1": {
+							"type": "string"
+						},
+						"admin2": {
+							"type": "string"
+						},
+						"admin3": {
+							"type": "string"
+						},
+						"admin4": {
+							"type": "string"
+						},
+						"population": {
+							"type": "integer"
+						},
+						"elevation": {
+							"type": "integer"
+						},
+						"dem": {
+							"type": "integer"
+						},
+						"timezone": {
+							"type": "string"
+						},
+						"lastEdit": {
+							"type": "string"
+						},
+						"srcCounter": {
+							"type": "integer"
+						},
+						"alternateNames": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"translations": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"alternateNameId": {
+										"type": "string"
+									},
+									"isoLanguage": {
+										"type": "string"
+									},
+									"alternate": {
+										"type": "string"
+									},
+									"isPreferred": {
+										"type": "boolean"
+									},
+									"isShortName": {
+										"type": "boolean"
+									},
+									"isColloquial": {
+										"type": "boolean"
+									},
+									"isHistoric": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "GeoLocation"
 				}
 			},
 			"dependsOn": []
