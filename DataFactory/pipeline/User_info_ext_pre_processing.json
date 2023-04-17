@@ -22,7 +22,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent",
+					"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Silver/In_app_time_spent_v1",
 					"baseParameters": {
 						"startDate": {
 							"value": "@variables('start_time')",
