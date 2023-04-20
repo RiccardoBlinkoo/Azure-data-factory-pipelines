@@ -1717,7 +1717,7 @@
 									"typeProperties": {
 										"variableName": "EndTime",
 										"value": {
-											"value": "@concat(formatDateTime(addHours(pipeline().parameters.start_time,-6),'yyyy-MM-dd'), ' ', '23:59:59')",
+											"value": "@concat(formatDateTime(addHours(pipeline().parameters.start_time,-5),'yyyy-MM-dd'), ' ', '23:59:59')",
 											"type": "Expression"
 										}
 									}
