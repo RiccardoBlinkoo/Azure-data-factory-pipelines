@@ -1,0 +1,188 @@
+{
+	"name": "Bronze_LogAnalytics_DEV",
+	"properties": {
+		"activities": [
+			{
+				"name": "getBearerToken",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+						"type": "Expression"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": {
+						"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Token Variable",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "getBearerToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "token",
+					"value": {
+						"value": "@activity('getBearerToken').output.access_token",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "For Each Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set Token Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Table_Names",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set Table Variable",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "table",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Set End Date Variable",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Set Table Variable",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "end_date",
+								"value": {
+									"value": "@formatDateTime(addHours(pipeline().parameters.end_time,-2),'yyyy-MM-dd, HH:00:00')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Bronze ETL",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
+								"baseParameters": {
+									"EndDate": "variables('end_date')",
+									"Table": "variables('table')",
+									"Token": "variables('token')"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"ClientSecret": {
+				"type": "string",
+				"defaultValue": "kNU8Q~502ZM0tGfrYdDArJy~W97JhJUTurJPKcFt"
+			},
+			"ClientID": {
+				"type": "string",
+				"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+			},
+			"Table_Names": {
+				"type": "array",
+				"defaultValue": [
+					"AppDependencies",
+					"AppEvents",
+					"AppExceptions",
+					"AppMetrics",
+					"AppPageViews",
+					"AppPerformanceCounters",
+					"AppRequests",
+					"AppSystemEvents",
+					"AppTraces",
+					"Usage"
+				]
+			},
+			"end_time": {
+				"type": "string",
+				"defaultValue": "2022-07-04 11:00:00"
+			},
+			"TenantID": {
+				"type": "string",
+				"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+			}
+		},
+		"variables": {
+			"Resource": {
+				"type": "String",
+				"defaultValue": "https://api.loganalytics.io"
+			},
+			"token": {
+				"type": "String"
+			},
+			"table": {
+				"type": "String"
+			},
+			"end_date": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "LogAnalytics"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-04T10:39:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
