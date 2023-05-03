@@ -338,58 +338,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "getBearerToken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": {
-								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Set Token Variable",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "getBearerToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "token",
-							"value": {
-								"value": "@activity('getBearerToken').output.access_token",
-								"type": "Expression"
-							}
-						}
-					},
-					{
 						"name": "For Each Table",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Set Token Variable",
+								"activity": "Set End Date Variable",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -406,7 +359,14 @@
 								{
 									"name": "Set Table Variable",
 									"type": "SetVariable",
-									"dependsOn": [],
+									"dependsOn": [
+										{
+											"activity": "If Condition1",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "table",
@@ -417,31 +377,11 @@
 									}
 								},
 								{
-									"name": "Set End Date Variable",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set Table Variable",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "end_date",
-										"value": {
-											"value": "@formatDateTime(addHours(pipeline().parameters.end_time,-2),'yyyy-MM-dd, HH:00:00')",
-											"type": "Expression"
-										}
-									}
-								},
-								{
 									"name": "Bronze ETL",
 									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
-											"activity": "Set End Date Variable",
+											"activity": "Set Table Variable",
 											"dependencyConditions": [
 												"Succeeded"
 											]
@@ -476,8 +416,102 @@
 										"referenceName": "AzureDatabricks1",
 										"type": "LinkedServiceReference"
 									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@or(empty(variables('token')),\n    greaterOrEquals(addminutes(variables('token_expires_on'), 20), utcnow()))",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "getBearerToken",
+												"type": "WebActivity",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"url": {
+														"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+														"type": "Expression"
+													},
+													"method": "POST",
+													"headers": {
+														"Content-Type": "application/x-www-form-urlencoded"
+													},
+													"body": {
+														"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
+														"type": "Expression"
+													}
+												}
+											},
+											{
+												"name": "Set Token Variable",
+												"type": "SetVariable",
+												"dependsOn": [
+													{
+														"activity": "getBearerToken",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "token",
+													"value": {
+														"value": "@activity('getBearerToken').output.access_token",
+														"type": "Expression"
+													}
+												}
+											},
+											{
+												"name": "Set Expires On Variable",
+												"type": "SetVariable",
+												"dependsOn": [
+													{
+														"activity": "Set Token Variable",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "token_expires_on",
+													"value": {
+														"value": "@activity('getBearerToken').output.expires_on",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
 								}
 							]
+						}
+					},
+					{
+						"name": "Set End Date Variable",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_date",
+							"value": {
+								"value": "@formatDateTime(addHours(pipeline().parameters.end_time,-2),'yyyy-MM-dd, HH:00:00')",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -530,6 +564,9 @@
 						"type": "String"
 					},
 					"end_date": {
+						"type": "String"
+					},
+					"token_expires_on": {
 						"type": "String"
 					}
 				},
