@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Bronze_LogAnalytics",
+					"referenceName": "Bronze_LogAnalytics_OLD",
 					"type": "PipelineReference"
 				},
 				"parameters": {
@@ -30,7 +30,7 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "Bronze_LogAnalytics_DEV",
+					"referenceName": "Bronze_LogAnalytics",
 					"type": "PipelineReference"
 				},
 				"parameters": {
