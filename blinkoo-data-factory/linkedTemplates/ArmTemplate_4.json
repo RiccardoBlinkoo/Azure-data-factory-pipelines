@@ -44,6 +44,152 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Source_GeoLocation')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blinkoorepo",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CosmosDB"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {
+					"type": "object",
+					"properties": {
+						"geoId": {
+							"type": "string"
+						},
+						"country": {
+							"type": "string"
+						},
+						"discriminator": {
+							"type": "string"
+						},
+						"level": {
+							"type": "integer"
+						},
+						"itaName": {
+							"type": "string"
+						},
+						"geometryKey": {
+							"type": "string"
+						},
+						"geonameKey": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"asciiName": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"geometry": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string"
+								},
+								"coordinates": {
+									"type": "array",
+									"items": {
+										"type": "number"
+									}
+								}
+							}
+						},
+						"featureClass": {
+							"type": "string"
+						},
+						"featureCode": {
+							"type": "string"
+						},
+						"cc2": {
+							"type": "string"
+						},
+						"admin1": {
+							"type": "string"
+						},
+						"admin2": {
+							"type": "string"
+						},
+						"admin3": {
+							"type": "string"
+						},
+						"admin4": {
+							"type": "string"
+						},
+						"population": {
+							"type": "integer"
+						},
+						"elevation": {
+							"type": "integer"
+						},
+						"dem": {
+							"type": "integer"
+						},
+						"timezone": {
+							"type": "string"
+						},
+						"lastEdit": {
+							"type": "string"
+						},
+						"srcCounter": {
+							"type": "integer"
+						},
+						"alternateNames": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"translations": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"alternateNameId": {
+										"type": "string"
+									},
+									"isoLanguage": {
+										"type": "string"
+									},
+									"alternate": {
+										"type": "string"
+									},
+									"isPreferred": {
+										"type": "boolean"
+									},
+									"isShortName": {
+										"type": "boolean"
+									},
+									"isColloquial": {
+										"type": "boolean"
+									},
+									"isHistoric": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					}
+				},
+				"typeProperties": {
+					"collectionName": "GeoLocation"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Source_Geometry')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -962,7 +1108,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -2030,133 +2176,6 @@
 							"categories",
 							"geo_location",
 							"places"
-						]
-					},
-					"end_time": {
-						"type": "string",
-						"defaultValue": "2022-06-24 04:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Weekly"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T05:07:38Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_Update_CosmosDB')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set end_time in timestamp",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/0 Bronze",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Set end_time in timestamp",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Execute Silver Update Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Weekly_Silver_Update_CosmosDB",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": false,
-							"parameters": {
-								"Tables": {
-									"value": "@pipeline().parameters.Tables",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"Categories"
 						]
 					},
 					"end_time": {
