@@ -21,7 +21,6 @@
 						"AppPerformanceCounters",
 						"AppRequests",
 						"AppSystemEvents",
-						"AppTraces",
 						"Usage"
 					],
 					"end_time": "@trigger().startTime",
