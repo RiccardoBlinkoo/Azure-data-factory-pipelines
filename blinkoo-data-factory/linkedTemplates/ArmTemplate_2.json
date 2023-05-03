@@ -458,9 +458,18 @@
 									"typeProperties": {
 										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
 										"baseParameters": {
-											"EndDate": "variables('end_date')",
-											"Table": "variables('table')",
-											"Token": "variables('token')"
+											"EndDate": {
+												"value": "@variables('end_date')",
+												"type": "Expression"
+											},
+											"Table": {
+												"value": "@variables('table')",
+												"type": "Expression"
+											},
+											"Token": {
+												"value": "@variables('token')",
+												"type": "Expression"
+											}
 										}
 									},
 									"linkedServiceName": {
