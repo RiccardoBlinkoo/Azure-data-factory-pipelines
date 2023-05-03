@@ -172,7 +172,7 @@
 			},
 			"end_time": {
 				"type": "string",
-				"defaultValue": "2023-05-03 08:00:00"
+				"defaultValue": "2022-07-04 11:00:00"
 			},
 			"TenantID": {
 				"type": "string",
