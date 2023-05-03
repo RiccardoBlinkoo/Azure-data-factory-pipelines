@@ -6,30 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Bronze_LogAnalytics_OLD",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"ClientSecret": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH",
-					"ClientID": "e2c3de32-f621-4fa2-9bf7-344551917b7b",
-					"Table_Names": [
-						"AppDependencies",
-						"AppEvents",
-						"AppExceptions",
-						"AppMetrics",
-						"AppPageViews",
-						"AppPerformanceCounters",
-						"AppRequests",
-						"AppSystemEvents",
-						"AppTraces",
-						"Usage"
-					],
-					"end_time": "@trigger().startTime",
-					"TenantID": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "Bronze_LogAnalytics",
 					"type": "PipelineReference"
 				},
