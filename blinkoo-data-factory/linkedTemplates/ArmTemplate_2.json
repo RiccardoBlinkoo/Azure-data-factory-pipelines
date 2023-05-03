@@ -539,7 +539,6 @@
 							"AppPerformanceCounters",
 							"AppRequests",
 							"AppSystemEvents",
-							"AppTraces",
 							"Usage"
 						]
 					},
