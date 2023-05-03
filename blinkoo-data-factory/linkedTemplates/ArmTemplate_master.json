@@ -323,21 +323,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
-					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
 					}
 				}
 			},
@@ -361,6 +346,21 @@
 					},
 					"Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime": {
 						"value": "[parameters('Blinkoin_assignment_properties_Blinkoin_assignment_parameters_triggerTime')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
+					},
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
 					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"

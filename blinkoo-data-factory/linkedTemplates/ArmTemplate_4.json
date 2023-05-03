@@ -6,37 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "blinkoo-data-factory"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-			"type": "string",
-			"defaultValue": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID": {
-			"type": "string",
-			"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-			"type": "array",
-			"defaultValue": [
-				"AppDependencies",
-				"AppEvents",
-				"AppExceptions",
-				"AppMetrics",
-				"AppPageViews",
-				"AppPerformanceCounters",
-				"AppRequests",
-				"AppSystemEvents",
-				"AppTraces",
-				"Usage"
-			]
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
-			"type": "string",
-			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
 		}
 	},
 	"variables": {
@@ -1103,40 +1072,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_LogAnalytics",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
-							"ClientID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientID')]",
-							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
-							"end_time": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]",
-							"TenantID": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 1,
-						"startTime": "2022-05-13T18:00:00Z",
-						"timeZone": "UTC"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2176,6 +2111,133 @@
 							"categories",
 							"geo_location",
 							"places"
+						]
+					},
+					"end_time": {
+						"type": "string",
+						"defaultValue": "2022-06-24 04:00:00"
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Weekly"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T05:07:38Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Weekly_Bronze_Update_CosmosDB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set end_time in timestamp",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/0 Bronze",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											},
+											"EndDate": {
+												"value": "@variables('EndTime')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "Set end_time in timestamp",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "EndTime",
+										"value": {
+											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}\n",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Execute Silver Update Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Weekly_Silver_Update_CosmosDB",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": false,
+							"parameters": {
+								"Tables": {
+									"value": "@pipeline().parameters.Tables",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"Categories"
 						]
 					},
 					"end_time": {

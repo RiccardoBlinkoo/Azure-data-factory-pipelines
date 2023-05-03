@@ -13,7 +13,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_OLD')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {

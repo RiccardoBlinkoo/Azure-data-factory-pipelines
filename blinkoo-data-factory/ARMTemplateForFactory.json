@@ -591,7 +591,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_OLD')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -8409,7 +8409,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_DEV')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -8588,7 +8588,7 @@
 					},
 					"end_time": {
 						"type": "string",
-						"defaultValue": "2023-05-03 08:00:00"
+						"defaultValue": "2022-07-04 11:00:00"
 					},
 					"TenantID": {
 						"type": "string",
