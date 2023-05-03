@@ -683,7 +683,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"expression": {
-											"value": "@or(empty(variables('token')),\n    greaterOrEquals(add(int(variables('token_expires_on')),1200), div(sub(ticks(utcNow()), ticks('1970-01-01')),10000000)))",
+											"value": "@or(empty(variables('token')),\n    greaterOrEquals(\n        add(\n            div(sub(ticks(utcNow()), ticks('1970-01-01')),10000000)\n            ,1200\n        ),\n        int(variables('token_expires_on'))\n    )\n)",
 											"type": "Expression"
 										},
 										"ifTrueActivities": [
