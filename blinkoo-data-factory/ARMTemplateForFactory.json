@@ -591,7 +591,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_OLD')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -696,8 +696,8 @@
 									}
 								},
 								{
-									"name": "Post Function",
-									"type": "WebActivity",
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
 									"dependsOn": [
 										{
 											"activity": "Set End Date Variable",
@@ -707,7 +707,7 @@
 										}
 									],
 									"policy": {
-										"timeout": "7.00:00:00",
+										"timeout": "0.12:00:00",
 										"retry": 0,
 										"retryIntervalInSeconds": 30,
 										"secureOutput": false,
@@ -715,17 +715,25 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/getLogAnalyticsData?",
-											"type": "Expression"
-										},
-										"method": "POST",
-										"headers": {},
-										"body": {
-											"value": "@concat('{\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
-											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
+										"baseParameters": {
+											"EndDate": {
+												"value": "@variables('end_date')",
+												"type": "Expression"
+											},
+											"Table": {
+												"value": "@variables('table')",
+												"type": "Expression"
+											},
+											"Token": {
+												"value": "@variables('token')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
 									}
 								}
 							]
@@ -739,11 +747,11 @@
 				"parameters": {
 					"ClientSecret": {
 						"type": "string",
-						"defaultValue": "kNU8Q~502ZM0tGfrYdDArJy~W97JhJUTurJPKcFt"
+						"defaultValue": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH"
 					},
 					"ClientID": {
 						"type": "string",
-						"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
+						"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
 					},
 					"Table_Names": {
 						"type": "array",
@@ -790,7 +798,9 @@
 				"annotations": [],
 				"lastPublishTime": "2022-07-04T10:39:37Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_AppDependencies_003105_0106')]",
@@ -8409,7 +8419,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_OLD')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -8514,8 +8524,8 @@
 									}
 								},
 								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
+									"name": "Post Function",
+									"type": "WebActivity",
 									"dependsOn": [
 										{
 											"activity": "Set End Date Variable",
@@ -8525,7 +8535,7 @@
 										}
 									],
 									"policy": {
-										"timeout": "0.12:00:00",
+										"timeout": "7.00:00:00",
 										"retry": 0,
 										"retryIntervalInSeconds": 30,
 										"secureOutput": false,
@@ -8533,25 +8543,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
-										"baseParameters": {
-											"EndDate": {
-												"value": "@variables('end_date')",
-												"type": "Expression"
-											},
-											"Table": {
-												"value": "@variables('table')",
-												"type": "Expression"
-											},
-											"Token": {
-												"value": "@variables('token')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
+										"url": {
+											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/getLogAnalyticsData?",
+											"type": "Expression"
+										},
+										"method": "POST",
+										"headers": {},
+										"body": {
+											"value": "@concat('{\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
+											"type": "Expression"
+										},
+										"httpRequestTimeout": "00:10:00"
 									}
 								}
 							]
@@ -8565,11 +8567,11 @@
 				"parameters": {
 					"ClientSecret": {
 						"type": "string",
-						"defaultValue": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH"
+						"defaultValue": "kNU8Q~502ZM0tGfrYdDArJy~W97JhJUTurJPKcFt"
 					},
 					"ClientID": {
 						"type": "string",
-						"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
+						"defaultValue": "9dc3796a-275c-4753-aedd-1c61fb230b74"
 					},
 					"Table_Names": {
 						"type": "array",
@@ -8616,9 +8618,7 @@
 				"annotations": [],
 				"lastPublishTime": "2022-07-04T10:39:37Z"
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServer')]",
@@ -14903,7 +14903,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -14924,7 +14924,7 @@
 					"recurrence": {
 						"frequency": "Hour",
 						"interval": 1,
-						"startTime": "2022-05-13T18:00:00Z",
+						"startTime": "2022-05-13T06:00:00Z",
 						"timeZone": "UTC"
 					}
 				}
