@@ -1,0 +1,100 @@
+{
+	"name": "Daily_Bronze_SqlServerTripAssistant",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.Tables",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Bronze ETL",
+							"type": "DatabricksNotebook",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronzeTripAssistant",
+								"baseParameters": {
+									"Table": {
+										"value": "@item()",
+										"type": "Expression"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureDatabricks1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Execute Silver Update Pipeline",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Daily_Silver_SqlServer",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Tables": {
+							"value": "@pipeline().parameters.Tables",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Tables": {
+				"type": "array",
+				"defaultValue": [
+					"place_tip",
+					"categories",
+					"geo_location",
+					"places"
+				]
+			},
+			"end_time": {
+				"type": "string",
+				"defaultValue": "2022-06-24 04:00:00"
+			}
+		},
+		"variables": {
+			"EndTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Cosmos DB/Daily"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-06-24T05:03:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
