@@ -48,7 +48,8 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"place_tip"
+					"search_results",
+					"itineraries"
 				]
 			}
 		},
