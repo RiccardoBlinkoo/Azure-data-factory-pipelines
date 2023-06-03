@@ -110,6 +110,13 @@
 				"itineraries"
 			]
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"search_results",
+				"itineraries"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -419,6 +426,9 @@
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables')]"
+					},
+					"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
 					},
 					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"

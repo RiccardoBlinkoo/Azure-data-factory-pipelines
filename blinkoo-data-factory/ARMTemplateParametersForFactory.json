@@ -88,6 +88,12 @@
 				"itineraries"
 			]
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"value": [
 				"AppDependencies",

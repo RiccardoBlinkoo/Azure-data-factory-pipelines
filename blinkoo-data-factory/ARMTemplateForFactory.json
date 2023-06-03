@@ -110,6 +110,13 @@
 				"itineraries"
 			]
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"search_results",
+				"itineraries"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -14881,6 +14888,15 @@
 						"parameters": {
 							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerTripAssistant_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -14906,7 +14922,8 @@
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]"
 			]
 		},
 		{
@@ -15370,10 +15387,8 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"place_tip",
-							"categories",
-							"geo_location",
-							"places"
+							"search_results",
+							"itineraries"
 						]
 					}
 				},
@@ -15449,7 +15464,8 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"place_tip"
+							"search_results",
+							"itineraries"
 						]
 					}
 				},
@@ -15460,6 +15476,180 @@
 				"lastPublishTime": "2022-06-24T04:58:17Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Silver_SqlServerTripAssistant_dev')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Silver Update ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/SqlBronzeTripAssistantToSilver_dev",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"search_results",
+							"itineraries"
+						]
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Daily"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T04:58:17Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServerTripAssistant_dev')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronzeTripAssistant_dev",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Execute Silver Update Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Daily_Silver_SqlServerTripAssistant_dev",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"Tables": {
+									"value": "@pipeline().parameters.Tables",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"search_results",
+							"itineraries"
+						]
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Daily"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T05:03:08Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Daily_Silver_SqlServerTripAssistant_dev')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
 			]
 		}
