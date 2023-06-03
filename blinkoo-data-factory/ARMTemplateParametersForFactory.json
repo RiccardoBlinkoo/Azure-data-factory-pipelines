@@ -82,6 +82,12 @@
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"value": [
 				"AppDependencies",
