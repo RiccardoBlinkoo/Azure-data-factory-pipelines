@@ -79,10 +79,6 @@
 					"geo_location",
 					"places"
 				]
-			},
-			"end_time": {
-				"type": "string",
-				"defaultValue": "2022-06-24 04:00:00"
 			}
 		},
 		"variables": {

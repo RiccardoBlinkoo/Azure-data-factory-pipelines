@@ -63,6 +63,18 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerTripAssistant",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"search_results",
+						"itineraries"
+					]
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
