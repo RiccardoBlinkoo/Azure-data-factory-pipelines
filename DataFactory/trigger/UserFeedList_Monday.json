@@ -2,7 +2,7 @@
 	"name": "UserFeedList_Monday",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
