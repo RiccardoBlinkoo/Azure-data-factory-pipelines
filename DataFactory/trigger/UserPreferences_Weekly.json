@@ -11,7 +11,7 @@
 				},
 				"parameters": {
 					"operationType": "weekly",
-					"triggerTime": "now()"
+					"triggerTime": "@trigger().startTime"
 				}
 			}
 		],
