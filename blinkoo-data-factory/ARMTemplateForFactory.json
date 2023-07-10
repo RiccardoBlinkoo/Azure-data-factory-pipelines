@@ -202,6 +202,14 @@
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "weekly"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
 		}
 	},
 	"variables": {
@@ -12423,7 +12431,7 @@
 						"typeProperties": {
 							"variableName": "start_time",
 							"value": {
-								"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -6), addDays(startOfMonth(addToTime(pipeline().parameters.triggerTime, 1, 'Month')), -1))",
+								"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -7), addDays(startOfMonth(addToTime(pipeline().parameters.triggerTime, 1, 'Month')), -1))",
 								"type": "Expression"
 							}
 						}
@@ -16329,6 +16337,44 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Weekly')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "User_preferences",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"operationType": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]",
+							"triggerTime": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-07-16T01:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/User_preferences')]"
+			]
 		}
 	]
 }

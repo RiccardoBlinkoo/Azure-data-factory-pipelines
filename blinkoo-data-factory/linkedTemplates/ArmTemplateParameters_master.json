@@ -164,6 +164,12 @@
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+			"value": "weekly"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"containerUri": {
 			"value": ""
 		},

@@ -74,6 +74,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "weekly"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -1264,6 +1272,42 @@
 							"hours": [
 								8
 							],
+							"weekDays": [
+								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Weekly')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "User_preferences",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"operationType": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]",
+							"triggerTime": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-07-16T01:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
 							"weekDays": [
 								"Monday"
 							]
