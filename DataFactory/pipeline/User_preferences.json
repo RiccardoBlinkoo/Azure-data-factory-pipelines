@@ -15,7 +15,15 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User Preferences/Preferences"
+					"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User Preferences/Preferences",
+					"baseParameters": {
+						"StartAt": "@variables('start_time')",
+						"EndAt": "@variables('end_time')",
+						"OperationType": {
+							"value": "@pipeline().parameters.operation_type",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks1",
@@ -48,8 +56,52 @@
 					"referenceName": "AzureDatabricks1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set Start Time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "start_time",
+					"value": {
+						"value": "@concat(formatDateTime(pipeline().parameters.endTime,'yyyy-MM-dd'), ' ', '00:00:00')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set End time",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "end_time",
+					"value": {
+						"value": "@formatDateTime(pipeline().parameters.endTime)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"parameters": {
+			"operationType": {
+				"type": "string",
+				"defaultValue": "weekly"
+			},
+			"triggerTime": {
+				"type": "string",
+				"defaultValue": "2023-12-30 03:00:00"
+			}
+		},
 		"variables": {
 			"start_time": {
 				"type": "String"
