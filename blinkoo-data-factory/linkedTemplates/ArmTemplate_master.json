@@ -195,7 +195,7 @@
 			"type": "string",
 			"defaultValue": "daily"
 		},
-		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
+		"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
 		},
@@ -410,8 +410,8 @@
 					"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 						"value": "[parameters('UserFeedList_Daily_properties_User_feed_list_parameters_OperationType')]"
 					},
-					"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
-						"value": "[parameters('UserFeedList_Monday_properties_User_feed_list_parameters_OperationType')]"
+					"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
+						"value": "[parameters('UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType')]"
 					},
 					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"

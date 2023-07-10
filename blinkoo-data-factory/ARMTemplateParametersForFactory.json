@@ -158,7 +158,7 @@
 		"UserFeedList_Daily_properties_User_feed_list_parameters_OperationType": {
 			"value": "daily"
 		},
-		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
+		"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
 			"value": "weekly"
 		},
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {

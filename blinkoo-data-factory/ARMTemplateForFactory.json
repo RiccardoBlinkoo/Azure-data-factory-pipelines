@@ -195,7 +195,7 @@
 			"type": "string",
 			"defaultValue": "daily"
 		},
-		"UserFeedList_Monday_properties_User_feed_list_parameters_OperationType": {
+		"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
 			"type": "string",
 			"defaultValue": "weekly"
 		},
@@ -16170,7 +16170,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -16213,12 +16213,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/UserFeedList_Monday')]",
+			"name": "[concat(parameters('factoryName'), '/UserFeedList_Weekly')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -16226,7 +16226,7 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"OperationType": "[parameters('UserFeedList_Monday_properties_User_feed_list_parameters_OperationType')]"
+							"OperationType": "[parameters('UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType')]"
 						}
 					}
 				],
@@ -16370,8 +16370,8 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-07-17T01:00:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2023-07-17T01:00:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"weekDays": [
 								"Monday"
@@ -16408,8 +16408,8 @@
 					"recurrence": {
 						"frequency": "Month",
 						"interval": 1,
-						"startTime": "2023-08-01T01:00:00",
-						"timeZone": "W. Europe Standard Time",
+						"startTime": "2023-08-01T01:00:00Z",
+						"timeZone": "UTC",
 						"schedule": {
 							"monthDays": [
 								1
