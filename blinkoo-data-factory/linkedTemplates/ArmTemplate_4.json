@@ -1664,6 +1664,10 @@
 									"name": "Set variable Table",
 									"type": "SetVariable",
 									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "Table",
@@ -1684,6 +1688,10 @@
 											]
 										}
 									],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "EndTime",
@@ -1862,6 +1870,10 @@
 									"name": "Set end_time in timestamp",
 									"type": "SetVariable",
 									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "EndTime",
@@ -2192,6 +2204,10 @@
 									"name": "Set end_time in timestamp",
 									"type": "SetVariable",
 									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "EndTime",
@@ -2322,6 +2338,10 @@
 									"name": "Set end_time in timestamp",
 									"type": "SetVariable",
 									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "EndTime",
