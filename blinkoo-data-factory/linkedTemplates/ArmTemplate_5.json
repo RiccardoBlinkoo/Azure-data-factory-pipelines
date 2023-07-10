@@ -82,6 +82,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -1287,7 +1295,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -1305,11 +1313,47 @@
 					"recurrence": {
 						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-07-16T01:00:00",
+						"startTime": "2023-07-17T01:00:00",
 						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"weekDays": [
 								"Monday"
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Monthly')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "User_preferences",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"operationType": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]",
+							"triggerTime": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Month",
+						"interval": 1,
+						"startTime": "2023-08-01T01:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"monthDays": [
+								1
 							]
 						}
 					}

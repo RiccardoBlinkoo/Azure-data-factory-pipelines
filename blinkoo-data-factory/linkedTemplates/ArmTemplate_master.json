@@ -211,6 +211,14 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -413,6 +421,12 @@
 					},
 					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
 						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
+					},
+					"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]"
+					},
+					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

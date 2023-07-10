@@ -170,6 +170,12 @@
 		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"value": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
 		"containerUri": {
 			"value": ""
 		},

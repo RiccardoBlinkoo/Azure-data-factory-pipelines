@@ -349,7 +349,7 @@
 						"typeProperties": {
 							"variableName": "start_time",
 							"value": {
-								"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -7), addDays(startOfMonth(addToTime(pipeline().parameters.triggerTime, 1, 'Month')), -1))",
+								"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -7), addDays(startOfMonth(addToTime(addDays(pipeline().parameters.triggerTime, -1), 1, 'Month')), -1))",
 								"type": "Expression"
 							}
 						}
