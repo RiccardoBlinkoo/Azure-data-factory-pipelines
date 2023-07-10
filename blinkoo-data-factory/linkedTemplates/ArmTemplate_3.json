@@ -272,7 +272,14 @@
 					{
 						"name": "User Preferences Prod",
 						"type": "DatabricksNotebook",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Set End time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -282,7 +289,21 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User Preferences/Preferences"
+							"notebookPath": "/Users/daniele.sarnari@blinkoo.com/User Preferences/Preferences",
+							"baseParameters": {
+								"StartAt": {
+									"value": "@concat(formatDateTime(variables('start_time'),'yyyy-MM-dd'), ' ', '00:00:00')",
+									"type": "Expression"
+								},
+								"EndAt": {
+									"value": "@concat(formatDateTime(variables('end_time'),'yyyy-MM-dd'), ' ', '23:59:59')",
+									"type": "Expression"
+								},
+								"OperationType": {
+									"value": "@pipeline().parameters.operationType",
+									"type": "Expression"
+								}
+							}
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks1",
@@ -315,11 +336,62 @@
 							"referenceName": "AzureDatabricks1",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "Set Start Time",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "start_time",
+							"value": {
+								"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -7), addDays(startOfMonth(addToTime(pipeline().parameters.triggerTime, 1, 'Month')), -1))",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set End time",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Set Start Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_time",
+							"value": {
+								"value": "@pipeline().parameters.triggerTime",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"operationType": {
+						"type": "string",
+						"defaultValue": "weekly"
+					},
+					"triggerTime": {
+						"type": "string",
+						"defaultValue": "2023-12-30 03:00:00"
+					}
 				},
 				"variables": {
 					"start_time": {
