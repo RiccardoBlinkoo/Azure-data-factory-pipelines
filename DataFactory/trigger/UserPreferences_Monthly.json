@@ -24,7 +24,7 @@
 				"timeZone": "UTC",
 				"schedule": {
 					"monthDays": [
-						1
+						-1
 					]
 				}
 			}
