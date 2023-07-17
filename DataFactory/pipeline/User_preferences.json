@@ -106,7 +106,7 @@
 				"typeProperties": {
 					"variableName": "end_time",
 					"value": {
-						"value": "@pipeline().parameters.triggerTime",
+						"value": "@if(equals(pipeline().parameters.operationType, 'weekly'), addDays(pipeline().parameters.triggerTime, -1), pipeline().parameters.triggerTime)",
 						"type": "Expression"
 					}
 				}
