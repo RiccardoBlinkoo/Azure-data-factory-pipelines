@@ -161,7 +161,10 @@
 		"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
 			"value": "weekly"
 		},
-		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"value": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
 		"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
@@ -170,10 +173,7 @@
 		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
-			"value": "monthly"
-		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
 		"containerUri": {

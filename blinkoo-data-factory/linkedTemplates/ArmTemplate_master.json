@@ -199,7 +199,11 @@
 			"type": "string",
 			"defaultValue": "weekly"
 		},
-		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -211,11 +215,7 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
-			"type": "string",
-			"defaultValue": "monthly"
-		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -413,8 +413,11 @@
 					"UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType": {
 						"value": "[parameters('UserFeedList_Weekly_properties_User_feed_list_parameters_OperationType')]"
 					},
-					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
-						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
+					"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]"
+					},
+					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
 					},
 					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
 						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
@@ -422,11 +425,8 @@
 					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
 						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
 					},
-					"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
-						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]"
-					},
-					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
-						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
+					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_parameters_Tables')]"

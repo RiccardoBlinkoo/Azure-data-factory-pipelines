@@ -70,7 +70,11 @@
 			"type": "string",
 			"defaultValue": "weekly"
 		},
-		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "monthly"
+		},
+		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -82,11 +86,7 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_operationType": {
-			"type": "string",
-			"defaultValue": "monthly"
-		},
-		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
+		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -1252,7 +1252,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/user_info_ext_trigger')]",
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Monthly')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1261,27 +1261,25 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "User_info_ext",
+							"referenceName": "User_preferences",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"triggerTime": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
+							"operationType": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]",
+							"triggerTime": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
 						}
 					}
 				],
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
-						"frequency": "Week",
+						"frequency": "Month",
 						"interval": 1,
-						"startTime": "2023-03-20T10:00:00Z",
+						"startTime": "2023-08-01T01:00:00Z",
 						"timeZone": "UTC",
 						"schedule": {
-							"hours": [
-								8
-							],
-							"weekDays": [
-								"Monday"
+							"monthDays": [
+								-1
 							]
 						}
 					}
@@ -1326,7 +1324,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/UserPreferences_Monthly')]",
+			"name": "[concat(parameters('factoryName'), '/user_info_ext_trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1335,25 +1333,27 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "User_preferences",
+							"referenceName": "User_info_ext",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"operationType": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_operationType')]",
-							"triggerTime": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
+							"triggerTime": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
 						}
 					}
 				],
 				"type": "ScheduleTrigger",
 				"typeProperties": {
 					"recurrence": {
-						"frequency": "Month",
+						"frequency": "Week",
 						"interval": 1,
-						"startTime": "2023-08-01T01:00:00Z",
+						"startTime": "2023-03-20T10:00:00Z",
 						"timeZone": "UTC",
 						"schedule": {
-							"monthDays": [
-								1
+							"hours": [
+								8
+							],
+							"weekDays": [
+								"Monday"
 							]
 						}
 					}
