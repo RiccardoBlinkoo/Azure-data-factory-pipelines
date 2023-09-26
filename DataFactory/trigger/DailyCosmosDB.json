@@ -87,6 +87,18 @@
 						"itineraries"
 					]
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerPostComments_dev",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"post_comments",
+						"post_replies"
+					]
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
