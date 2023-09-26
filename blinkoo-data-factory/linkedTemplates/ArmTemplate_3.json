@@ -13,6 +13,115 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Silver_Full_LogAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "For Each Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.TableNames",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set Variable Table",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "Table",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Notebook1",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set Variable Table",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/LogAnalytics/Full",
+										"baseParameters": {
+											"Table": {
+												"value": "@variables('Table')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"TableNames": {
+						"type": "array",
+						"defaultValue": [
+							"AppDependencies",
+							"AppEvents",
+							"AppExceptions",
+							"AppMetrics",
+							"AppPageViews",
+							"AppPerformanceCounters",
+							"AppRequests",
+							"AppSystemEvents",
+							"AppTraces",
+							"Usage"
+						]
+					}
+				},
+				"variables": {
+					"EndTime": {
+						"type": "String"
+					},
+					"Table": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Dev/Draft/Log Analytics"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T06:02:38Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/User_feed_list')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1416,112 +1525,6 @@
 					"compressionCodec": "gzip"
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_efo')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blinkoorepo",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Draft"
-				},
-				"annotations": [],
-				"type": "CosmosDbSqlApiCollection",
-				"schema": {
-					"type": "object",
-					"properties": {
-						"discriminator": {
-							"type": "string"
-						},
-						"userId": {
-							"type": "string"
-						},
-						"givenName": {
-							"type": "string"
-						},
-						"surname": {
-							"type": "string"
-						},
-						"displayName": {
-							"type": "string"
-						},
-						"profileDescription": {
-							"type": "string"
-						},
-						"avatarKey": {
-							"type": "string"
-						},
-						"profileSlug": {
-							"type": "string"
-						},
-						"isVerified": {
-							"type": "boolean"
-						},
-						"isCertified": {
-							"type": "boolean"
-						},
-						"isBackofficeMade": {
-							"type": "boolean"
-						},
-						"receivedLikesCount": {
-							"type": "integer"
-						},
-						"followingCount": {
-							"type": "integer"
-						},
-						"followerCount": {
-							"type": "integer"
-						},
-						"hasSelectedInterests": {
-							"type": "boolean"
-						},
-						"selectedInterests": {
-							"type": "array"
-						},
-						"relatedThemes": {
-							"type": "array"
-						},
-						"likedPosts": {
-							"type": "array"
-						},
-						"bookmarkedPosts": {
-							"type": "array"
-						},
-						"posts": {
-							"type": "array"
-						},
-						"excludedPosts": {
-							"type": "array"
-						},
-						"termsAndConditions": {
-							"type": "null"
-						},
-						"thirdPartyMarketing": {
-							"type": "null"
-						},
-						"userProfiling": {
-							"type": "null"
-						},
-						"createdAt": {
-							"type": "string"
-						},
-						"deletedAt": {
-							"type": "null"
-						},
-						"userDevices": {
-							"type": "array"
-						}
-					}
-				},
-				"typeProperties": {
-					"collectionName": "UserInfo"
-				}
 			},
 			"dependsOn": []
 		}
