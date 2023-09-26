@@ -124,6 +124,13 @@
 				"post_replies"
 			]
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"post_comments",
+				"post_replies"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -467,6 +474,9 @@
 					},
 					"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables')]"
+					},
+					"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables')]"
 					},
 					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
