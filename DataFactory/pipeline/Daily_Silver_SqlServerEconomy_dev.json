@@ -48,8 +48,7 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"post_comments",
-					"post_replies"
+					"accounts"
 				]
 			}
 		},
