@@ -57,7 +57,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "Daily_Silver_SqlServerPostComments",
+						"referenceName": "Daily_Silver_SqlServerEconomy_dev",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
