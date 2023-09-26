@@ -131,6 +131,18 @@
 				"post_replies"
 			]
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
+			]
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -432,6 +444,26 @@
 					},
 					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_4')]"
+			]
+		},
+		{
+			"name": "blinkoo-data-factory_ArmTemplate_6",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_6.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
 						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
@@ -478,6 +510,12 @@
 					"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
 						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables')]"
 					},
+					"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
+					},
+					"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+						"value": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables')]"
+					},
 					"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 						"value": "[parameters('DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames')]"
 					},
@@ -490,7 +528,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_4')]"
+				"[resourceId('Microsoft.Resources/deployments', 'blinkoo-data-factory_ArmTemplate_5')]"
 			]
 		}
 	]

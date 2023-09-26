@@ -679,6 +679,142 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Silver_SqlServerEconomy')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Silver Update ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/SqlBronzeEconomyToSilver",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"accounts"
+						]
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Daily"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T04:58:17Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Silver_SqlServerEconomy_dev')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach Table",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Tables",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Silver Update ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Silver/SqlBronzeEconomyToSilver_dev",
+										"baseParameters": {
+											"Table": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Tables": {
+						"type": "array",
+						"defaultValue": [
+							"accounts"
+						]
+					}
+				},
+				"folder": {
+					"name": "Cosmos DB/Daily"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-06-24T04:58:17Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Daily_Silver_SqlServerPostComments')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2000,293 +2136,6 @@
 					"name": "KPIs"
 				},
 				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Silver_Delta_CosmosDB')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Set variable Table",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"policy": {
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "Table",
-										"value": {
-											"value": "@item()",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Set variable EndTime",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set variable Table",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@{div(sub(ticks(addHours(pipeline().parameters.end_time,-3)), ticks('1970-01-01')),10000000)}",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Notebook1",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set variable EndTime",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/CosmosDB/Silver/Silver Delta",
-										"baseParameters": {
-											"Table": {
-												"value": "@variables('Table')",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"end_time": {
-						"type": "string",
-						"defaultValue": "2022-05-12 03:00:00"
-					},
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"Post",
-							"Geometry",
-							"PostStat",
-							"UserInfo",
-							"Categories",
-							"Places",
-							"Feed",
-							"GeoLocation"
-						]
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					},
-					"Table": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Dev/Draft/CosmosDB/Delta"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-23T08:12:38Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Silver_Full')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "For Each Table",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Set variable StartTime",
-									"type": "SetVariable",
-									"dependsOn": [],
-									"policy": {
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "StartTime",
-										"value": {
-											"value": "@{div(sub(ticks(pipeline().parameters.start_time), ticks('1970-01-01')),10000000)}",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Set variable EndTime",
-									"type": "SetVariable",
-									"dependsOn": [
-										{
-											"activity": "Set variable StartTime",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"variableName": "EndTime",
-										"value": {
-											"value": "@{div(sub(ticks(pipeline().parameters.end_time), ticks('1970-01-01')),10000000)}",
-											"type": "Expression"
-										}
-									}
-								},
-								{
-									"name": "Silver Full ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [
-										{
-											"activity": "Set variable EndTime",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/elnur.garashov@porini.it/elnur.garashov/0 CosmosDB Update/Silver Full",
-										"baseParameters": {
-											"StartDate": {
-												"value": "@variables('StartTime')",
-												"type": "Expression"
-											},
-											"EndDate": {
-												"value": "@variables('EndTime')",
-												"type": "Expression"
-											},
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"start_time": {
-						"type": "string",
-						"defaultValue": "2000-01-01 00:00:00"
-					},
-					"end_time": {
-						"type": "string",
-						"defaultValue": "2022-05-30 00:00:00"
-					},
-					"tables": {
-						"type": "array",
-						"defaultValue": [
-							"FeedList",
-							"Post",
-							"Geometry",
-							"PostStat",
-							"UserInfo",
-							"Categories",
-							"Places",
-							"Feed",
-							"GeoLocation"
-						]
-					}
-				},
-				"variables": {
-					"StartTime": {
-						"type": "String"
-					},
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-01T10:29:08Z"
 			},
 			"dependsOn": []
 		}
