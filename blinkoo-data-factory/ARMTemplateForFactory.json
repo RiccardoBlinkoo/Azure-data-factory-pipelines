@@ -77,19 +77,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -355,8 +342,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -512,8 +498,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"end_time": {
@@ -639,8 +624,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"start_time": {
@@ -871,8 +855,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -1114,8 +1097,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -1354,8 +1336,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -1594,8 +1575,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -1834,8 +1814,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -2074,8 +2053,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -2314,8 +2292,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -2554,8 +2531,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -2794,8 +2770,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -3034,8 +3009,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -3274,8 +3248,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -3514,8 +3487,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -3754,8 +3726,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -3994,8 +3965,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -4234,8 +4204,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -4474,8 +4443,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -4714,8 +4682,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -4954,8 +4921,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -5194,8 +5160,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -5434,8 +5399,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -5674,8 +5638,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -5914,8 +5877,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -6154,8 +6116,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -6394,8 +6355,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -6634,8 +6594,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -6874,8 +6833,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -7114,8 +7072,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -7354,8 +7311,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -7594,8 +7550,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -7834,8 +7789,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -8074,8 +8028,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -8314,8 +8267,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -8554,8 +8506,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -8794,8 +8745,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -9034,8 +8984,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -9250,8 +9199,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"ClientSecret": {
@@ -9412,8 +9360,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -9521,8 +9468,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -9623,8 +9569,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -9725,8 +9670,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -9828,8 +9772,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -9931,8 +9874,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10034,8 +9976,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10165,8 +10106,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10302,8 +10242,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10439,8 +10378,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10522,8 +10460,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10592,8 +10529,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10662,8 +10598,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10732,8 +10667,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10803,8 +10737,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10874,8 +10807,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -10945,8 +10877,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -11016,8 +10947,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -11086,8 +11016,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -11159,8 +11088,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -11760,8 +11688,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -11884,8 +11811,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -11999,8 +11925,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -12129,8 +12054,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"end_time": {
@@ -12274,8 +12198,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"start_time": {
@@ -12405,8 +12328,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"start_time": {
@@ -12509,8 +12431,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"TableNames": {
@@ -12762,8 +12683,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"TableNames": {
@@ -12875,8 +12795,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"OperationType": {
@@ -12929,8 +12848,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -13042,8 +12960,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -13188,8 +13105,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"operationType": {
@@ -13321,8 +13237,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -13457,8 +13372,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -13537,8 +13451,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -13609,8 +13522,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"Tables": {
@@ -14065,8 +13977,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"triggerTime": {
@@ -14242,8 +14153,7 @@
 					}
 				],
 				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
+					"elapsedTimeMetric": {}
 				},
 				"parameters": {
 					"KeyVaultClientSecretURI": {
@@ -16662,16 +16572,6 @@
 					},
 					{
 						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServer_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]",
-							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
-						}
-					},
-					{
-						"pipelineReference": {
 							"referenceName": "Daily_Bronze_Update_CosmosDB_dev",
 							"type": "PipelineReference"
 						},
@@ -16756,7 +16656,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]",
