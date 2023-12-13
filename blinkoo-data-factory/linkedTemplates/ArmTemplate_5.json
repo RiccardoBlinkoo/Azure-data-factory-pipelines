@@ -77,110 +77,20 @@
 		"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+			"type": "string",
+			"defaultValue": "weekly"
+		},
+		"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServerEconomy')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronzeEconomy",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Execute Silver Update Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Daily_Silver_SqlServerEconomy",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"Tables": {
-									"value": "@pipeline().parameters.Tables",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"accounts"
-						]
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Daily"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T05:03:08Z"
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServerEconomy_dev')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -2032,6 +1942,42 @@
 						"schedule": {
 							"monthDays": [
 								-1
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UserPreferences_Weekly')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "User_preferences",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"operationType": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]",
+							"triggerTime": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Week",
+						"interval": 1,
+						"startTime": "2023-07-17T01:00:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"weekDays": [
+								"Monday"
 							]
 						}
 					}

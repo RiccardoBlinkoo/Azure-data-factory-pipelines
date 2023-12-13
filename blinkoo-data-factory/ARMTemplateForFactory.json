@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
-		"AzureDatabricks2_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
-		},
 		"AzureSqlDatabase_test_v0_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
@@ -38,10 +34,6 @@
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0306-164132-il89fox9"
-		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
 		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"type": "string",
@@ -16414,24 +16406,6 @@
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
 					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDatabricks2')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "https://adb-673365400340149.9.azuredatabricks.net",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDatabricks2_accessToken')]"
-					},
-					"existingClusterId": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []

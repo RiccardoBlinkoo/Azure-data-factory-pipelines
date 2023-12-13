@@ -11,9 +11,6 @@
 		"AzureDatabricks1_accessToken": {
 			"value": ""
 		},
-		"AzureDatabricks2_accessToken": {
-			"value": ""
-		},
 		"AzureSqlDatabase_test_v0_connectionString": {
 			"value": ""
 		},
@@ -28,9 +25,6 @@
 		},
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"value": "0306-164132-il89fox9"
-		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"value": "0304-092528-p5078pvj"
 		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"value": "@{concat('https://api.loganalytics.io/v1/workspaces/',linkedService().WorkSpaceID,'/')}"

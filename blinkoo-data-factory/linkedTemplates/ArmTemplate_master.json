@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
-		"AzureDatabricks2_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks2'"
-		},
 		"AzureSqlDatabase_test_v0_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
@@ -38,10 +34,6 @@
 		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0306-164132-il89fox9"
-		},
-		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0304-092528-p5078pvj"
 		},
 		"Rest_loganalytics_properties_typeProperties_url": {
 			"type": "string",
@@ -283,20 +275,17 @@
 					"AzureDatabricks1_accessToken": {
 						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
-					"AzureDatabricks2_accessToken": {
-						"value": "[parameters('AzureDatabricks2_accessToken')]"
-					},
 					"AzureSqlDatabase_test_v0_connectionString": {
 						"value": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
+					},
+					"blinkoorepo_connectionString": {
+						"value": "[parameters('blinkoorepo_connectionString')]"
 					},
 					"AzureDataLakeStorageDev_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorageDev_properties_typeProperties_url')]"
 					},
 					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
-					},
-					"AzureDatabricks2_properties_typeProperties_existingClusterId": {
-						"value": "[parameters('AzureDatabricks2_properties_typeProperties_existingClusterId')]"
 					},
 					"Rest_loganalytics_properties_typeProperties_url": {
 						"value": "[parameters('Rest_loganalytics_properties_typeProperties_url')]"
@@ -320,9 +309,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"blinkoorepo_connectionString": {
-						"value": "[parameters('blinkoorepo_connectionString')]"
 					},
 					"test_blinkoo_gold_connection_accessToken": {
 						"value": "[parameters('test_blinkoo_gold_connection_accessToken')]"
@@ -431,6 +417,12 @@
 					},
 					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
+					},
+					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
+					},
+					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
 					}
 				}
 			},
@@ -451,12 +443,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
-						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
-					},
-					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
-						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
 					},
 					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"
