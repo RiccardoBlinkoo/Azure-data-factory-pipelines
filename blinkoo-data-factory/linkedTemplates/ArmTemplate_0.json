@@ -31,13 +31,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -149,17 +149,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -270,13 +270,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -388,17 +388,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -509,13 +509,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -627,17 +627,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -748,13 +748,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -866,17 +866,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -987,13 +987,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -1105,17 +1105,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -1226,13 +1226,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -1344,17 +1344,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -1465,13 +1465,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -1583,17 +1583,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -1704,13 +1704,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -1822,17 +1822,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -1943,13 +1943,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -2061,17 +2061,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -2182,13 +2182,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -2300,17 +2300,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -2421,13 +2421,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -2539,17 +2539,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -2660,13 +2660,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -2778,17 +2778,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -2899,13 +2899,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -3017,17 +3017,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -3138,13 +3138,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -3256,17 +3256,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -3377,13 +3377,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -3495,17 +3495,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -3616,13 +3616,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -3734,17 +3734,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -3855,13 +3855,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -3973,17 +3973,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -4094,13 +4094,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -4212,17 +4212,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -4333,13 +4333,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -4451,17 +4451,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{
@@ -4572,13 +4572,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -4690,17 +4690,17 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
+										"method": "POST",
+										"headers": {},
+										"httpRequestTimeout": "00:10:00",
 										"url": {
 											"value": "https://blinkoo-data-factory-pipelines.azurewebsites.net/api/get_log_data",
 											"type": "Expression"
 										},
-										"method": "POST",
-										"headers": {},
 										"body": {
 											"value": "@concat('{\"start_date\":\"',variables('start_date'),'\",\"token\":\"',variables('token'),'\",\"end_date\":\"',variables('end_date'),'\",\"table\":\"',variables('table'),'\"}')",
 											"type": "Expression"
-										},
-										"httpRequestTimeout": "00:10:00"
+										}
 									}
 								},
 								{

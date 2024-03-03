@@ -149,6 +149,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -247,6 +250,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -346,6 +352,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -445,6 +454,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -544,6 +556,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -671,6 +686,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -804,6 +822,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -937,6 +958,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1094,6 +1118,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1124,6 +1151,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1178,6 +1208,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1331,6 +1364,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1463,6 +1499,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1533,13 +1572,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',activity('getClientSecret').output.value,\n'&resource=',variables('Resource')\n)",
@@ -1560,6 +1599,8 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultClientSecretURI,'?api-version=7.0')",
 								"type": "Expression"
@@ -1568,8 +1609,6 @@
 								"referenceName": "ManagedVirtualNetworkIntegrationRuntime",
 								"type": "IntegrationRuntimeReference"
 							},
-							"method": "GET",
-							"headers": {},
 							"authentication": {
 								"type": "MSI",
 								"resource": "https://vault.azure.net"
@@ -1724,7 +1763,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
