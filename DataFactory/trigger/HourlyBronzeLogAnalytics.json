@@ -2,7 +2,7 @@
 	"name": "HourlyBronzeLogAnalytics",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
