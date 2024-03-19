@@ -21,21 +21,6 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "Daily_Bronze_SqlServer",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"place_tip",
-						"categories",
-						"geo_location",
-						"places"
-					],
-					"end_time": "@trigger().startTime"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "Daily_Bronze_Update_CosmosDB_dev",
 					"type": "PipelineReference"
 				},
