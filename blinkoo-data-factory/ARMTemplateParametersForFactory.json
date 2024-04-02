@@ -99,6 +99,17 @@
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"value": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"value": [
 				"AppDependencies",
