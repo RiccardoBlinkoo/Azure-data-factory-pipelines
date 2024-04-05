@@ -54,16 +54,6 @@
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"value": [
-				"accounts"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
-			"value": [
-				"accounts"
-			]
-		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"value": [
 				"AppDependencies",
@@ -190,6 +180,16 @@
 			"value": [
 				"search_results",
 				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"value": [
+				"accounts"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"value": [
+				"accounts"
 			]
 		}
 	}

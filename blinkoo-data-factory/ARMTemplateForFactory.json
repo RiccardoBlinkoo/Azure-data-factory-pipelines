@@ -69,18 +69,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"accounts"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"accounts"
-			]
-		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -235,6 +223,18 @@
 			"defaultValue": [
 				"search_results",
 				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
 			]
 		}
 	},
@@ -16604,24 +16604,6 @@
 							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_Tables')]",
 							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time')]"
 						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerEconomy",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables')]"
-						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -16644,9 +16626,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB_dev')]"
 			]
 		},
 		{
@@ -17126,6 +17106,24 @@
 						"parameters": {
 							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerEconomy",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -17152,7 +17150,9 @@
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy_dev')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy')]"
 			]
 		}
 	]
