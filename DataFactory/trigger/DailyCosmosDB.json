@@ -103,21 +103,6 @@
 						"accounts"
 					]
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "Daily_Bronze_SqlServer_dev",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"place_tip",
-						"categories",
-						"geo_location",
-						"places"
-					],
-					"end_time": "@trigger().startTime"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
