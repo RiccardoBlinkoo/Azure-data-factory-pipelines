@@ -109,32 +109,6 @@
 				"accounts"
 			]
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
@@ -234,6 +208,32 @@
 			"defaultValue": "@trigger().startTime"
 		},
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		}
@@ -16658,26 +16658,6 @@
 						"parameters": {
 							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables')]"
 						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServer_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]",
-							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServer",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_Tables')]",
-							"end_time": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
-						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -16706,9 +16686,7 @@
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy')]"
 			]
 		},
 		{
@@ -17124,6 +17102,58 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DailySqlServer')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServer",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables')]",
+							"end_time": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServer_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]",
+							"end_time": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-04-05T12:29:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								2
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]"
+			]
 		}
 	]
 }
