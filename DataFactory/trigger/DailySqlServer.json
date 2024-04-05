@@ -33,6 +33,18 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerPostComments",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"post_comments",
+						"post_replies"
+					]
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
