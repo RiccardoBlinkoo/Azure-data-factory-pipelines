@@ -60,18 +60,6 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "Daily_Bronze_SqlServerPostComments_dev",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"post_comments",
-						"post_replies"
-					]
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
 					"type": "PipelineReference"
 				},
