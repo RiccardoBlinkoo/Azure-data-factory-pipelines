@@ -54,30 +54,6 @@
 		"DailyCosmosDB_properties_Daily_Bronze_Update_CosmosDB_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
-			"value": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-			"value": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-			"value": [
-				"post_comments",
-				"post_replies"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
-			"value": [
-				"post_comments",
-				"post_replies"
-			]
-		},
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 			"value": [
 				"accounts"
@@ -191,6 +167,30 @@
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+			"value": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
+			"value": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
 		},
 		"containerUri": {
 			"value": ""

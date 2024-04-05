@@ -69,34 +69,6 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"post_comments",
-				"post_replies"
-			]
-		},
-		"DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"post_comments",
-				"post_replies"
-			]
-		},
 		"DailyCosmosDB_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -236,6 +208,34 @@
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"search_results",
+				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"search_results",
+				"itineraries"
+			]
 		}
 	},
 	"variables": {
@@ -16607,42 +16607,6 @@
 					},
 					{
 						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerTripAssistant",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerTripAssistant_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerPostComments_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerPostComments",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailyCosmosDB_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
 							"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
 							"type": "PipelineReference"
 						},
@@ -16681,10 +16645,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_Update_CosmosDB_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments_dev')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy_dev')]",
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerEconomy')]"
 			]
@@ -17130,6 +17090,42 @@
 							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]",
 							"end_time": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
 						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerPostComments",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerPostComments_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerTripAssistant",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerTripAssistant_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -17152,7 +17148,11 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer')]",
-				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]"
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServer_dev')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerPostComments_dev')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant')]",
+				"[concat(variables('factoryId'), '/pipelines/Daily_Bronze_SqlServerTripAssistant_dev')]"
 			]
 		}
 	]
