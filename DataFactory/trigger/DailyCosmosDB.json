@@ -33,17 +33,6 @@
 					],
 					"end_time": "@trigger().startTime"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "Daily_Bronze_SqlServerEconomy",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"accounts"
-					]
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
