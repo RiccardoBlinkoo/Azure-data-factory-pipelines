@@ -2,7 +2,7 @@
 	"name": "DailySqlServerDev",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -17,6 +17,18 @@
 						"places"
 					],
 					"end_time": "@trigger().startTime"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerPostComments_dev",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"post_comments",
+						"post_replies"
+					]
 				}
 			}
 		],
