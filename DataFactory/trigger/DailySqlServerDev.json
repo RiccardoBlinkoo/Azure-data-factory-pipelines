@@ -42,6 +42,17 @@
 						"itineraries"
 					]
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"accounts"
+					]
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
