@@ -92,6 +92,45 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"search_results",
+				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
+			]
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"type": "string",
 			"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
@@ -171,7 +210,7 @@
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
 				"place_tip",
@@ -180,61 +219,22 @@
 				"places"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
 				"post_comments",
 				"post_replies"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"post_comments",
-				"post_replies"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
 				"search_results",
 				"itineraries"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"accounts"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"accounts"
 			]
 		},
 		"containerUri": {
@@ -487,29 +487,29 @@
 					"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
 						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time')]"
 					},
-					"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]"
-					},
-					"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
-					},
 					"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
 						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables')]"
 					},
-					"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables')]"
-					},
 					"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
 						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables')]"
-					},
-					"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
 					},
 					"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
 					},
 					"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
 						"value": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables')]"
+					},
+					"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
+						"value": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables')]"
+					},
+					"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
+						"value": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time')]"
+					},
+					"DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
+						"value": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables')]"
+					},
+					"DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+						"value": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
 					}
 				}
 			},

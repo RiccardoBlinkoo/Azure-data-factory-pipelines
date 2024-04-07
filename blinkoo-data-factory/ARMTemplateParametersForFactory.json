@@ -74,6 +74,39 @@
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+			"value": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+			"value": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"value": [
+				"accounts"
+			]
+		},
+		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"value": [
+				"accounts"
+			]
+		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"value": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
 		},
@@ -136,7 +169,7 @@
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
 			"value": [
 				"place_tip",
 				"categories",
@@ -144,52 +177,19 @@
 				"places"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
 			"value": "@trigger().startTime"
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-			"value": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-			"value": "@trigger().startTime"
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
 			"value": [
 				"post_comments",
 				"post_replies"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-			"value": [
-				"post_comments",
-				"post_replies"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_parameters_Tables": {
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
 			"value": [
 				"search_results",
 				"itineraries"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-			"value": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"value": [
-				"accounts"
-			]
-		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
-			"value": [
-				"accounts"
 			]
 		}
 	}
