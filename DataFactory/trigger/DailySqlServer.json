@@ -45,17 +45,6 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"Tables": [
-						"accounts"
-					]
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "Daily_Bronze_SqlServerEconomy",
 					"type": "PipelineReference"
 				},
