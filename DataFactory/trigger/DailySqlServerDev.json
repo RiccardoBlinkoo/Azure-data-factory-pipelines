@@ -30,6 +30,18 @@
 						"post_replies"
 					]
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Daily_Bronze_SqlServerTripAssistant_dev",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Tables": [
+						"search_results",
+						"itineraries"
+					]
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
