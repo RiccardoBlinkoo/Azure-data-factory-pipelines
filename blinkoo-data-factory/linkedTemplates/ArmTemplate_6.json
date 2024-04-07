@@ -87,12 +87,6 @@
 				"itineraries"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"type": "array",
-			"defaultValue": [
-				"accounts"
-			]
-		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -124,6 +118,12 @@
 			"defaultValue": [
 				"search_results",
 				"itineraries"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"type": "array",
+			"defaultValue": [
+				"accounts"
 			]
 		}
 	},
@@ -296,15 +296,6 @@
 					},
 					{
 						"pipelineReference": {
-							"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"Tables": "[parameters('DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
-						}
-					},
-					{
-						"pipelineReference": {
 							"referenceName": "Daily_Bronze_SqlServerEconomy",
 							"type": "PipelineReference"
 						},
@@ -367,6 +358,15 @@
 						},
 						"parameters": {
 							"Tables": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Daily_Bronze_SqlServerEconomy_dev",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"Tables": "[parameters('DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables')]"
 						}
 					}
 				],

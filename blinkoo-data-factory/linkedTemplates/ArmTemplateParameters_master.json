@@ -97,11 +97,6 @@
 				"itineraries"
 			]
 		},
-		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"value": [
-				"accounts"
-			]
-		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
 			"value": [
 				"accounts"
@@ -190,6 +185,11 @@
 			"value": [
 				"search_results",
 				"itineraries"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
+			"value": [
+				"accounts"
 			]
 		},
 		"containerUri": {
