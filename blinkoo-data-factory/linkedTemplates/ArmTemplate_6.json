@@ -66,7 +66,8 @@
 				"place_tip",
 				"categories",
 				"geo_location",
-				"places"
+				"places",
+				"drafts"
 			]
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
@@ -99,7 +100,8 @@
 				"place_tip",
 				"categories",
 				"geo_location",
-				"places"
+				"places",
+				"drafts"
 			]
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {

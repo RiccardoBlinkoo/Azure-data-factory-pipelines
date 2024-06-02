@@ -79,7 +79,8 @@
 				"place_tip",
 				"categories",
 				"geo_location",
-				"places"
+				"places",
+				"drafts"
 			]
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
@@ -98,6 +99,35 @@
 			]
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
+			"value": [
+				"accounts"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
+			"value": [
+				"place_tip",
+				"categories",
+				"geo_location",
+				"places",
+				"drafts"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
+			"value": "@trigger().startTime"
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
+			"value": [
+				"post_comments",
+				"post_replies"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
+			"value": [
+				"search_results",
+				"itineraries"
+			]
+		},
+		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 			"value": [
 				"accounts"
 			]
@@ -163,34 +193,6 @@
 		},
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"value": "@trigger().startTime"
-		},
-		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
-			"value": [
-				"place_tip",
-				"categories",
-				"geo_location",
-				"places"
-			]
-		},
-		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
-			"value": "@trigger().startTime"
-		},
-		"DailySqlServerDev_properties_Daily_Bronze_SqlServerPostComments_dev_parameters_Tables": {
-			"value": [
-				"post_comments",
-				"post_replies"
-			]
-		},
-		"DailySqlServerDev_properties_Daily_Bronze_SqlServerTripAssistant_dev_parameters_Tables": {
-			"value": [
-				"search_results",
-				"itineraries"
-			]
-		},
-		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
-			"value": [
-				"accounts"
-			]
 		}
 	}
 }
