@@ -54,6 +54,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -74,7 +77,8 @@
 			"Tables": {
 				"type": "array",
 				"defaultValue": [
-					"accounts"
+					"accounts",
+					"transactions"
 				]
 			}
 		},
