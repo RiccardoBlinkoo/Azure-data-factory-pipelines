@@ -51,7 +51,8 @@
 				},
 				"parameters": {
 					"Tables": [
-						"accounts"
+						"accounts",
+						"transactions"
 					]
 				}
 			}
