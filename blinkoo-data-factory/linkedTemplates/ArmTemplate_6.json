@@ -91,7 +91,8 @@
 		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
-				"accounts"
+				"accounts",
+				"transactions"
 			]
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
@@ -125,7 +126,8 @@
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
-				"accounts"
+				"accounts",
+				"transactions"
 			]
 		}
 	},

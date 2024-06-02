@@ -175,7 +175,8 @@
 					"Tables": {
 						"type": "array",
 						"defaultValue": [
-							"accounts"
+							"accounts",
+							"transactions"
 						]
 					}
 				},

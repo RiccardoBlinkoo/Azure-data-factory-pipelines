@@ -100,7 +100,8 @@
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServerEconomy_parameters_Tables": {
 			"value": [
-				"accounts"
+				"accounts",
+				"transactions"
 			]
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_Tables": {
@@ -129,7 +130,8 @@
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServerEconomy_dev_parameters_Tables": {
 			"value": [
-				"accounts"
+				"accounts",
+				"transactions"
 			]
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
