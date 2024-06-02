@@ -55,6 +55,10 @@
 							"name": "Set end_time in timestamp",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "EndTime",
@@ -78,6 +82,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -101,7 +108,8 @@
 					"place_tip",
 					"categories",
 					"geo_location",
-					"places"
+					"places",
+					"drafts"
 				]
 			},
 			"end_time": {
