@@ -715,7 +715,8 @@
 							"place_tip",
 							"categories",
 							"geo_location",
-							"places"
+							"places",
+							"drafts"
 						]
 					},
 					"end_time": {
