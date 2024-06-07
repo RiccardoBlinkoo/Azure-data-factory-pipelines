@@ -8,9 +8,6 @@
 		"AzureDataLakeStorageDev_accountKey": {
 			"value": ""
 		},
-		"AzureDatabricks1_accessToken": {
-			"value": ""
-		},
 		"AzureSqlDatabase_test_v0_connectionString": {
 			"value": ""
 		},

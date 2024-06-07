@@ -11,10 +11,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorageDev'"
 		},
-		"AzureDatabricks1_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
-		},
 		"AzureSqlDatabase_test_v0_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase_test_v0'"
@@ -288,9 +284,6 @@
 					},
 					"AzureDataLakeStorageDev_accountKey": {
 						"value": "[parameters('AzureDataLakeStorageDev_accountKey')]"
-					},
-					"AzureDatabricks1_accessToken": {
-						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
 					"AzureSqlDatabase_test_v0_connectionString": {
 						"value": "[parameters('AzureSqlDatabase_test_v0_connectionString')]"
