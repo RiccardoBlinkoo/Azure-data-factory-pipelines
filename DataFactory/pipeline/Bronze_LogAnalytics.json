@@ -32,6 +32,10 @@
 									]
 								}
 							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "table",
@@ -106,13 +110,13 @@
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"url": {
-												"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
-												"type": "Expression"
-											},
 											"method": "POST",
 											"headers": {
 												"Content-Type": "application/x-www-form-urlencoded"
+											},
+											"url": {
+												"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+												"type": "Expression"
 											},
 											"body": {
 												"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
@@ -131,6 +135,10 @@
 												]
 											}
 										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "token",
@@ -151,6 +159,10 @@
 												]
 											}
 										],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "token_expires_on",
@@ -170,6 +182,10 @@
 				"name": "Set End Date Variable",
 				"type": "SetVariable",
 				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "end_date",
@@ -183,7 +199,7 @@
 		"parameters": {
 			"ClientSecret": {
 				"type": "string",
-				"defaultValue": "glI8Q~fY~zGHvyTue4j826wiL9x.hVADCqkPUbJH"
+				"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
 			},
 			"ClientID": {
 				"type": "string",
