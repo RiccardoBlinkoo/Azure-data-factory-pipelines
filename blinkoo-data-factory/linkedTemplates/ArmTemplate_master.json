@@ -253,7 +253,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_0",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -271,7 +271,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_1",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -309,7 +309,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_2",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -332,7 +332,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_3",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -352,7 +352,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_4",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -372,7 +372,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_5",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -443,7 +443,7 @@
 		{
 			"name": "blinkoo-data-factory_ArmTemplate_6",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
