@@ -78,10 +78,11 @@
 				"geo_location",
 				"places",
 				"drafts",
-				"backoffice_user",
+				"backoffice_users",
 				"draft_status_history",
 				"draft_status",
-				"category_suggestion"
+				"category_suggestions",
+				"category_suggestion_status"
 			]
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
@@ -112,10 +113,11 @@
 				"geo_location",
 				"places",
 				"drafts",
-				"backoffice_user",
+				"backoffice_users",
 				"draft_status_history",
 				"draft_status",
-				"category_suggestion"
+				"category_suggestions",
+				"category_suggestion_status"
 			]
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
