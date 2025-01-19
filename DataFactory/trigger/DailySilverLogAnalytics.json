@@ -23,7 +23,8 @@
 						"Usage"
 					],
 					"start_time": "@trigger().startTime",
-					"triggerTime": "@trigger().startTime"
+					"triggerTime": "@trigger().startTime",
+					"CustomerName": "@coalesce(null)"
 				}
 			}
 		],
