@@ -82,6 +82,10 @@
 									"LogAnalyticsWorkspaceId": {
 										"value": "@variables('LogAnalyticsWorkspaceId')",
 										"type": "Expression"
+									},
+									"CustomerName": {
+										"value": "@variables('CustomerName')",
+										"type": "Expression"
 									}
 								}
 							},
@@ -253,6 +257,9 @@
 			"LogAnalyticsWorkspaceId": {
 				"type": "String",
 				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+			},
+			"CustomerName": {
+				"type": "String"
 			}
 		},
 		"folder": {
