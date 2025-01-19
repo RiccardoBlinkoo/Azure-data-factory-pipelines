@@ -65,7 +65,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics_Global",
 								"baseParameters": {
 									"EndDate": {
 										"value": "@variables('end_date')",
@@ -208,21 +208,10 @@
 			"Table_Names": {
 				"type": "array",
 				"defaultValue": [
-					"AppDependencies",
 					"AppEvents",
-					"AppExceptions",
 					"AppMetrics",
-					"AppPageViews",
-					"AppPerformanceCounters",
-					"AppRequests",
-					"AppSystemEvents",
-					"AppTraces",
 					"Usage"
 				]
-			},
-			"end_time": {
-				"type": "string",
-				"defaultValue": "2022-07-04 11:00:00"
 			},
 			"TenantID": {
 				"type": "string",
@@ -245,6 +234,14 @@
 			},
 			"token_expires_on": {
 				"type": "String"
+			},
+			"LogAnalyticsWorkspaceId": {
+				"type": "String",
+				"defaultValue": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
+			},
+			"CustomerName": {
+				"type": "String",
+				"defaultValue": "Amadues"
 			}
 		},
 		"folder": {
