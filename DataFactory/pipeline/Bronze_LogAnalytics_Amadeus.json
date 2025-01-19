@@ -190,7 +190,7 @@
 				"typeProperties": {
 					"variableName": "end_date",
 					"value": {
-						"value": "@formatDateTime(addHours(pipeline().parameters.end_time,-2),'yyyy-MM-dd, HH:00:00')",
+						"value": "@formatDateTime(addHours(pipeline().parameters.EndTime,-2),'yyyy-MM-dd, HH:00:00')",
 						"type": "Expression"
 					}
 				}
@@ -216,6 +216,9 @@
 			"TenantID": {
 				"type": "string",
 				"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+			},
+			"EndTime": {
+				"type": "string"
 			}
 		},
 		"variables": {
