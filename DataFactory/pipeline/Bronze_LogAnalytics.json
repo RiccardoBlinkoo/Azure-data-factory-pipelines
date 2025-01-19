@@ -80,11 +80,11 @@
 										"type": "Expression"
 									},
 									"LogAnalyticsWorkspaceId": {
-										"value": "@variables('LogAnalyticsWorkspaceId')",
+										"value": "@pipeline().parameters.LogAnalyticsWorkspaceId",
 										"type": "Expression"
 									},
 									"CustomerName": {
-										"value": "@variables('CustomerName')",
+										"value": "@pipeline().parameters.CustomerName",
 										"type": "Expression"
 									}
 								}
@@ -235,6 +235,13 @@
 			"TenantID": {
 				"type": "string",
 				"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+			},
+			"LogAnalyticsWorkspaceId": {
+				"type": "string",
+				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
+			},
+			"CustomerName": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -252,13 +259,6 @@
 				"type": "String"
 			},
 			"token_expires_on": {
-				"type": "String"
-			},
-			"LogAnalyticsWorkspaceId": {
-				"type": "String",
-				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
-			},
-			"CustomerName": {
 				"type": "String"
 			}
 		},
