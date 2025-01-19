@@ -95,7 +95,11 @@
 				"categories",
 				"geo_location",
 				"places",
-				"drafts"
+				"drafts",
+				"backoffice_user",
+				"draft_status_history",
+				"draft_status",
+				"category_suggestion"
 			]
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_end_time": {
@@ -130,7 +134,11 @@
 				"categories",
 				"geo_location",
 				"places",
-				"drafts"
+				"drafts",
+				"backoffice_user",
+				"draft_status_history",
+				"draft_status",
+				"category_suggestion"
 			]
 		},
 		"DailySqlServerDev_properties_Daily_Bronze_SqlServer_dev_parameters_end_time": {
