@@ -18,6 +18,10 @@
 							"name": "Set Variable Table",
 							"type": "SetVariable",
 							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "Table",
@@ -38,6 +42,10 @@
 									]
 								}
 							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "EndTime",
@@ -76,6 +84,10 @@
 									"EndDate": {
 										"value": "@variables('EndTime')",
 										"type": "Expression"
+									},
+									"CustomerName": {
+										"value": "@variables('CustomerName')",
+										"type": "Expression"
 									}
 								}
 							},
@@ -98,6 +110,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -128,6 +143,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -158,6 +176,10 @@
 						]
 					}
 				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "EndTime",
@@ -178,6 +200,9 @@
 						]
 					}
 				],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -231,6 +256,9 @@
 				"type": "String"
 			},
 			"StartTime": {
+				"type": "String"
+			},
+			"CustomerName": {
 				"type": "String"
 			}
 		},
