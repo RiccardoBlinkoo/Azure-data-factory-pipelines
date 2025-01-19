@@ -78,6 +78,10 @@
 									"Token": {
 										"value": "@variables('token')",
 										"type": "Expression"
+									},
+									"LogAnalyticsWorkspaceId": {
+										"value": "@variables('LogAnalyticsWorkspaceId')",
+										"type": "Expression"
 									}
 								}
 							},
