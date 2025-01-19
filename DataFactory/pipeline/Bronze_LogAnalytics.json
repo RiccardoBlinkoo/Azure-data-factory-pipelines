@@ -65,7 +65,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics",
+								"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics_Global",
 								"baseParameters": {
 									"EndDate": {
 										"value": "@variables('end_date')",
@@ -190,7 +190,7 @@
 				"typeProperties": {
 					"variableName": "end_date",
 					"value": {
-						"value": "@formatDateTime(addHours(pipeline().parameters.end_time,-2),'yyyy-MM-dd, HH:00:00')",
+						"value": "@formatDateTime(addHours(pipeline().parameters.EndTime,-2),'yyyy-MM-dd, HH:00:00')",
 						"type": "Expression"
 					}
 				}
@@ -220,9 +220,9 @@
 					"Usage"
 				]
 			},
-			"end_time": {
+			"EndTime": {
 				"type": "string",
-				"defaultValue": "2022-07-04 11:00:00"
+				"defaultValue": "2025-01-19 17:00:00"
 			},
 			"TenantID": {
 				"type": "string",
@@ -245,6 +245,10 @@
 			},
 			"token_expires_on": {
 				"type": "String"
+			},
+			"LogAnalyticsWorkspaceId": {
+				"type": "String",
+				"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
 			}
 		},
 		"folder": {
