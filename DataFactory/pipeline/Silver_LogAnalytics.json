@@ -86,7 +86,7 @@
 										"type": "Expression"
 									},
 									"CustomerName": {
-										"value": "@variables('CustomerName')",
+										"value": "@pipeline().parameters.CustomerName",
 										"type": "Expression"
 									}
 								}
@@ -246,6 +246,9 @@
 			"triggerTime": {
 				"type": "string",
 				"defaultValue": "@trigger().startTime"
+			},
+			"CustomerName": {
+				"type": "string"
 			}
 		},
 		"variables": {
@@ -256,9 +259,6 @@
 				"type": "String"
 			},
 			"StartTime": {
-				"type": "String"
-			},
-			"CustomerName": {
 				"type": "String"
 			}
 		},
