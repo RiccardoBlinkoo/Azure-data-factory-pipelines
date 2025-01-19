@@ -48,7 +48,7 @@
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_CustomerName": {
 			"type": "string",
-			"defaultValue": "@coalesce(null)"
+			"defaultValue": "Blinkoo"
 		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
@@ -1273,7 +1273,8 @@
 						"defaultValue": "@trigger().startTime"
 					},
 					"CustomerName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "Blinkoo"
 					}
 				},
 				"variables": {

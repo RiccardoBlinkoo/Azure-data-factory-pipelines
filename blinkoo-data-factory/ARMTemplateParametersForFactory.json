@@ -72,7 +72,7 @@
 			"value": "@trigger().startTime"
 		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_CustomerName": {
-			"value": "@coalesce(null)"
+			"value": "Blinkoo"
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
 			"value": [
@@ -174,7 +174,7 @@
 			"value": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_CustomerName": {
-			"value": "@coalesce(null)"
+			"value": "Blinkoo"
 		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"value": "@trigger().startTime"

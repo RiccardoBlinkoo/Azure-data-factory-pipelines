@@ -576,7 +576,8 @@
 						"defaultValue": "8f01acd1-5ade-4ad8-8c2c-5a3708be25e5"
 					},
 					"CustomerName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "Blinkoo"
 					}
 				},
 				"variables": {

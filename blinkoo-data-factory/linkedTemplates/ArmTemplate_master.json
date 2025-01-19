@@ -90,7 +90,7 @@
 		},
 		"DailySilverLogAnalytics_properties_Silver_LogAnalytics_parameters_CustomerName": {
 			"type": "string",
-			"defaultValue": "@coalesce(null)"
+			"defaultValue": "Blinkoo"
 		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
@@ -209,7 +209,7 @@
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_CustomerName": {
 			"type": "string",
-			"defaultValue": "@coalesce(null)"
+			"defaultValue": "Blinkoo"
 		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
