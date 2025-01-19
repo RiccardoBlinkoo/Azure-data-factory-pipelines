@@ -16,10 +16,11 @@
 						"geo_location",
 						"places",
 						"drafts",
-						"backoffice_user",
+						"backoffice_users",
 						"draft_status_history",
 						"draft_status",
-						"category_suggestion"
+						"category_suggestions",
+						"category_suggestion_status"
 					],
 					"end_time": "@trigger().startTime"
 				}
