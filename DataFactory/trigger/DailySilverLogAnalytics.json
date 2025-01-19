@@ -24,7 +24,7 @@
 					],
 					"start_time": "@trigger().startTime",
 					"triggerTime": "@trigger().startTime",
-					"CustomerName": "@coalesce(null)"
+					"CustomerName": "Blinkoo"
 				}
 			}
 		],

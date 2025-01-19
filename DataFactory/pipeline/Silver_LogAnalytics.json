@@ -248,7 +248,8 @@
 				"defaultValue": "@trigger().startTime"
 			},
 			"CustomerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Blinkoo"
 			}
 		},
 		"variables": {
