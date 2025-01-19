@@ -191,7 +191,7 @@
 				"Usage"
 			]
 		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_EndTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
@@ -405,8 +405,8 @@
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
 					},
-					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time')]"
+					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_EndTime": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_EndTime')]"
 					},
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID')]"

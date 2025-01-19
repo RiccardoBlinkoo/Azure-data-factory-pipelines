@@ -161,7 +161,7 @@
 				"Usage"
 			]
 		},
-		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_end_time": {
+		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_EndTime": {
 			"value": "@trigger().startTime"
 		},
 		"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_TenantID": {
