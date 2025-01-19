@@ -437,12 +437,6 @@
 					},
 					"UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime": {
 						"value": "[parameters('UserPreferences_Monthly_properties_User_preferences_parameters_triggerTime')]"
-					},
-					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
-						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
-					},
-					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
-						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
 					}
 				}
 			},
@@ -463,6 +457,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"UserPreferences_Weekly_properties_User_preferences_parameters_operationType": {
+						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_operationType')]"
+					},
+					"UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime": {
+						"value": "[parameters('UserPreferences_Weekly_properties_User_preferences_parameters_triggerTime')]"
 					},
 					"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 						"value": "[parameters('user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime')]"

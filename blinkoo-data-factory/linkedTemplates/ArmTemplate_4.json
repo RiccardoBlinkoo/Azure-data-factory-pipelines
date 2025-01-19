@@ -1872,6 +1872,276 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Bronze_LogAnalytics_Amadeus')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "For Each Table",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Set End Date Variable",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.Table_Names",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Set Table Variable",
+									"type": "SetVariable",
+									"dependsOn": [
+										{
+											"activity": "If Condition1",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "table",
+										"value": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								},
+								{
+									"name": "Bronze ETL",
+									"type": "DatabricksNotebook",
+									"dependsOn": [
+										{
+											"activity": "Set Table Variable",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/LogAnalytics_Global",
+										"baseParameters": {
+											"EndDate": {
+												"value": "@variables('end_date')",
+												"type": "Expression"
+											},
+											"Table": {
+												"value": "@variables('table')",
+												"type": "Expression"
+											},
+											"Token": {
+												"value": "@variables('token')",
+												"type": "Expression"
+											},
+											"LogAnalyticsWorkspaceId": {
+												"value": "@variables('LogAnalyticsWorkspaceId')",
+												"type": "Expression"
+											},
+											"CustomerName": {
+												"value": "@variables('CustomerName')",
+												"type": "Expression"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "AzureDatabricks1",
+										"type": "LinkedServiceReference"
+									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@or(empty(variables('token')),\n    greaterOrEquals(\n        add(\n            div(sub(ticks(utcNow()), ticks('1970-01-01')),10000000)\n            ,1200\n        ),\n        int(variables('token_expires_on'))\n    )\n)",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "getBearerToken",
+												"type": "WebActivity",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"method": "POST",
+													"headers": {
+														"Content-Type": "application/x-www-form-urlencoded"
+													},
+													"url": {
+														"value": "@concat('https://login.microsoftonline.com/',pipeline().parameters.TenantID,'/oauth2/token')",
+														"type": "Expression"
+													},
+													"body": {
+														"value": "@concat(\n'grant_type=client_credentials',\n'&client_id=',pipeline().parameters.ClientID,\n'&client_secret=',pipeline().parameters.ClientSecret,\n'&resource=',variables('Resource')\n)",
+														"type": "Expression"
+													}
+												}
+											},
+											{
+												"name": "Set Token Variable",
+												"type": "SetVariable",
+												"dependsOn": [
+													{
+														"activity": "getBearerToken",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "token",
+													"value": {
+														"value": "@activity('getBearerToken').output.access_token",
+														"type": "Expression"
+													}
+												}
+											},
+											{
+												"name": "Set Expires On Variable",
+												"type": "SetVariable",
+												"dependsOn": [
+													{
+														"activity": "Set Token Variable",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "token_expires_on",
+													"value": {
+														"value": "@activity('getBearerToken').output.expires_on",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Set End Date Variable",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "end_date",
+							"value": {
+								"value": "@formatDateTime(addHours(pipeline().parameters.EndTime,-2),'yyyy-MM-dd, HH:00:00')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"ClientSecret": {
+						"type": "string",
+						"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
+					},
+					"ClientID": {
+						"type": "string",
+						"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
+					},
+					"Table_Names": {
+						"type": "array",
+						"defaultValue": [
+							"AppEvents",
+							"AppMetrics",
+							"Usage"
+						]
+					},
+					"TenantID": {
+						"type": "string",
+						"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+					},
+					"EndTime": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"Resource": {
+						"type": "String",
+						"defaultValue": "https://api.loganalytics.io"
+					},
+					"token": {
+						"type": "String"
+					},
+					"table": {
+						"type": "String"
+					},
+					"end_date": {
+						"type": "String"
+					},
+					"token_expires_on": {
+						"type": "String"
+					},
+					"LogAnalyticsWorkspaceId": {
+						"type": "String",
+						"defaultValue": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
+					},
+					"CustomerName": {
+						"type": "String",
+						"defaultValue": "Amadues"
+					}
+				},
+				"folder": {
+					"name": "LogAnalytics"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-04T10:39:37Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_Delta_CosmosDB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2164,108 +2434,6 @@
 					"end_time": {
 						"type": "string",
 						"defaultValue": "2022-06-24 04:00:00"
-					}
-				},
-				"variables": {
-					"EndTime": {
-						"type": "String"
-					}
-				},
-				"folder": {
-					"name": "Cosmos DB/Daily"
-				},
-				"annotations": [],
-				"lastPublishTime": "2022-06-24T05:03:08Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_Bronze_SqlServerEconomy')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach1",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@pipeline().parameters.Tables",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Bronze ETL",
-									"type": "DatabricksNotebook",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"notebookPath": "/Users/riccardo.perelli@blinkoo.com/Pipelines/Bronze/SqlBronzeEconomy",
-										"baseParameters": {
-											"Table": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "AzureDatabricks1",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Execute Silver Update Pipeline",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "ForEach1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "Daily_Silver_SqlServerEconomy",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {
-								"Tables": {
-									"value": "@pipeline().parameters.Tables",
-									"type": "Expression"
-								}
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"Tables": {
-						"type": "array",
-						"defaultValue": [
-							"accounts",
-							"transactions"
-						]
 					}
 				},
 				"variables": {
