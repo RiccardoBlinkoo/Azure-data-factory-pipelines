@@ -212,6 +212,61 @@
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"value": "@trigger().startTime"
 		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+			"value": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID": {
+			"value": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+			"value": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime": {
+			"value": "@trigger().startTime"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID": {
+			"value": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
+			"value": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName": {
+			"value": "Amadues"
+		},
+		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_TableNames": {
+			"value": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_start_time": {
+			"value": "@trigger().startTime"
+		},
+		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_triggerTime": {
+			"value": "@trigger().startTime"
+		},
+		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_CustomerName": {
+			"value": "Amadues"
+		},
 		"containerUri": {
 			"value": ""
 		},
