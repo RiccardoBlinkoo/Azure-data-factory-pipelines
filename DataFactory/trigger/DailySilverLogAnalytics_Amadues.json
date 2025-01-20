@@ -3,7 +3,31 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Silver_LogAnalytics",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"TableNames": [
+						"AppDependencies",
+						"AppEvents",
+						"AppExceptions",
+						"AppMetrics",
+						"AppPageViews",
+						"AppPerformanceCounters",
+						"AppRequests",
+						"AppSystemEvents",
+						"AppTraces",
+						"Usage"
+					],
+					"start_time": "@trigger().startTime",
+					"triggerTime": "@trigger().startTime",
+					"CustomerName": "Amadues"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
