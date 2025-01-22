@@ -92,6 +92,33 @@
 			"type": "string",
 			"defaultValue": "Blinkoo"
 		},
+		"DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_TableNames": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_start_time": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_triggerTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_CustomerName": {
+			"type": "string",
+			"defaultValue": "Amadeus"
+		},
 		"DailySqlServer_properties_Daily_Bronze_SqlServer_parameters_Tables": {
 			"type": "array",
 			"defaultValue": [
@@ -211,6 +238,45 @@
 			"type": "string",
 			"defaultValue": "Blinkoo"
 		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+			"type": "string",
+			"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID": {
+			"type": "string",
+			"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+			"type": "array",
+			"defaultValue": [
+				"AppDependencies",
+				"AppEvents",
+				"AppExceptions",
+				"AppMetrics",
+				"AppPageViews",
+				"AppPerformanceCounters",
+				"AppRequests",
+				"AppSystemEvents",
+				"AppTraces",
+				"Usage"
+			]
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime": {
+			"type": "string",
+			"defaultValue": "@trigger().startTime"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID": {
+			"type": "string",
+			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
+			"type": "string",
+			"defaultValue": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
+		},
+		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName": {
+			"type": "string",
+			"defaultValue": "Amadues"
+		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
@@ -258,72 +324,6 @@
 		"user_info_ext_trigger_properties_User_info_ext_parameters_triggerTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-			"type": "string",
-			"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID": {
-			"type": "string",
-			"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-			"type": "array",
-			"defaultValue": [
-				"AppDependencies",
-				"AppEvents",
-				"AppExceptions",
-				"AppMetrics",
-				"AppPageViews",
-				"AppPerformanceCounters",
-				"AppRequests",
-				"AppSystemEvents",
-				"AppTraces",
-				"Usage"
-			]
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID": {
-			"type": "string",
-			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
-			"type": "string",
-			"defaultValue": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
-		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName": {
-			"type": "string",
-			"defaultValue": "Amadues"
-		},
-		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_TableNames": {
-			"type": "array",
-			"defaultValue": [
-				"AppDependencies",
-				"AppEvents",
-				"AppExceptions",
-				"AppMetrics",
-				"AppPageViews",
-				"AppPerformanceCounters",
-				"AppRequests",
-				"AppSystemEvents",
-				"AppTraces",
-				"Usage"
-			]
-		},
-		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_start_time": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_triggerTime": {
-			"type": "string",
-			"defaultValue": "@trigger().startTime"
-		},
-		"DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_CustomerName": {
-			"type": "string",
-			"defaultValue": "Amadues"
 		}
 	},
 	"variables": {
@@ -16787,6 +16787,49 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DailySilverLogAnalytics_Amadeus')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Silver_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"TableNames": "[parameters('DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_TableNames')]",
+							"start_time": "[parameters('DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_start_time')]",
+							"triggerTime": "[parameters('DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_triggerTime')]",
+							"CustomerName": "[parameters('DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_CustomerName')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2025-01-20T03:00:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								3
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Silver_LogAnalytics')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DailySqlServer')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -16959,6 +17002,44 @@
 						"interval": 1,
 						"startTime": "2022-05-13T06:00:00Z",
 						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Bronze_LogAnalytics')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics_Amadues')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Bronze_LogAnalytics",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
+							"ClientID": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID')]",
+							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
+							"EndTime": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime')]",
+							"TenantID": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID')]",
+							"LogAnalyticsWorkspaceId": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId')]",
+							"CustomerName": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2025-01-20T14:00:00",
+						"timeZone": "W. Europe Standard Time"
 					}
 				}
 			},
@@ -17301,87 +17382,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/HourlyBronzeLogAnalytics_Amadues')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_LogAnalytics",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"ClientSecret": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret')]",
-							"ClientID": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID')]",
-							"Table_Names": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names')]",
-							"EndTime": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime')]",
-							"TenantID": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID')]",
-							"LogAnalyticsWorkspaceId": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId')]",
-							"CustomerName": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Hour",
-						"interval": 1,
-						"startTime": "2025-01-20T14:00:00",
-						"timeZone": "W. Europe Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Bronze_LogAnalytics')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DailySilverLogAnalytics_Amadues')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Silver_LogAnalytics",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"TableNames": "[parameters('DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_TableNames')]",
-							"start_time": "[parameters('DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_start_time')]",
-							"triggerTime": "[parameters('DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_triggerTime')]",
-							"CustomerName": "[parameters('DailySilverLogAnalytics_Amadues_properties_Silver_LogAnalytics_parameters_CustomerName')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2025-01-20T03:00:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								3
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Silver_LogAnalytics')]"
-			]
 		}
 	]
 }
