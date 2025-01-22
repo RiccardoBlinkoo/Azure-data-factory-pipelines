@@ -238,15 +238,15 @@
 			"type": "string",
 			"defaultValue": "Blinkoo"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
 			"type": "string",
 			"defaultValue": "y958Q~tu-RcM_pZVDnflzgki4iRDt8OEEa7KVaYk"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientID": {
 			"type": "string",
 			"defaultValue": "e2c3de32-f621-4fa2-9bf7-344551917b7b"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_Table_Names": {
 			"type": "array",
 			"defaultValue": [
 				"AppDependencies",
@@ -261,21 +261,21 @@
 				"Usage"
 			]
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_EndTime": {
 			"type": "string",
 			"defaultValue": "@trigger().startTime"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_TenantID": {
 			"type": "string",
 			"defaultValue": "f8e56e96-2cd7-413d-9a4d-177bfd942437"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
 			"type": "string",
 			"defaultValue": "c70d3da5-86b0-422d-9938-9b68691e5aeb"
 		},
-		"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName": {
+		"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_CustomerName": {
 			"type": "string",
-			"defaultValue": "Amadues"
+			"defaultValue": "Amadeus"
 		},
 		"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 			"type": "string",
@@ -495,26 +495,26 @@
 					"HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_CustomerName": {
 						"value": "[parameters('HourlyBronzeLogAnalytics_properties_Bronze_LogAnalytics_parameters_CustomerName')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientSecret": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientSecret')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_ClientID')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_ClientID')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_Table_Names": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_Table_Names')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_EndTime')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_EndTime": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_EndTime')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_TenantID')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_TenantID": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_TenantID')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_LogAnalyticsWorkspaceId')]"
 					},
-					"HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName": {
-						"value": "[parameters('HourlyBronzeLogAnalytics_Amadues_properties_Bronze_LogAnalytics_parameters_CustomerName')]"
+					"HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_CustomerName": {
+						"value": "[parameters('HourlyBronzeLogAnalytics_Amadeus_properties_Bronze_LogAnalytics_parameters_CustomerName')]"
 					},
 					"Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime": {
 						"value": "[parameters('Kpis_trigger_properties_full_KPI_pipeline_parameters_triggerTime')]"
