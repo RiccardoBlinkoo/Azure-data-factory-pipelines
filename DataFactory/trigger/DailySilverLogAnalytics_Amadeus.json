@@ -1,5 +1,5 @@
 {
-	"name": "DailySilverLogAnalytics_Amadues",
+	"name": "DailySilverLogAnalytics_Amadeus",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -24,7 +24,7 @@
 					],
 					"start_time": "@trigger().startTime",
 					"triggerTime": "@trigger().startTime",
-					"CustomerName": "Amadues"
+					"CustomerName": "Amadeus"
 				}
 			}
 		],
