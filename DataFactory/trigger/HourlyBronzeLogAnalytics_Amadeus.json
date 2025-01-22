@@ -27,7 +27,7 @@
 					"EndTime": "@trigger().startTime",
 					"TenantID": "f8e56e96-2cd7-413d-9a4d-177bfd942437",
 					"LogAnalyticsWorkspaceId": "c70d3da5-86b0-422d-9938-9b68691e5aeb",
-					"CustomerName": "Amadues"
+					"CustomerName": "Amadeus"
 				}
 			}
 		],
