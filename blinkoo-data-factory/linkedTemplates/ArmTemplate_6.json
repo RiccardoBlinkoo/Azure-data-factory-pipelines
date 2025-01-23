@@ -75,15 +75,7 @@
 		"DailySilverLogAnalytics_Amadeus_properties_Silver_LogAnalytics_parameters_TableNames": {
 			"type": "array",
 			"defaultValue": [
-				"AppDependencies",
 				"AppEvents",
-				"AppExceptions",
-				"AppMetrics",
-				"AppPageViews",
-				"AppPerformanceCounters",
-				"AppRequests",
-				"AppSystemEvents",
-				"AppTraces",
 				"Usage"
 			]
 		},
