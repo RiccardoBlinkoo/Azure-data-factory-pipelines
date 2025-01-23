@@ -11,15 +11,7 @@
 				},
 				"parameters": {
 					"TableNames": [
-						"AppDependencies",
 						"AppEvents",
-						"AppExceptions",
-						"AppMetrics",
-						"AppPageViews",
-						"AppPerformanceCounters",
-						"AppRequests",
-						"AppSystemEvents",
-						"AppTraces",
 						"Usage"
 					],
 					"start_time": "@trigger().startTime",
