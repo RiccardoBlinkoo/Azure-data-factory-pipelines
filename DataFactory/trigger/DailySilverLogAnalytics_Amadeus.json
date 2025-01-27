@@ -2,7 +2,7 @@
 	"name": "DailySilverLogAnalytics_Amadeus",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
